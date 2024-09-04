@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <style>
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+        input[type="text"].formatted {
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.querySelector('#nascimento');
+
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+                if (value.length > 2) value = value.slice(0, 2) + '-' + value.slice(2);
+                if (value.length > 5) value = value.slice(0, 5) + '-' + value.slice(5);
+                e.target.value = value;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Cadastro</h1>
+    <form action="/cadastro" method="post">
+        <div class="error">
+            <!-- Mensagem de erro será exibida aqui -->
+            <p th:if="${mensagem}" th:text="${mensagem}"></p>
+        </div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+        <br>
+        <label for="nascimento">Data de Nascimento:</label>
+        <input type="text" id="nascimento" name="nascimento" placeholder="dd-MM-aaaa" required class="formatted">
+        <br>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <br>
+    <a href="/login">Login</a>
+</body>
+</html>
