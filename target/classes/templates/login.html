@@ -2,6 +2,12 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
     <title>Login</title>
     <style>
         .error {
@@ -11,21 +17,37 @@
     </style>
 </head>
 <body>
-    <h1>Login</h1>
+    
     <form action="/login" method="post">
-        <div class="error">
-            <!-- Mensagem de erro será exibida aqui -->
-            <p th:if="${mensagem}" th:text="${mensagem}"></p>
+    
+        <div id="login">
+
+            <div class="caixa">
+
+                <h1>Entrar</h1>
+
+                <div class="error">
+                    <!-- Mensagem de erro será exibida aqui -->
+                    <p th:if="${mensagem}" th:text="${mensagem}"></p>
+                </div>
+                <div class="email">
+                    <input type="email" placeholder="E-mail">
+                </div>
+    
+                <div class="senha">
+                    <input type="password" placeholder="Senha">
+                </div>
+    
+                <div class="entrar">
+                    <p><a href="redefinir">Esqueceu sua senha? </a></p>
+                    <input type="submit" value="Entrar">
+                    <p>Ainda não tem uma conta? <a href="cadastro">Cadastre-se!</a></p>
+                </div>
+    
+            </div>
+    
         </div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
-        <br>
-        <button type="submit">Entrar</button>
     </form>
     <br>
-    <a href="/cadastro">Cadastro</a>
 </body>
 </html>
