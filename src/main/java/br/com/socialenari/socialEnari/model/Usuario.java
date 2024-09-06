@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Usuario {
     private String userEmail;
     private String userSenha;
+    private String confirmeSenha;
     private LocalDate userNascimento;
     private int userIdade;
 
@@ -32,6 +33,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.userSenha = senha;
+    }
+
+    public String getConfirmeSenha() {
+        return confirmeSenha;
+    }
+
+    public void setConfirmeSenha(String confirmeSenha) {
+        this.confirmeSenha = confirmeSenha;
     }
 
     public LocalDate getNascimento() {

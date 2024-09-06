@@ -27,15 +27,14 @@
                 <h1>Entrar</h1>
 
                 <div class="error">
-                    <!-- Mensagem de erro será exibida aqui -->
                     <p th:if="${mensagem}" th:text="${mensagem}"></p>
                 </div>
                 <div class="email">
-                    <input type="email" placeholder="E-mail">
+                    <input type="email" name="email" placeholder="E-mail" required>
                 </div>
     
                 <div class="senha">
-                    <input type="password" placeholder="Senha">
+                    <input type="password" name="senha" placeholder="Senha" required>
                 </div>
     
                 <div class="entrar">

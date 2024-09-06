@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Cadastro</title>
-
     <style>
         .error {
             color: red;
@@ -22,9 +21,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const input = document.querySelector('#nascimento');
-
             input.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+                let value = e.target.value.replace(/\D/g, '');
                 if (value.length > 2) value = value.slice(0, 2) + '-' + value.slice(2);
                 if (value.length > 5) value = value.slice(0, 5) + '-' + value.slice(5);
                 e.target.value = value;
@@ -35,55 +33,32 @@
 <body>
     <form action="/cadastro" method="post">
         <div class="error">
-            <!-- Mensagem de erro será exibida aqui -->
             <p th:if="${mensagem}" th:text="${mensagem}"></p>
         </div>
         <div id="login">
-
-        <div class="caixa">
-            
-            <h1>Cadastro</h1>
-
-            <div class="name">
-                <input type="text" id="nome" placeholder="Nome">
+            <div class="caixa">
+                <h1>Cadastro</h1>
+                <div class="name">
+                    <input type="text" id="nome" name="nome" placeholder="Nome" required>
+                </div>
+                <div class="email">
+                    <input type="email" id="email" name="email" placeholder="E-mail" required>
+                </div>
+                <div class="datanasc">
+                    <input type="text" id="nascimento" name="nascimento" placeholder="Data de Nascimento" required class="datanasc">
+                </div>
+                <div class="senha">
+                    <input type="password" id="senha" name="senha" placeholder="Senha" required>
+                </div>
+                <div class="senha">
+                    <input type="password" id="confirmeSenha" name="confirmeSenha" placeholder="Confirme a sua senha" required>
+                </div>
+                <div class="entrar">
+                    <p>Já tem uma conta? <a href="login">Faça login!</a></p>
+                    <input type="submit" value="Cadastrar">
+                </div>
             </div>
-
-            <div class="email">
-                <input type="email" id="email" placeholder="E-mail">
-            </div>
-
-         <div class="datanasc">
-            <input type="text" id="nascimento" placeholder="Data de Nascimento" required class="datanasc">
         </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const input = document.querySelector('#nascimento');
-        
-                input.addEventListener('input', function(e) {
-                    let value = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-                    if (value.length > 2) value = value.slice(0, 2) + '/' + value.slice(2);
-                    if (value.length > 5) value = value.slice(0, 5) + '/' + value.slice(5, 9); // Limita o ano a 4 dígitos
-                    e.target.value = value;
-                });
-            });
-        </script>
-
-            <div class="senha">
-                <input type="password" id="senha" placeholder="Senha">
-            </div>
-
-            <div class="senha">
-                <input type="password" id="senha" placeholder="Confirme a sua senha">
-            </div>
-
-            <div class="entrar">
-                <p>Já tem uma conta? <a href="login">Faça login!</a></p>
-                <input type="submit" value="Cadastrar">
-            </div>
-
-        </div>
-    </div>
     </form>
     <br>
 </body>

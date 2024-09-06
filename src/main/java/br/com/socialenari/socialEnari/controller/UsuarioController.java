@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UsuarioController {
@@ -18,7 +18,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    private final Map<String, Usuario> usuariosCadastrados = new HashMap<>();
+    private final List<Usuario> usuariosCadastrados = new ArrayList<>();
 
     @GetMapping("/cadastro")
     public String exibirFormularioCadastro(Model model) {
@@ -28,13 +28,19 @@ public class UsuarioController {
 
     @PostMapping("/cadastro")
     public String registrarUsuario(@ModelAttribute Usuario usuario, Model model) {
+        if (!usuario.getSenha().equals(usuario.getConfirmeSenha())) {
+            model.addAttribute("mensagem", "As senhas não conferem.");
+            return "cadastro";
+        }
+
         if (usuarioService.validarIdade(usuario)) {
-            usuariosCadastrados.put(usuario.getEmail(), usuario);
+            usuariosCadastrados.add(usuario);
             model.addAttribute("mensagem", "Usuário cadastrado com sucesso!");
+            return "redirect:/login";
         } else {
             model.addAttribute("mensagem", "Não tem idade suficiente para se cadastrar.");
+            return "cadastro";
         }
-        return "cadastro";
     }
 
     @GetMapping("/login")
@@ -45,13 +51,17 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute Usuario usuario, Model model) {
-        Usuario usuarioCadastrado = usuariosCadastrados.get(usuario.getEmail());
-        if (usuarioCadastrado != null && usuarioCadastrado.getSenha().equals(usuario.getSenha())) {
-            return "redirect:/imagem";
-        } else {
-            model.addAttribute("mensagem", "Email e/ou senha incorretos.");
-            return "login";
+        System.out.println("Tentando login para: " + usuario.getEmail());
+        for (Usuario usuarioCadastrado : usuariosCadastrados) {
+            if (usuarioCadastrado.getEmail().trim().equals(usuario.getEmail().trim()) &&
+                usuarioCadastrado.getSenha().trim().equals(usuario.getSenha().trim())) {
+                System.out.println("Login bem-sucedido para: " + usuario.getEmail());
+                return "redirect:/imagem";
+            }
         }
+        System.out.println("Falha no login para: " + usuario.getEmail());
+        model.addAttribute("mensagem", "Email e/ou senha incorretos.");
+        return "login";
     }
 
     @GetMapping("/imagem")
