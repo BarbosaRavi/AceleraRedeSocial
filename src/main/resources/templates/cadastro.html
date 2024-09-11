@@ -14,21 +14,7 @@
             color: red;
             margin-bottom: 10px;
         }
-        input[type="text"].formatted {
-            text-align: center;
-        }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const input = document.querySelector('#nascimento');
-            input.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 2) value = value.slice(0, 2) + '-' + value.slice(2);
-                if (value.length > 5) value = value.slice(0, 5) + '-' + value.slice(5);
-                e.target.value = value;
-            });
-        });
-    </script>
 </head>
 <body>
     <form action="/cadastro" method="post">
@@ -45,7 +31,7 @@
                     <input type="email" id="email" name="email" placeholder="E-mail" required>
                 </div>
                 <div class="datanasc">
-                    <input type="text" id="nascimento" name="nascimento" placeholder="Data de Nascimento" required class="datanasc">
+                    <input type="text" id="nascimento" name="dataNascimento" placeholder="Data de Nascimento" required class="datanasc">
                 </div>
                 <div class="senha">
                     <input type="password" id="senha" name="senha" placeholder="Senha" required>
@@ -61,5 +47,6 @@
         </div>
     </form>
     <br>
+	<script src="js/form.js"></script>
 </body>
 </html>

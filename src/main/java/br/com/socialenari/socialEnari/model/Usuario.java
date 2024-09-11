@@ -1,38 +1,59 @@
 package br.com.socialenari.socialEnari.model;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+import br.com.socialenari.socialEnari.utils.idadeUtils;  // Importa a classe IdadeUtils
 
 public class Usuario {
-    private String userEmail;
-    private String userSenha;
-    private String confirmeSenha;
-    private LocalDate userNascimento;
-    private int userIdade;
 
-    public Usuario() {
+    private UUID id;
+    private String nome;
+    private String email;
+    private String senha;
+    private String confirmeSenha;
+    private LocalDate dataNascimento;
+    private int idade;  // O tipo primitivo int não pode ser null
+
+    public Usuario(String nome, String email, String senha, String confirmeSenha, LocalDate dataNascimento) {
+        this.id = UUID.randomUUID();
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.confirmeSenha = confirmeSenha;
+        this.dataNascimento = dataNascimento;
+        this.idade = idadeUtils.calcularIdade(dataNascimento);  // Calcula a idade no construtor
     }
 
-    public Usuario(String userEmail, String userSenha, LocalDate userNascimento) {
-        this.userEmail = userEmail;
-        this.userSenha = userSenha;
-        this.userNascimento = userNascimento;
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {
-        return userEmail;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.userEmail = email;
+        this.email = email;
     }
 
     public String getSenha() {
-        return userSenha;
+        return senha;
     }
 
     public void setSenha(String senha) {
-        this.userSenha = senha;
+        this.senha = senha;
     }
 
     public String getConfirmeSenha() {
@@ -43,20 +64,16 @@ public class Usuario {
         this.confirmeSenha = confirmeSenha;
     }
 
-    public LocalDate getNascimento() {
-        return userNascimento;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setNascimento(String nascimento) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.userNascimento = LocalDate.parse(nascimento, formatter);
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+        this.idade = idadeUtils.calcularIdade(dataNascimento);  // Recalcula a idade sempre que o nascimento é alterado
     }
 
     public int getIdade() {
-        return userIdade;
-    }
-
-    public void setIdade(int idade) {
-        this.userIdade = idade;
+        return idade;
     }
 }

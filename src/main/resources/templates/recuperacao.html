@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <title>Cadastro</title>
+    <title>Recuperação de Senha</title>
     <style>
         .error {
             color: red;
@@ -17,36 +17,22 @@
     </style>
 </head>
 <body>
-    <form action="/cadastro" method="post">
+    <form action="/recuperacao" method="post">
         <div class="error">
             <p th:if="${mensagem}" th:text="${mensagem}"></p>
         </div>
-        <div id="login">
+        <div id="recuperacao">
             <div class="caixa">
-                <h1>Cadastro</h1>
-                <div class="name">
-                    <input type="text" id="nome" name="nome" placeholder="Nome" required>
-                </div>
+                <h1>Recuperação de Senha</h1>
                 <div class="email">
                     <input type="email" id="email" name="email" placeholder="E-mail" required>
                 </div>
-                <div class="datanasc">
-                    <input type="text" id="nascimento" name="dataNascimento" placeholder="Data de Nascimento" required class="datanasc">
-                </div>
-                <div class="senha">
-                    <input type="password" id="senha" name="senha" placeholder="Senha" required>
-                </div>
-                <div class="senha">
-                    <input type="password" id="confirmeSenha" name="confirmeSenha" placeholder="Confirme a sua senha" required>
-                </div>
                 <div class="entrar">
-                    <p>Já tem uma conta? <a href="login">Faça login!</a></p>
-                    <input type="submit" value="Cadastrar">
+                    <input type="submit" value="Enviar Email de Recuperação">
                 </div>
             </div>
         </div>
     </form>
     <br>
-	<script src="js/form.js"></script>
 </body>
 </html>
