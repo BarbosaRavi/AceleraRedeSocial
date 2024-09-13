@@ -17,22 +17,45 @@
     </style>
 </head>
 <body>
-    <form action="/recuperacao" method="post">
-        </div>
-        <div id="recuperacao">
-            <div class="caixa">
-                <h1>Recuperação de Senha</h1>
-                <div class="error">
-                    <p th:if="${mensagem}" th:text="${mensagem}"></p>
+    <div id="recuperacao">
+        <div class="caixa">
+            <h1>Recuperação de Senha</h1>
+            <div class="error">
+                <p th:if="${mensagem}" th:text="${mensagem}"></p>
+            </div>
+            <form id="form-recuperacao" action="/recuperacao" method="post">
                 <div class="email">
                     <input type="email" id="email" name="email" placeholder="E-mail" required>
                 </div>
                 <div class="entrar">
                     <input type="submit" value="Enviar Email de Recuperação">
                 </div>
-            </div>
+            </form>
+            <form id="form-confirmacao" action="/recuperacao/confirmar" method="post" style="display: none;">
+                <div class="codigo">
+                    <input type="text" id="codigo" name="codigo" placeholder="Código de Recuperação" required>
+                </div>
+                <div class="entrar">
+                    <input type="submit" value="Confirmar Código">
+                </div>
+            </form>
         </div>
-    </form>
-    <br>
+    </div>
+
+    <script>
+        // Função para exibir o formulário de confirmação após enviar o email
+        function mostrarFormularioConfirmacao() {
+            document.getElementById('form-recuperacao').style.display = 'none';
+            document.getElementById('form-confirmacao').style.display = 'block';
+        }
+
+        // Verifica se uma mensagem de sucesso está presente e mostra o formulário de confirmação
+        document.addEventListener('DOMContentLoaded', function() {
+            var mensagem = document.querySelector('.error p').textContent;
+            if (mensagem.includes("Instruções para recuperação de senha foram enviadas")) {
+                mostrarFormularioConfirmacao();
+            }
+        });
+    </script>
 </body>
 </html>

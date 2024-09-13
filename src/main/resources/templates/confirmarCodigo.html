@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/recuperar.css">
+    <title>Confirmar Código</title>
+    <style>
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/recuperacao/confirmar" method="get">
+        <div id="confirmacao">
+            <div class="caixa">
+                <h1>Confirmação do Código</h1>
+
+                <div class="error">
+                    <p th:if="${erro}" th:text="${erro}"></p>
+                </div>
+
+                <input type="hidden" name="email" th:value="${email}">
+
+                <div class="codigo">
+                    <input type="text" id="codigo" name="codigo" placeholder="Insira o código de recuperação" required>
+                </div>
+
+                <div class="entrar">
+                    <input type="submit" value="Confirmar Código">
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

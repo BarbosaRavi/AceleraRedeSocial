@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/recuperar.css">
+    <title>Trocar Senha</title>
+    <style>
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/recuperacao/trocarSenha" method="post">
+        <div id="recuperacao">
+            <div class="caixa">
+                <h1>Trocar Senha</h1>
+                <div class="error">
+                    <p th:if="${mensagem}" th:text="${mensagem}"></p>
+                </div>
+                <input type="hidden" name="email" value="${email}">
+                <div class="senha">
+                    <input type="password" name="novaSenha" placeholder="Nova Senha" required>
+                </div>
+                <div class="confirme-senha">
+                    <input type="password" name="confirmeSenha" placeholder="Confirme a Senha" required>
+                </div>
+                <div class="entrar">
+                    <input type="submit" value="Trocar Senha">
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

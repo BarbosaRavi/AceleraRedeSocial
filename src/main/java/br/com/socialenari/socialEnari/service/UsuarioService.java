@@ -35,24 +35,31 @@ public class UsuarioService {
     }
 
     public Usuario buscarPorEmail(String email) {
-        for (Usuario usuario : usuariosCadastrados) {
-            if (usuario.getEmail().equalsIgnoreCase(email)) {
-                return usuario;
-            }
-        }
-        return null;
+        return usuariosCadastrados.stream()
+                .filter(usuario -> usuario.getEmail().equalsIgnoreCase(email))
+                .findFirst()
+                .orElse(null);
     }
 
     public Usuario buscarPorId(UUID id) {
-        for (Usuario usuario : usuariosCadastrados) {
-            if (usuario.getId().equals(id)) {
-                return usuario;
-            }
-        }
-        return null;
+        return usuariosCadastrados.stream()
+                .filter(usuario -> usuario.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Usuario> listarTodosUsuarios() {
         return new ArrayList<>(usuariosCadastrados);
+    }
+
+    // Método para atualizar um usuário
+    public void atualizarUsuario(Usuario usuarioAtualizado) {
+        for (int i = 0; i < usuariosCadastrados.size(); i++) {
+            Usuario usuario = usuariosCadastrados.get(i);
+            if (usuario.getEmail().equalsIgnoreCase(usuarioAtualizado.getEmail())) {
+                usuariosCadastrados.set(i, usuarioAtualizado);
+                return;
+            }
+        }
     }
 }
