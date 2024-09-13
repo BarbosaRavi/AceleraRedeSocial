@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/recuperar.css">
     <title>Recuperação de Senha</title>
     <style>
         .error {
@@ -18,12 +18,12 @@
 </head>
 <body>
     <form action="/recuperacao" method="post">
-        <div class="error">
-            <p th:if="${mensagem}" th:text="${mensagem}"></p>
         </div>
         <div id="recuperacao">
             <div class="caixa">
                 <h1>Recuperação de Senha</h1>
+                <div class="error">
+                    <p th:if="${mensagem}" th:text="${mensagem}"></p>
                 <div class="email">
                     <input type="email" id="email" name="email" placeholder="E-mail" required>
                 </div>
