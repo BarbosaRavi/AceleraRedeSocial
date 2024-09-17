@@ -23,11 +23,13 @@ header .logo h1 {
 }
 
 header nav ul {
+
     list-style: none;
     display: flex;
     gap: 30px;
-    padding: 0;
+    padding: 50;
     margin: 0;
+
 }
 
 header nav ul li a {
@@ -38,7 +40,7 @@ header nav ul li a {
 }
 
 header nav ul li a:hover {
-    color: #ffdf5b;
+    color: #fcfcfc;
 }
 
 header .user-settings {
@@ -54,14 +56,56 @@ header .user-settings {
     margin-top: 20px;
 }
 
+/* Barra de Pesquisa */
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+#search-input {
+    flex: 1;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+#search-input::placeholder {
+    color: #999;
+}
+
+#search-button {
+    background-color: #0f0c25;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#search-button:hover {
+    background-color: #0f0c25; /* pode alterar a cor quando passar com o mouse por cima */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* Barra Lateral Esquerda (Perfil) */
 .left-sidebar {
     flex: 1;
-    max-width: 250px;
+    max-width: 200px;
     background-color: white;
-    padding: 20px;
+    padding: 60px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* posicionar a barra lateral */
+    left: -100px;  /* posicionar mais à esquerda */
 }
 
 .left-sidebar .profile-info {
@@ -80,10 +124,32 @@ header .user-settings {
     font-size: 1.4em;
 }
 
+.botaoesq {
+    margin-top: 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #0f0c25;
+    font-size: 16px;
+    padding: 10px 15px;
+    display: block; /* Para colocar um embaixo do outro */
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.botaoesq:hover {
+    background-color: #0f0c25;
+    transform: scale(1.05);
+}
+
+.botaoesq:active {
+    background-color: #0f0c25;
+    transform: scale(0.95);
+}
+
 /* Feed de postagem dos usuarios */
 .feed {
     flex: 3;
-    max-width: 600px;
+    max-width: 900px;
 }
 
 .new-post {
@@ -104,31 +170,33 @@ header .user-settings {
     font-size: 16px; 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
     overflow: hidden;
+    overflow-y: auto;
     
 }
 
 .new-post textarea:focus {
-    border-color: #4a76a8;
+    border-color: #0f0c25;
     outline: none;
 }
 
 .new-post button {
     margin-top: 15px;
     padding: 10px 20px;
-    background-color: #4a76a8;
+    background-color: #0f0c25;
     color: white;
     border: none;
     border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
+    transition: background-color 0.3s, box-shadow 0.3s;}
+
 
 .new-post button:hover {
-    background-color: #3b5998;
+    background-color: #0f0c25;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
+
 
 .posts .post {
     background-color: white;
@@ -156,7 +224,7 @@ header .user-settings {
 }
 
 .post-actions button {
-    background-color: #4a76a8;
+    background-color: #0f0c25;
     color: white;
     border: none;
     padding: 5px 15px;
@@ -166,23 +234,25 @@ header .user-settings {
 }
 
 .post-actions button:hover {
-    background-color: #3b5998;
+    background-color: #0f0c25;
 }
 
 /* Barra da Lateral Direita */
 .sidebar {
     flex: 1;
-    max-width: 250px;
+    max-width: 280px;
     background-color: white;
-    padding: 20px;
+    padding: 60px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* posicionar a barra lateral direita */
+    right: -80px;  /* posicionar mais à direita */
 }
 
 .sidebar h2 {
     margin-top: 0;
     font-size: 1.5em;
-    color: #4a76a8;
+    color: #0f0c25;
 }
 
 .sidebar ul {
@@ -194,7 +264,7 @@ header .user-settings {
     margin-bottom: 10px;
     font-size: 1.1em;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #f5f3ff;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
@@ -202,6 +272,7 @@ header .user-settings {
 .sidebar ul li:hover {
     background-color: #f0f0f0;
 }
+
 
 /* Rodapé */
 footer {
@@ -244,17 +315,18 @@ nav ul {
     gap: 30px;
     padding: 0;
     margin: 0;
-}
+}   
 
 nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
+    margin-left: -550px;
 }
 
 nav ul li a:hover {
-    color: #ffdf5b;
+    color: #ffffff;
 }
 
 .user-settings {
