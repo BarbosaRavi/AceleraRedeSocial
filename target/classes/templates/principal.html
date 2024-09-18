@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rede Social - Página Principal</title>
+    <link rel="stylesheet" href="principal.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <img src="https://cdn.pixabay.com/photo/2016/11/07/13/04/yoga-1805784_1280.png" class="logo-img">
+            <h1>Sem Nome</h1>
+        </div>
+        <nav>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Digite sua pesquisa...">
+                <button id="search-button">Pesquisar</button>
+            </div>
+        </nav>
+        <div class="user-settings">
+            <span>Bem-vindo, Usuário!</span>
+            <a href="/logout">Sair</a>
+        </div>
+    </header>
+
+    <!--Principal -->
+    <div class="container">
+        <!-- Barra lateral esquerda com perfil do usuário -->
+        <aside class="left-sidebar">
+            <div class="profile-info">
+                <img src="https://cdn-icons-png.flaticon.com/512/17/17004.png" alt="Foto de perfil do usuário">
+                <h3>Nome do Usuário</h3>
+            <nav class="menu">
+                <a href="perfil" class="botaoesq">Perfil</a>
+                <a href="comunidades" class="botaoesq">Comunidades</a>
+                <a href="depoimentos" class="botaoesq">Depoimentos</a>
+                <a href="descubra" class="botaoesq">Descubra</a>
+                <a href="configuracoes" class="botaoesq">Configurações</a>
+
+            </nav>
+            </div>
+        </aside>
+
+        <!-- Feed -->
+        <section class="feed">
+            <div class="new-post">
+                <textarea id="newPostContent" placeholder="O que você está pensando?" ></textarea>
+                <button onclick="addPost()">Publicar</button>
+                <button id="attachFileButton"> <!-- Para anexar arquivo -->
+                    <input type="file" id="anexar" style="display: none;"/>Anexar Arquivo</button>
+            </div>
+
+            <div id="posts" class="posts">
+                <!-- Exemplo de como vai aparecer o post -->
+                <div class="post">
+                    <div class="post-header">
+                        <span class="username">Amigo1</span> <span class="time">2h atrás</span>
+                    </div>
+                    <div class="post-content">
+                        <p>Olá, bom dia! Este é o meu primeiro post.</p>
+                    </div>
+                    <div class="post-actions">
+                        <button onclick="likePost(this)">Curtir</button> <span class="likes">0 curtidas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Barra lateral direita (sugestões de amigos) -->
+        <aside class="sidebar">
+            <h2>Sugestões de Amigos</h2>
+            <ul>
+                <li>Amigo 1</li>
+                <li>Amigo 2</li>
+                <li>Amigo 3</li>
+            </ul>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Sem Nome. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

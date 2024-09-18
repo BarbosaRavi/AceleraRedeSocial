@@ -25,7 +25,7 @@ public class LoginController {
     public String login(@ModelAttribute Usuario usuario, Model model) {
         Usuario usuarioCadastrado = usuarioService.buscarPorEmail(usuario.getEmail());
         if (usuarioCadastrado != null && usuarioCadastrado.getSenha().equals(usuario.getSenha())) {
-            return "redirect:/imagem";
+            return "principal";
         }
 
         model.addAttribute("mensagem", "Email e/ou senha incorretos.");

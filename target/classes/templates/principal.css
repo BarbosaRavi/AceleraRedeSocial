@@ -1,0 +1,335 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #0f0c25;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header .logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header nav ul {
+
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 50;
+    margin: 0;
+
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #fcfcfc;
+}
+
+header .user-settings {
+    font-weight: bold;
+}
+
+/* Layout Principal */
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Barra de Pesquisa */
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}
+
+#search-input {
+    flex: 1;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+#search-input::placeholder {
+    color: #999;
+}
+
+#search-button {
+    background-color: #0f0c25;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#search-button:hover {
+    background-color: #0f0c25; /* pode alterar a cor quando passar com o mouse por cima */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Barra Lateral Esquerda (Perfil) */
+.left-sidebar {
+    flex: 1;
+    max-width: 200px;
+    background-color: white;
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* posicionar a barra lateral */
+    left: -100px;  /* posicionar mais à esquerda */
+}
+
+.left-sidebar .profile-info {
+    text-align: center;
+}
+
+.left-sidebar img {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-sidebar h3 {
+    margin: 0;
+    font-size: 1.4em;
+}
+
+.botaoesq {
+    margin-top: 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #0f0c25;
+    font-size: 16px;
+    padding: 10px 15px;
+    display: block; /* Para colocar um embaixo do outro */
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.botaoesq:hover {
+    background-color: #0f0c25;
+    transform: scale(1.05);
+}
+
+.botaoesq:active {
+    background-color: #0f0c25;
+    transform: scale(0.95);
+}
+
+/* Feed de postagem dos usuarios */
+.feed {
+    flex: 3;
+    max-width: 900px;
+}
+
+.new-post {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.new-post textarea   {
+    resize: none; 
+    width: 95%; 
+    height: 60px; 
+    padding: 10px; 
+    border-radius: 8px; 
+    border: 1px solid #ccc; 
+    font-size: 16px; 
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+    overflow: hidden;
+    overflow-y: auto;
+    
+}
+
+.new-post textarea:focus {
+    border-color: #0f0c25;
+    outline: none;
+}
+
+.new-post button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #0f0c25;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;}
+
+
+.new-post button:hover {
+    background-color: #0f0c25;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.posts .post {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+}
+
+.posts .post:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.post-content {
+    font-size: 1em;
+    color: #555;
+}
+
+.post-actions button {
+    background-color: #0f0c25;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.post-actions button:hover {
+    background-color: #0f0c25;
+}
+
+/* Barra da Lateral Direita */
+.sidebar {
+    flex: 1;
+    max-width: 280px;
+    background-color: white;
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* posicionar a barra lateral direita */
+    right: -80px;  /* posicionar mais à direita */
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #0f0c25;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    padding: 10px;
+    background-color: #f5f3ff;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #0f0c25;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Transições suaves */
+button, input, textarea {
+    transition: all 0.3s ease;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo no canto superior esquerdo */
+.logo-img {
+    width: 50px; 
+    height: 50px;
+    margin-right: 15px;
+    background-color: transparent;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}   
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+    margin-left: -550px;
+}
+
+nav ul li a:hover {
+    color: #ffffff;
+}
+
+.user-settings {
+    font-weight: bold;
+
+}
