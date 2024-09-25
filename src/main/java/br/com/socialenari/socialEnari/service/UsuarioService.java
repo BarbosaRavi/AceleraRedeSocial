@@ -12,6 +12,7 @@ public class UsuarioService {
 
     private final List<Usuario> usuariosCadastrados = new ArrayList<>();
 
+    // Método para cadastrar um novo usuário
     public String cadastrarUsuario(Usuario usuario) {
         if (isEmailExistente(usuario.getEmail())) {
             return "Email já cadastrado.";
@@ -25,15 +26,28 @@ public class UsuarioService {
         }
     }
 
+    // Verifica se o email já está cadastrado
     private boolean isEmailExistente(String email) {
         return usuariosCadastrados.stream()
                 .anyMatch(usuario -> usuario.getEmail().equalsIgnoreCase(email));
     }
 
+    // Valida se o usuário tem a idade mínima para cadastro (13 anos)
     public boolean validarIdade(Usuario usuario) {
         return usuario.getIdade() >= 13;
     }
 
+    // Verifica se as credenciais (email e senha) são válidas
+    public Usuario verificarCredenciais(String email, String senha) {
+        for (Usuario usuario : usuariosCadastrados) {
+            if (usuario.getEmail().equalsIgnoreCase(email) && usuario.getSenha().equals(senha)) {
+                return usuario; // Credenciais válidas, retorna o usuário
+            }
+        }
+        return null; // Credenciais inválidas
+    }
+
+    // Método para buscar usuário pelo email
     public Usuario buscarPorEmail(String email) {
         return usuariosCadastrados.stream()
                 .filter(usuario -> usuario.getEmail().equalsIgnoreCase(email))
@@ -41,6 +55,7 @@ public class UsuarioService {
                 .orElse(null);
     }
 
+    // Método para buscar usuário pelo ID
     public Usuario buscarPorId(UUID id) {
         return usuariosCadastrados.stream()
                 .filter(usuario -> usuario.getId().equals(id))
@@ -48,6 +63,7 @@ public class UsuarioService {
                 .orElse(null);
     }
 
+    // Retorna uma lista de todos os usuários cadastrados
     public List<Usuario> listarTodosUsuarios() {
         return new ArrayList<>(usuariosCadastrados);
     }
@@ -61,5 +77,10 @@ public class UsuarioService {
                 return;
             }
         }
+    }
+
+    // Método para deletar um usuário pelo ID
+    public boolean deletarUsuario(UUID id) {
+        return usuariosCadastrados.removeIf(usuario -> usuario.getId().equals(id));
     }
 }

@@ -1,16 +1,16 @@
 package br.com.socialenari.socialEnari.model;
 
+import java.time.LocalDateTime;
+
 public class Publicacao {
     private String conteudo;
-    private String usuario; 
-    private int curtidas;   
+    private String usuario;
+    private LocalDateTime dataHora; // Novo campo
 
-    // Construtor padrão
     public Publicacao() {
-        this.curtidas = 0; 
+        this.dataHora = LocalDateTime.now(); // Define a data/hora ao criar a publicação
     }
 
-    // Getters e Setters
     public String getConteudo() {
         return conteudo;
     }
@@ -27,16 +27,7 @@ public class Publicacao {
         this.usuario = usuario;
     }
 
-    public int getCurtidas() {
-        return curtidas;
-    }
-
-    public void setCurtidas(int curtidas) {
-        this.curtidas = curtidas;
-    }
-
-    // Método para adicionar uma curtida
-    public void adicionarCurtida() {
-        this.curtidas++;
+    public LocalDateTime getDataHora() {
+        return dataHora;
     }
 }
