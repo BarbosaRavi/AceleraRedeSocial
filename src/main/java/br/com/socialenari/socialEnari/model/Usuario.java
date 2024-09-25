@@ -2,17 +2,16 @@ package br.com.socialenari.socialEnari.model;
 
 import java.time.LocalDate;
 import java.util.UUID;
-import br.com.socialenari.socialEnari.utils.idadeUtils;  // Importa a classe IdadeUtils
+import br.com.socialenari.socialEnari.utils.idadeUtils; 
 
 public class Usuario {
-
     private UUID id;
     private String nome;
     private String email;
     private String senha;
     private String confirmeSenha;
     private LocalDate dataNascimento;
-    private int idade;  // O tipo primitivo int não pode ser null
+    private int idade;
 
     public Usuario(String nome, String email, String senha, String confirmeSenha, LocalDate dataNascimento) {
         this.id = UUID.randomUUID();
@@ -21,7 +20,7 @@ public class Usuario {
         this.senha = senha;
         this.confirmeSenha = confirmeSenha;
         this.dataNascimento = dataNascimento;
-        this.idade = idadeUtils.calcularIdade(dataNascimento);  // Calcula a idade no construtor
+        this.idade = idadeUtils.calcularIdade(dataNascimento);
     }
 
     public UUID getId() {
@@ -70,7 +69,7 @@ public class Usuario {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
-        this.idade = idadeUtils.calcularIdade(dataNascimento);  // Recalcula a idade sempre que o nascimento é alterado
+        this.idade = idadeUtils.calcularIdade(dataNascimento);
     }
 
     public int getIdade() {
