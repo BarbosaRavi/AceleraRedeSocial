@@ -22,40 +22,43 @@
                 </button>
             </div>
         </nav>
-        <div class="user-settings">
-            <span>Bem-vindo, Usuário!</span>
-            <a href="/logout">Sair</a>
-        </div>
+<div class="user-settings">
+    <span>Bem-vindo, <span th:text="${nomeUsuario}"></span>!</span>
+    <a href="/logout">Sair</a>
+</div>
+
     </header>
 
     <!-- Principal -->
     <div class="container">
         <!-- Barra lateral esquerda com perfil do usuário -->
-        <aside class="left-sidebar">
-            <div class="profile-info">
-                <img src="https://cdn-icons-png.flaticon.com/512/17/17004.png" alt="Foto de perfil do usuário">
-                <h3>Nome do Usuário</h3>
-                <nav class="menu">
-                    <a href="perfil" class="botaoesq">Perfil</a>
-                    <a href="comunidades" class="botaoesq">Comunidades</a>
-                    <a href="depoimentos" class="botaoesq">Depoimentos</a>
-                    <a href="descubra" class="botaoesq">Descubra</a>
-                    <a href="configuracoes" class="botaoesq">Configurações</a>
-                </nav>
-            </div>
-        </aside>
+<aside class="left-sidebar">
+    <div class="profile-info">
+        <img src="https://cdn-icons-png.flaticon.com/512/17/17004.png" alt="Foto de perfil do usuário">
+        <h3 th:text="${nomeUsuario}"></h3> <!-- Exibe o nome do usuário logado -->
+        <nav class="menu">
+            <a href="perfil" class="botaoesq">Perfil</a>
+            <a href="comunidades" class="botaoesq">Comunidades</a>
+            <a href="depoimentos" class="botaoesq">Depoimentos</a>
+            <a href="descubra" class="botaoesq">Descubra</a>
+            <a href="configuracoes" class="botaoesq">Configurações</a>
+        </nav>
+    </div>
+</aside>
+
 
         <!-- Feed -->
-        <section class="feed">
-            <div class="new-post">
-                <textarea id="newPostContent" placeholder="O que você está pensando?"></textarea>
-                <button onclick="addPost()">Publicar</button>
-            </div>
+<section class="feed">
+    <div class="new-post">
+        <textarea id="newPostContent" placeholder="O que você está pensando?"></textarea>
+        <button onclick="addPost()">Publicar</button>
+    </div>
 
-            <div id="posts" class="posts">
-                <!-- As publicações aparecerão aqui -->
-            </div>
-        </section>
+    <div id="posts" class="posts">
+        <!-- As publicações aparecerão aqui dinamicamente -->
+    </div>
+</section>
+
 
         <!-- Barra lateral direita (sugestões de amigos) -->
         <aside class="sidebar">

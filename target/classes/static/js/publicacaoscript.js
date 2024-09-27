@@ -90,5 +90,23 @@ function calcularTempoPassado(postTime) {
     return seconds + " segundos atrás";
 }
 
+function likePost(postIndex) {
+    fetch(`/publicacoes/${postIndex}/curtir`, {
+        method: "POST"
+    })
+    .then(response => {
+        if (response.ok) {
+            loadPosts(); // Recarrega as publicações para exibir o número atualizado de curtidas
+        } else {
+            alert("Erro ao curtir a publicação.");
+        }
+    })
+    .catch(error => {
+        console.error("Erro:", error);
+        alert("Erro ao conectar ao servidor.");
+    });
+}
+
+
 // Carrega publicações ao iniciar a página
 document.addEventListener("DOMContentLoaded", loadPosts);

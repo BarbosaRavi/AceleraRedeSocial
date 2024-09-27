@@ -3,12 +3,23 @@ package br.com.socialenari.socialEnari.model;
 import java.time.LocalDateTime;
 
 public class Publicacao {
-    private String conteudo;
+
     private String usuario;
-    private LocalDateTime dataHora; // Novo campo
+    private String conteudo;
+    private LocalDateTime dataHora;
+    private int curtidas; // Novo campo para curtidas
 
     public Publicacao() {
-        this.dataHora = LocalDateTime.now(); // Define a data/hora ao criar a publicação
+        this.curtidas = 0; // Inicializa as curtidas com zero
+    }
+
+    // Getters e Setters
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getConteudo() {
@@ -19,15 +30,19 @@ public class Publicacao {
         this.conteudo = conteudo;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
     public LocalDateTime getDataHora() {
         return dataHora;
+    }
+
+    public void setDataHora() {
+        this.dataHora = LocalDateTime.now();
+    }
+
+    public int getCurtidas() {
+        return curtidas;
+    }
+
+    public void curtir() {
+        this.curtidas++;
     }
 }
