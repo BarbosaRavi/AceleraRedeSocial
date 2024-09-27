@@ -7,7 +7,7 @@ public class Publicacao {
     private String usuario;
     private String conteudo;
     private LocalDateTime dataHora;
-    private int curtidas; // Novo campo para curtidas
+    private int curtidas;
 
     public Publicacao() {
         this.curtidas = 0; // Inicializa as curtidas com zero

@@ -17,10 +17,9 @@ public class PublicacaoController {
     @Autowired
     private PublicacaoService publicacaoService;
 
-    // Método para criar uma nova publicação
     @PostMapping(consumes = "text/plain")
     public ResponseEntity<String> criarPublicacao(
-            @RequestBody String conteudo, 
+            @RequestBody String conteudo,
             @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
 
         if (usuarioLogado == null) {
@@ -39,7 +38,6 @@ public class PublicacaoController {
         return ResponseEntity.ok("Publicação criada com sucesso.");
     }
 
-    // Método para buscar todas as publicações
     @GetMapping(produces = "text/plain")
     public ResponseEntity<String> getTodasPublicacoes() {
         List<Publicacao> publicacoes = publicacaoService.getTodasPublicacoes();
@@ -56,22 +54,36 @@ public class PublicacaoController {
                     .append(" (")
                     .append(publicacao.getDataHora().toString())
                     .append(") - ")
-                    .append(publicacao.getCurtidas())
+                    .append(publicacaoService.contarCurtidas(publicacoes.indexOf(publicacao)))
                     .append(" curtidas\n");
         }
 
         return ResponseEntity.ok(publicacoesString.toString());
     }
 
-    // Método para curtir uma publicação
     @PostMapping("/{index}/curtir")
-    public ResponseEntity<String> curtirPublicacao(@PathVariable int index) {
-        boolean sucesso = publicacaoService.curtirPublicacao(index);
-
-        if (sucesso) {
-            return ResponseEntity.ok("Publicação curtida com sucesso.");
-        } else {
-            return ResponseEntity.status(404).body("Publicação não encontrada.");
+    public ResponseEntity<String> curtirPublicacao(@PathVariable int index, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+        if (usuarioLogado == null) {
+            return ResponseEntity.status(401).body("Usuário não autenticado.");
         }
+
+        boolean sucesso = publicacaoService.curtirPublicacao(index, usuarioLogado.getNome());
+        return sucesso ? ResponseEntity.ok("Publicação curtida com sucesso.") : ResponseEntity.status(404).body("Publicação não encontrada.");
+    }
+
+    @PostMapping("/{index}/descurtir")
+    public ResponseEntity<String> descurtirPublicacao(@PathVariable int index, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+        if (usuarioLogado == null) {
+            return ResponseEntity.status(401).body("Usuário não autenticado.");
+        }
+
+        boolean sucesso = publicacaoService.descurtirPublicacao(index, usuarioLogado.getNome());
+        return sucesso ? ResponseEntity.ok("Publicação descurtida com sucesso.") : ResponseEntity.status(404).body("Publicação não encontrada.");
+    }
+
+    @GetMapping("/{index}/likes")
+    public ResponseEntity<List<String>> getLikes(@PathVariable int index) {
+        List<String> curtidores = publicacaoService.getCurtidores(index);
+        return ResponseEntity.ok(curtidores);
     }
 }
