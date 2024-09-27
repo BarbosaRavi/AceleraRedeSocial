@@ -1,50 +1,76 @@
 package br.com.socialenari.socialEnari.service;
 
 import br.com.socialenari.socialEnari.model.Publicacao;
+import br.com.socialenari.socialEnari.model.Like;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
+
 public class PublicacaoService {
 
-    private List<Publicacao> publicacoes = new ArrayList<>();
-    private Map<Integer, Set<String>> likesMap = new HashMap<>(); // Armazenando likes por post
+    private List<Publicacao> publicacoes = new LinkedList<>(); // Lista de publicações
+    private List<Like> likes = new ArrayList<>(); // Lista de likes (curtidas)
 
-    public void adicionarPublicacao(Publicacao publicacao) {
-        publicacao.setDataHora();
-        publicacoes.add(publicacao);
-        likesMap.put(publicacoes.size() - 1, new HashSet<>()); // Inicializa a lista de likes
+    // Método para criar uma nova publicação
+    public void criarPublicacao(String usuario, String conteudo) {
+        Publicacao novaPublicacao = new Publicacao(usuario, conteudo, LocalDateTime.now());
+        publicacoes.add(novaPublicacao);
     }
 
-    public List<Publicacao> getTodasPublicacoes() {
+    // Método para obter todas as publicações
+    public List<Publicacao> obterPublicacoes() {
         return publicacoes;
     }
 
-    public boolean curtirPublicacao(int index, String usuario) {
-        if (index >= 0 && index < publicacoes.size()) {
-            likesMap.get(index).add(usuario); // Adiciona o usuário à lista de likes
-            return true;
+    // Método para curtir ou descurtir uma publicação
+    public void curtirPublicacao(int idPublicacao, String usuario) {
+        Like curtidaExistente = buscarLike(idPublicacao, usuario);
+
+        // Se o usuário já curtiu, remove a curtida (descurtir)
+        if (curtidaExistente != null) {
+            likes.remove(curtidaExistente);
+        } else {
+            // Se o usuário não curtiu ainda, adiciona uma nova curtida
+            Like novoLike = new Like();
+            novoLike.setPublicacaoId(idPublicacao);
+            novoLike.setUsuario(usuario);
+            likes.add(novoLike);
         }
-        return false;
     }
 
-    public boolean descurtirPublicacao(int index, String usuario) {
-        if (index >= 0 && index < publicacoes.size()) {
-            likesMap.get(index).remove(usuario); // Remove o usuário da lista de likes
-            return true;
+    // Método auxiliar para buscar uma curtida (like) por ID de publicação e usuário
+    private Like buscarLike(int idPublicacao, String usuario) {
+        for (Like like : likes) {
+            if (like.getPublicacaoId() == idPublicacao && like.getUsuario().equals(usuario)) {
+                return like; // Curtida encontrada
+            }
         }
-        return false;
+        return null; // Nenhuma curtida encontrada
     }
 
-    public int contarCurtidas(int index) {
-        return likesMap.get(index).size(); // Retorna o número de curtidas
+    // Método para obter todas as curtidas de uma publicação específica
+    public List<Like> getLikes(int idPublicacao) {
+        List<Like> likesDaPublicacao = new ArrayList<>();
+        for (Like like : likes) {
+            if (like.getPublicacaoId() == idPublicacao) {
+                likesDaPublicacao.add(like);
+            }
+        }
+        return likesDaPublicacao;
     }
 
-    public List<String> getCurtidores(int index) {
-        if (likesMap.containsKey(index)) {
-            return new ArrayList<>(likesMap.get(index)); // Retorna a lista de curtidores
+    // Método para formatar a exibição das publicações
+    public List<String> formatarPublicacoes() {
+        List<String> publicacoesFormatadas = new ArrayList<>();
+        for (Publicacao pub : publicacoes) {
+            String publicacaoFormatada = pub.getUsuario() + ": " + pub.getConteudo() + " (" + pub.getDataHora() + ") - " 
+                + getLikes(pub.getId()).size() + " curtidas";
+            publicacoesFormatadas.add(publicacaoFormatada);
         }
-        return Collections.emptyList();
+        return publicacoesFormatadas;
     }
 }

@@ -4,45 +4,40 @@ import java.time.LocalDateTime;
 
 public class Publicacao {
 
-    private String usuario;
-    private String conteudo;
-    private LocalDateTime dataHora;
-    private int curtidas;
+    private static int contadorId = 0; // Contador estático para gerar IDs únicos
+    private int id; // Identificador único da publicação
+    private String usuario; // Nome do usuário que fez a publicação
+    private String conteudo; // Conteúdo da publicação
+    private LocalDateTime dataHora; // Data e hora da publicação
 
-    public Publicacao() {
-        this.curtidas = 0; // Inicializa as curtidas com zero
+    /**
+     * Construtor da classe Publicacao.
+     * A cada nova instância, um ID único é gerado automaticamente.
+     */
+    public Publicacao(String usuario, String conteudo, LocalDateTime dataHora) {
+        this.id = contadorId++; // Incrementa o ID para garantir que seja único
+        this.usuario = usuario;
+        this.conteudo = conteudo;
+        this.dataHora = dataHora;
     }
 
-    // Getters e Setters
+    // Método getter para o campo 'id'
+    public int getId() {
+        return id;
+    }
+
+    // Método getter para o campo 'usuario'
     public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
+    // Método getter para o campo 'conteudo'
     public String getConteudo() {
         return conteudo;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
-    }
-
+    // Método getter para o campo 'dataHora'
     public LocalDateTime getDataHora() {
         return dataHora;
-    }
-
-    public void setDataHora() {
-        this.dataHora = LocalDateTime.now();
-    }
-
-    public int getCurtidas() {
-        return curtidas;
-    }
-
-    public void curtir() {
-        this.curtidas++;
     }
 }
