@@ -1,7 +1,6 @@
 package br.com.socialenari.socialEnari.controller;
 
 import br.com.socialenari.socialEnari.model.Like;
-import br.com.socialenari.socialEnari.model.Publicacao;
 import br.com.socialenari.socialEnari.model.Usuario;
 import br.com.socialenari.socialEnari.service.PublicacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/publicacoes")

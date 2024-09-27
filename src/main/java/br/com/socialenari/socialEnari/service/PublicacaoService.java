@@ -3,13 +3,14 @@ package br.com.socialenari.socialEnari.service;
 import br.com.socialenari.socialEnari.model.Publicacao;
 import br.com.socialenari.socialEnari.model.Like;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.time.LocalDateTime;
 
 @Service
-
 public class PublicacaoService {
 
     private List<Publicacao> publicacoes = new LinkedList<>(); // Lista de publicações
@@ -52,7 +53,7 @@ public class PublicacaoService {
         return null; // Nenhuma curtida encontrada
     }
 
-    // Método para obter todas as curtidas de uma publicação específica
+ // Método para obter todas as curtidas de uma publicação específica
     public List<Like> getLikes(int idPublicacao) {
         List<Like> likesDaPublicacao = new ArrayList<>();
         for (Like like : likes) {
@@ -63,14 +64,38 @@ public class PublicacaoService {
         return likesDaPublicacao;
     }
 
-    // Método para formatar a exibição das publicações
+
+    // Método para calcular o tempo decorrido desde a publicação
+    private String calcularTempoPassado(LocalDateTime dataPublicacao) {
+        LocalDateTime agora = LocalDateTime.now();
+        Duration duracao = Duration.between(dataPublicacao, agora);
+
+        long dias = duracao.toDays();
+        long horas = duracao.toHours();
+        long minutos = duracao.toMinutes();
+        long segundos = duracao.getSeconds();
+
+        if (dias > 0) {
+            return dias + " dias atrás";
+        } else if (horas > 0) {
+            return horas + " horas atrás";
+        } else if (minutos > 0) {
+            return minutos + " minutos atrás";
+        } else {
+            return segundos + " segundos atrás";
+        }
+    }
+
+ // Método para formatar a exibição das publicações com tempo decorrido
     public List<String> formatarPublicacoes() {
         List<String> publicacoesFormatadas = new ArrayList<>();
         for (Publicacao pub : publicacoes) {
-            String publicacaoFormatada = pub.getUsuario() + ": " + pub.getConteudo() + " (" + pub.getDataHora() + ") - " 
-                + getLikes(pub.getId()).size() + " curtidas";
-            publicacoesFormatadas.add(publicacaoFormatada);
+            String tempoPassado = calcularTempoPassado(pub.getDataHora());
+            int totalCurtidas = getLikes(pub.getId()).size(); // Conta as curtidas corretamente
+            String publicacaoFormatada = pub.getUsuario() + ": " + pub.getConteudo() + " (" + tempoPassado + ")";
+            publicacoesFormatadas.add(publicacaoFormatada + " - " + totalCurtidas + " curtidas"); // Adiciona as curtidas separadamente
         }
         return publicacoesFormatadas;
     }
+
 }
