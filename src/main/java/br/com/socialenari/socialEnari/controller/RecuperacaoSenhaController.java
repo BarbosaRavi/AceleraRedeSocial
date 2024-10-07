@@ -5,7 +5,6 @@ import br.com.socialenari.socialEnari.service.EmailService;
 import br.com.socialenari.socialEnari.service.UsuarioService;
 import br.com.socialenari.socialEnari.utils.CodigoRecuperacaoUtils;
 import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,11 +48,10 @@ public class RecuperacaoSenhaController {
         return "recuperacao";
     }
 
-
-
     @PostMapping("/recuperacao/confirmar")
     public String exibirFormularioConfirmacao(@RequestParam("codigo") String codigo, HttpSession session, Model model) {
         String email = (String) session.getAttribute("email");
+
         if (email == null) {
             model.addAttribute("mensagem", "Sessão expirada. Por favor, inicie o processo de recuperação novamente.");
             return "recuperacao";  // Retorna ao formulário de recuperação
@@ -65,13 +63,11 @@ public class RecuperacaoSenhaController {
             model.addAttribute("email", email);
             return "trocarSenha";  // Redireciona para a página de troca de senha
         } else {
-            model.addAttribute("mensagem", "Código inválido ou expirado.");
-            return "recuperacao";  // Retorna ao formulário de recuperação
+            model.addAttribute("erro", "Código inválido ou expirado.");  // Mensagem de erro
+            model.addAttribute("email", email);  // Mantém o email no modelo
+            return "confirmarCodigo";  // Retorna para a mesma página de confirmação
         }
     }
-
-
-
 
     @PostMapping("/recuperacao/trocarSenha")
     public String trocarSenha(@RequestParam("novaSenha") String novaSenha,
@@ -100,8 +96,6 @@ public class RecuperacaoSenhaController {
         }
         return "trocarSenha";
     }
-
-
 
     private static class CodigoRecuperacao {
         private String codigo;
