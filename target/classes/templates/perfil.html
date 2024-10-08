@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Rede Social</title>
+    <link rel="stylesheet" href="/css/perfil.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo" onclick="window.location.href='/principal'">
+            <img src="https://cdn.pixabay.com/photo/2016/11/07/13/04/yoga-1805784_1280.png" class="logo-img" alt="Logo">
+            <h1>Nameless</h1>
+        </div>
+        <div class="user-settings">
+            <span>Bem-vindo, <span th:text="${nomeUsuario}"></span>!</span>
+            <a href="/logout">Sair</a>
+        </div>
+    </header>
+
+    <!-- Perfil -->
+    <div class="container">
+        <div class="profile-info">
+            <!-- Foto de perfil -->
+            <a href="/perfil">
+                <img th:src="${fotoPerfil}" alt="Foto de perfil do usuário" id="profilePhoto">
+            </a>
+            
+            <!-- Formulário para alterar a foto do perfil -->
+            <form action="/perfil/uploadFoto" method="post" enctype="multipart/form-data">
+                <input type="file" name="fotoPerfil" accept="image/*">
+                <button type="submit">Alterar Foto</button>
+            </form>
+            
+            <!-- Exibição do nome do usuário (não editável) -->
+            <a href="/perfil">
+                <h3 th:text="${nomeUsuario}"></h3>
+            </a>
+            
+            <!-- Formulário para alterar a bio -->
+            <form action="/perfil/salvarBio" method="post">
+                <textarea name="bio" class="bio-input" placeholder="Escreva sua bio..." th:text="${bio}"></textarea>
+                <button type="submit">Salvar Alterações</button>
+            </form>
+        </div>
+        
+        <!-- Seção para exibir publicações do usuário -->
+        <div class="user-publications">
+            <h2>Publicações de {{ nomeUsuario }}</h2>
+            <ul class="publication-list">
+                <li class="publication-item" th:each="publicacao : ${publicacoes}">
+                    <p th:text="${publicacao.conteudo}"></p>
+                    <small th:text="${publicacao.dataHora}">Data da publicação</small>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Nameless Network. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

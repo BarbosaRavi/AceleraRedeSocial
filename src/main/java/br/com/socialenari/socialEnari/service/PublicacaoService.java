@@ -27,6 +27,17 @@ public class PublicacaoService {
         return publicacoes;
     }
 
+    // Método para obter todas as publicações de um usuário específico
+    public List<Publicacao> obterPublicacoesPorUsuario(String usuario) {
+        List<Publicacao> publicacoesUsuario = new ArrayList<>();
+        for (Publicacao publicacao : publicacoes) {
+            if (publicacao.getUsuario().equals(usuario)) {
+                publicacoesUsuario.add(publicacao);
+            }
+        }
+        return publicacoesUsuario;
+    }
+
     // Método para curtir ou descurtir uma publicação
     public void curtirPublicacao(int idPublicacao, String usuario) {
         Like curtidaExistente = buscarLike(idPublicacao, usuario);
@@ -53,7 +64,7 @@ public class PublicacaoService {
         return null; // Nenhuma curtida encontrada
     }
 
- // Método para obter todas as curtidas de uma publicação específica
+    // Método para obter todas as curtidas de uma publicação específica
     public List<Like> getLikes(int idPublicacao) {
         List<Like> likesDaPublicacao = new ArrayList<>();
         for (Like like : likes) {
@@ -63,7 +74,6 @@ public class PublicacaoService {
         }
         return likesDaPublicacao;
     }
-
 
     // Método para calcular o tempo decorrido desde a publicação
     private String calcularTempoPassado(LocalDateTime dataPublicacao) {
@@ -86,7 +96,7 @@ public class PublicacaoService {
         }
     }
 
- // Método para formatar a exibição das publicações com tempo decorrido
+    // Método para formatar a exibição das publicações com tempo decorrido
     public List<String> formatarPublicacoes() {
         List<String> publicacoesFormatadas = new ArrayList<>();
         for (Publicacao pub : publicacoes) {
@@ -97,5 +107,4 @@ public class PublicacaoService {
         }
         return publicacoesFormatadas;
     }
-
 }
