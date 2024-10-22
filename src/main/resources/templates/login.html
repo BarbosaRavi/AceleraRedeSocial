@@ -17,37 +17,38 @@
     </style>
 </head>
 <body>
-    
+   
     <form action="/login" method="post">
-    
+   
         <div id="login">
-
+ 
             <div class="caixa">
-
-                <h1>Entrar</h1>
-
+ 
+                <h1>Bem-vindo(a)!</h1>
+                <p>Entre na sua conta e conecte-se!</p>
+ 
                 <div class="error">
                     <p th:if="${mensagem}" th:text="${mensagem}"></p>
                 </div>
                 <div class="email">
                     <input type="email" name="email" placeholder="E-mail" required>
                 </div>
-    
+   
                 <div class="senha">
                     <input type="password" name="senha" placeholder="Senha" required>
                 </div>
-    
-				<div class="entrar">
-				    <p><a href="/recuperacao">Esqueceu sua senha? </a></p>
-				    <input type="submit" value="Entrar">
-				    <p>Ainda não tem uma conta? <a href="cadastro">Cadastre-se!</a></p>
-				</div>
-
-    
+   
+                <div class="entrar">
+                    <p><a href="/recuperacao">Esqueceu sua senha?</a></p>
+                    <input type="submit" value="Entrar">
+                    <p>Ainda não tem uma conta? <a href="cadastro">Cadastre-se!</a></p>
+                </div>
+ 
             </div>
-    
+   
         </div>
     </form>
     <br>
 </body>
 </html>
+ 
