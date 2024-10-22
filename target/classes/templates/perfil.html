@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - Rede Social</title>
     <link rel="stylesheet" href="/css/perfil.css">
+    <style>
+        /* Escondendo o input de arquivo */
+        .foto-perfil {
+            display: none;
+        }
+        .profile-photo {
+            width: 150px; /* Defina o tamanho desejado para a foto de perfil */
+            height: 150px; /* Defina o tamanho desejado para a foto de perfil */
+            border-radius: 50%; /* Arredonda as bordas para criar um efeito de círculo */
+            object-fit: cover; /* Garante que a imagem cubra todo o espaço definido */
+        }
+    </style>
 </head>
 <body>
 
@@ -12,7 +24,7 @@
     <header>
         <div class="logo" onclick="window.location.href='/principal'">
             <img src="https://cdn.pixabay.com/photo/2016/11/07/13/04/yoga-1805784_1280.png" class="logo-img" alt="Logo">
-            <h1>Nameless</h1>
+            <h1>Rede Social</h1>
         </div>
         <div class="user-settings">
             <span>Bem-vindo, <span th:text="${nomeUsuario}"></span>!</span>
@@ -20,35 +32,39 @@
         </div>
     </header>
 
-    <!-- Perfil -->
+    <!-- Conteúdo principal com perfil à esquerda e feed de postagens no centro -->
     <div class="container">
-        <div class="profile-info">
-            <!-- Foto de perfil -->
-            <a href="/perfil">
-                <img th:src="${fotoPerfil}" alt="Foto de perfil do usuário" id="profilePhoto">
-            </a>
-            
-            <!-- Formulário para alterar a foto do perfil -->
-            <form action="/perfil/uploadFoto" method="post" enctype="multipart/form-data">
-                <input type="file" name="fotoPerfil" accept="image/*">
-                <button type="submit">Alterar Foto</button>
-            </form>
-            
-            <!-- Exibição do nome do usuário (não editável) -->
-            <a href="/perfil">
-                <h3 th:text="${nomeUsuario}"></h3>
-            </a>
-            
-            <!-- Formulário para alterar a bio -->
-            <form action="/perfil/salvarBio" method="post">
-                <textarea name="bio" class="bio-input" placeholder="Escreva sua bio..." th:text="${bio}"></textarea>
-                <button type="submit">Salvar Alterações</button>
-            </form>
-        </div>
         
-        <!-- Seção para exibir publicações do usuário -->
-        <div class="user-publications">
-            <h2>Publicações de {{ nomeUsuario }}</h2>
+        <!-- Informações de perfil à esquerda -->
+        <div class="profile-container">
+            <div class="profile-info">
+                <!-- Foto de perfil -->
+                <a href="/perfil">
+                    <img th:src="${fotoPerfil}" alt="Foto de Perfil" id="profilePhoto" class="profile-photo">
+                </a>
+                
+                <!-- Formulário para alterar a foto do perfil -->
+                <form action="/perfil/uploadFoto" method="post" enctype="multipart/form-data">
+                    <input type="file" class="foto-perfil" name="fotoPerfil" accept="image/*" id="fotoPerfilInput">
+                    <label for="fotoPerfilInput" class="custom-button">Escolher Foto</label>
+                </form>
+                    
+                <!-- Exibição do nome do usuário (não editável) -->
+                <a href="/perfil">  
+                    <h3 th:text="${nomeUsuario}"></h3>
+                </a>
+                
+                <!-- Formulário para alterar a bio -->
+                <form action="/perfil/salvarBio" method="post">
+                    <textarea name="bio" class="bio-input" placeholder="Escreva sua bio..." th:text="${bio}"></textarea>
+                    <button type="submit" class="save-button">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Feed de postagens no centro -->
+        <div class="feed-container">
+            <h2>Publicações de <span th:text="${nomeUsuario}"></span></h2>
             <ul class="publication-list">
                 <li class="publication-item" th:each="publicacao : ${publicacoes}">
                     <p th:text="${publicacao.conteudo}"></p>
@@ -56,12 +72,11 @@
                 </li>
             </ul>
         </div>
+        
     </div>
 
-    <!-- Rodapé -->
-    <footer>
-        <p>&copy; 2024 Nameless Network. Todos os direitos reservados.</p>
-    </footer>
+    <!-- Script externo para atualizar a imagem de perfil -->
+    <script src="/js/perfilscript.js"></script>
 
 </body>
 </html>

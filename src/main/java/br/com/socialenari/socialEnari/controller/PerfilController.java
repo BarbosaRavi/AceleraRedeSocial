@@ -1,79 +1,52 @@
 package br.com.socialenari.socialEnari.controller;
 
-import br.com.socialenari.socialEnari.model.Publicacao;
 import br.com.socialenari.socialEnari.model.Usuario;
-import br.com.socialenari.socialEnari.service.PublicacaoService;
+import br.com.socialenari.socialEnari.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
 
 @Controller
+@RequestMapping("/perfil")
 public class PerfilController {
 
-    private Map<String, String> usuariosBio = new HashMap<>();
-    private Map<String, String> usuariosFoto = new HashMap<>();
-
     @Autowired
-    private PublicacaoService publicacaoService; // Injete o serviço de publicações
+    private UsuarioService usuarioService;
 
-    @GetMapping("/perfil")
-    public String perfil(Model model, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+    // Página de perfil do usuário
+    @GetMapping
+    public String mostrarPerfil(@SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado, Model model) {
         if (usuarioLogado == null) {
-            return "redirect:/login"; // Redireciona para a página de login se o usuário não estiver logado
+            return "redirect:/login"; // Redireciona para o login se não estiver logado
         }
 
-        String nomeUsuario = usuarioLogado.getNome();
-        String bio = usuariosBio.getOrDefault(nomeUsuario, "Escreva sua bio...");
-        String fotoPerfil = usuariosFoto.getOrDefault(nomeUsuario, "https://cdn-icons-png.flaticon.com/512/17/17004.png");
-        
-        // Obter as publicações do usuário
-        List<Publicacao> publicacoes = publicacaoService.obterPublicacoesPorUsuario(nomeUsuario);
-
-        model.addAttribute("nomeUsuario", nomeUsuario);
-        model.addAttribute("bio", bio);
-        model.addAttribute("fotoPerfil", fotoPerfil);
-        model.addAttribute("publicacoes", publicacoes); // Adiciona as publicações ao modelo
-        
-        return "perfil"; // Renderiza a página perfil.html
+        model.addAttribute("usuario", usuarioLogado); // Passa o usuário logado para o template
+        return "perfil"; // Retorna a página de perfil
     }
 
-    @PostMapping("/perfil/salvarBio")
-    public String salvarBio(@RequestParam("bio") String novaBio, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+    // Atualiza a foto de perfil
+    @PostMapping("/atualizarFoto")
+    public String atualizarFotoPerfil(@RequestParam("fotoPerfil") MultipartFile file, 
+                                      @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) throws IOException {
         if (usuarioLogado == null) {
-            return "redirect:/login"; // Redireciona para a página de login se o usuário não estiver logado
+            return "redirect:/login";
         }
 
-        String nomeUsuario = usuarioLogado.getNome();
-        usuariosBio.put(nomeUsuario, novaBio);
-        return "redirect:/perfil?success=true";
-    }
-
-    @PostMapping("/perfil/uploadFoto")
-    public String uploadFoto(@RequestParam("fotoPerfil") MultipartFile file, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
-        if (usuarioLogado == null) {
-            return "redirect:/login"; // Redireciona para a página de login se o usuário não estiver logado
-        }
-
-        String nomeUsuario = usuarioLogado.getNome();
-        
         if (!file.isEmpty()) {
-            try {
-                String fotoUrl = "/imagens/perfil/" + file.getOriginalFilename();
-                usuariosFoto.put(nomeUsuario, fotoUrl);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // Salva o arquivo na pasta 'static/images' (ou qualquer pasta configurada para imagens)
+            String caminhoImagem = "static/images/" + file.getOriginalFilename();
+            File imagem = new File(caminhoImagem);
+            file.transferTo(imagem); // Salva o arquivo no servidor
+
+            // Atualiza o caminho da imagem no perfil do usuário
+            usuarioService.atualizarFotoPerfil(usuarioLogado, "/images/" + file.getOriginalFilename());
         }
-        
-        return "redirect:/perfil?successUpload=true";
+
+        return "redirect:/perfil"; // Redireciona de volta para o perfil
     }
 }

@@ -12,6 +12,7 @@ public class Usuario {
     private String confirmeSenha;
     private LocalDate dataNascimento;
     private int idade;
+    private String fotoPerfil;  // Adiciona a foto de perfil
 
     public Usuario(String nome, String email, String senha, String confirmeSenha, LocalDate dataNascimento) {
         this.id = UUID.randomUUID();
@@ -21,8 +22,10 @@ public class Usuario {
         this.confirmeSenha = confirmeSenha;
         this.dataNascimento = dataNascimento;
         this.idade = idadeUtils.calcularIdade(dataNascimento);
+        this.fotoPerfil = "/images/default-profile.png";  // Inicialmente, atribui uma imagem padrão
     }
 
+    // Getters e setters
     public UUID getId() {
         return id;
     }
@@ -74,5 +77,13 @@ public class Usuario {
 
     public int getIdade() {
         return idade;
+    }
+
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setFotoPerfil(String fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
     }
 }

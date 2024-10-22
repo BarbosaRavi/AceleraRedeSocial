@@ -63,11 +63,6 @@ public class UsuarioService {
                 .orElse(null);
     }
 
-    // Retorna uma lista de todos os usuários cadastrados
-    public List<Usuario> listarTodosUsuarios() {
-        return new ArrayList<>(usuariosCadastrados);
-    }
-
     // Método para atualizar um usuário
     public void atualizarUsuario(Usuario usuarioAtualizado) {
         for (int i = 0; i < usuariosCadastrados.size(); i++) {
@@ -79,8 +74,18 @@ public class UsuarioService {
         }
     }
 
+    // Método para atualizar a foto de perfil de um usuário
+    public void atualizarFotoPerfil(Usuario usuario, String novaFotoPerfil) {
+        usuario.setFotoPerfil(novaFotoPerfil);
+    }
+
     // Método para deletar um usuário pelo ID
     public boolean deletarUsuario(UUID id) {
         return usuariosCadastrados.removeIf(usuario -> usuario.getId().equals(id));
+    }
+
+    // Retorna uma lista de todos os usuários cadastrados
+    public List<Usuario> listarTodosUsuarios() {
+        return new ArrayList<>(usuariosCadastrados);
     }
 }
