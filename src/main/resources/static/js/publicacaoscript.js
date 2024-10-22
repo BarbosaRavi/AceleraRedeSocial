@@ -118,7 +118,69 @@ function toggleLike(postIndex) {
         });
     }
 }
+function addPost() {
+    const postContent = document.getElementById("newPostContent").value; // Obtém o conteúdo do post do textarea
+
+    if (postContent.trim() === "") { // Verifica se o conteúdo não está vazio
+        alert("Você deve inserir um conteúdo para publicar!");
+        return;
+    }
+
+    // Envia uma requisição POST para o backend com o conteúdo da publicação
+    fetch("/publicacoes", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'text/plain',
+        },
+        body: postContent // O conteúdo do post é enviado como texto simples
+    })
+    .then(response => {
+        if (response.ok) {
+            // Limpa o campo de texto e redefine a altura
+            const textarea = document.getElementById("newPostContent");
+            textarea.value = ""; // Limpa o conteúdo
+            textarea.style.height = '60px'; // Redefine para a altura padrão
+            loadPosts(); // Recarrega as publicações para incluir a nova
+        } else {
+            alert("Erro ao publicar a postagem. Código: " + response.status); // Exibe erro se a requisição falhar
+        }
+    })
+    .catch(error => {
+        console.error("Erro:", error); // Loga o erro no console
+        alert("Erro ao conectar ao servidor.");
+    });
+}
+postsData.forEach((postData, index) => {
+    const postElement = document.createElement("div");
+    postElement.classList.add("post");
+    postElement.innerHTML = `
+        <div class="post-header">
+            <span class="username">${postData.usuario}</span> 
+            <span class="time">${postData.tempoPassado}</span>
+        </div>
+        <div class="post-content">
+            <p>${postData.conteudo}</p> <!-- Usando <p> para garantir a formatação correta -->
+        </div>
+        <div class="post-actions">
+            <button onclick="toggleLike(${index})">${postData.liked ? "Descurtir" : "Curtir"}</button>
+            <span class="likes">${postData.likes} curtidas</span>
+        </div>
+    `;
+    postsContainer.prepend(postElement); // Insere o post no início da lista
+});
+
+
 
 
 // Carrega as publicações automaticamente ao carregar a página
 document.addEventListener("DOMContentLoaded", loadPosts);
+document.addEventListener("DOMContentLoaded", function() {
+    const textarea = document.getElementById("newPostContent");
+
+    // Função para ajustar a altura do textarea conforme o conteúdo cresce
+    textarea.addEventListener("input", function() {
+        this.style.height = 'auto'; // Reseta a altura para recalcular
+        this.style.height = this.scrollHeight + 'px'; // Ajusta a altura com base no conteúdo
+    });
+});
+

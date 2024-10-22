@@ -12,8 +12,27 @@ body {
     display: flex;
     flex-direction: row;
 }
+#confirmacao{
+    margin-top: 90px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
 
 .email input {
+    border-radius: 15px;
+    border: none;
+    width: 250px;
+    height: 40px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-bottom: 20px;
+}
+
+.codigo input {
     border-radius: 15px;
     border: none;
     width: 250px;
@@ -32,4 +51,27 @@ body {
     border: none;
     background-color: rgb(134, 243, 134);
     color: #141414;
+}
+
+.senha input {
+    border-radius: 15px;
+    border: none;
+    width: 250px;
+    height: 40px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-top: 15px;
+}
+
+.confirme-senha input {
+    border-radius: 15px;
+    border: none;
+    width: 250px;
+    height: 40px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
