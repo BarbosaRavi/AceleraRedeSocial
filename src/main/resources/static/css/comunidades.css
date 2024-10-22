@@ -1,0 +1,200 @@
+/* Estilo para o corpo e cabeçalho */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6262f0, #16213e);
+    color: #333; /* Mudança para um tom de preto mais suave */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra mais sutil */
+    border-bottom: 2px solid #0f0c25; /* Linha de separação */
+}
+
+header .logo h1 {
+    margin: 0;
+    font-size: 1.75rem; /* Aumentando o tamanho do texto */
+    font-weight: 600; /* Tornando o texto mais ousado */
+    cursor: pointer;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 50px; 
+    height: 50px;
+    margin-right: 1rem;
+    border-radius: 50%; /* Tornando a imagem arredondada */
+}
+
+header nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-container {
+    display: flex;
+    gap: 0.5rem; /* Espaçamento entre os campos de busca */
+}
+
+#search-input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s; /* Efeito de transição para a borda */
+}
+
+#search-input:focus {
+    border-color: #0f0c25; /* Borda muda de cor ao focar */
+    outline: none; /* Remover contorno padrão */
+}
+
+#search-button {
+    background-color: #0f0c25;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#search-button:hover {
+    background-color: #0a081b; /* Efeito de hover */
+}
+
+.user-settings {
+    font-weight: bold;
+}
+
+/* Conteúdo principal */
+.container {
+    display: flex;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.left-sidebar {
+    width: 25%;
+}
+
+.menu {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu .botaoesq {
+    display: block;
+    padding: 0.75rem;
+    color: #0f0c25;
+    text-decoration: none;
+    margin: 0.5rem 0;
+    border-radius: 4px; /* Bordas arredondadas para os links */
+    transition: background-color 0.3s, color 0.3s; /* Efeito de transição */
+}
+
+.menu .botaoesq:hover,
+.menu .botaoesq.ativo {
+    background-color: #0f0c25;
+    color: #fff;
+}
+
+.community-section {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.new-community h2,
+.community-list h2 {
+    color: #0f0c25;
+}
+
+#communityName,
+#communityDescription {
+    resize: none;
+    width: 80%;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s; /* Efeito de transição */
+}
+
+#communityName:focus,
+#communityDescription:focus {
+    border-color: #0f0c25; /* Borda muda de cor ao focar */
+    outline: none; /* Remover contorno padrão */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #0f0c25;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s; /* Adicionando transformação */
+    margin-top: 1rem;
+}
+
+.custom-file-upload:hover {
+    background-color: #0a081b;
+    transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+}
+
+.button-container {
+    display: flex; /* Alinha os botões lado a lado */
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+
+
+input[type="file"] {
+    display: none;
+}
+
+button[type="submit"] {
+    background-color: #0f0c25;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+
+button[type="submit"]:hover {
+    background-color: #0a081b;
+    transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-sidebar, .community-section {
+        width: 100%;
+    }
+}

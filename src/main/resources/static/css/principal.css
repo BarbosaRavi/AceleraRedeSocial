@@ -102,11 +102,16 @@ header .user-settings {
 /* Barra Lateral Esquerda (Perfil) */
 .left-sidebar {
     flex: 1;
-    max-width: 200px;
+    max-width: 250px;
     background-color: white;
     padding: 2rem; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;  /* Fixa a sidebar na tela */
+    top: 65px;           /* Fica no topo da tela */
+    left: 40px;          /* Fica à esquerda da tela */
+    width: 230px;     /* Largura fixa da sidebar */
+    height: 50vh;  
 }
 
 .left-sidebar .profile-info {
@@ -114,10 +119,12 @@ header .user-settings {
 }
 
 .left-sidebar img {
-    width: 60%;
-    border-radius: 50%;
-    margin-bottom: 1rem; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px; /* Tamanho da imagem de perfil */
+    height: 150px;
+    border-radius: 50%; /* Formato redondo */
+    object-fit: cover; /* Redimensiona a imagem mantendo a proporção */
+    border: 2px solid #ffffff; /* Borda branca */
+    margin-bottom: 1rem;
 }
 
 .left-sidebar h3 {  
@@ -241,11 +248,16 @@ header .user-settings {
 /* Barra da Lateral Direita */
 .sidebar {
     flex: 1;
-    max-width: 280px;
+    max-width: 230px;
     background-color: white;
     padding: 2rem; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;  /* Fixa a sidebar na tela */
+    top: 65px;           /* Fica no topo da tela */
+    right: 40px;          /* Fica à esquerda da tela */
+    width: 230px;     /* Largura fixa da sidebar */
+    height: 50vh;  
 }
 
 .sidebar h2 {
