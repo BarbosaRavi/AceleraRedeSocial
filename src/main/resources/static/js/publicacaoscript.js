@@ -34,7 +34,6 @@ function addPost() {
 }
 
 // Função para carregar as publicações do servidor
-// Função para carregar as publicações do servidor
 function loadPosts() {
     fetch("/publicacoes")
     .then(response => response.text()) // Converte a resposta em texto
@@ -51,7 +50,7 @@ function loadPosts() {
             const tempoPassado = dataHora.split(")")[0]; // Extraindo apenas o tempo
             const likesCount = parseInt(conteudoComData.split(" - ")[1]) || 0; // Contagem de curtidas
 
-            postsData.push({ usuario, conteudo, tempoPassado, likes: likesCount, liked: false }); // Armazena dados do post
+            postsData.push({ usuario, conteudo, tempoPassado, likes: likesCount, liked: false, comments: [] }); // Armazena dados do post
         });
 
         postsData.forEach((postData, index) => {
@@ -69,6 +68,14 @@ function loadPosts() {
                     <button onclick="toggleLike(${index})">${postData.liked ? "Descurtir" : "Curtir"}</button>
                     <span class="likes">${postData.likes} curtidas</span>
                 </div>
+                <div class="comments-container">
+                    <button onclick="toggleComments(${index})">Mostrar Comentários</button>
+                    <div class="comments" id="comments-${index}" style="display:none;">
+                        <div class="comments-list"></div>
+                        <textarea id="comment-${index}" placeholder="Adicione um comentário..."></textarea>
+                        <button onclick="addComment(${index})">Comentar</button>
+                    </div>
+                </div>
             `;
             postsContainer.prepend(postElement); // Insere o post no início da lista
         });
@@ -76,6 +83,48 @@ function loadPosts() {
     .catch(error => {
         console.error("Erro:", error);
     });
+}
+
+// Função para mostrar ou ocultar os comentários
+function toggleComments(postIndex) {
+    const commentsDiv = document.getElementById(`comments-${postIndex}`);
+    commentsDiv.style.display = commentsDiv.style.display === "none" ? "block" : "none"; // Alterna a exibição
+}
+
+// Função para adicionar um comentário
+function addComment(postIndex) {
+    const commentInput = document.getElementById(`comment-${postIndex}`);
+    const commentText = commentInput.value.trim();
+
+    if (commentText === "") {
+        alert("Você deve inserir um comentário!");
+        return;
+    }
+
+    // Adiciona o comentário ao array de comentários do post
+    postsData[postIndex].comments.push(commentText);
+    commentInput.value = ""; // Limpa o campo de texto
+
+    renderComments(postIndex); // Re-renderiza os comentários
+}
+
+// Função para renderizar os comentários
+function renderComments(postIndex) {
+    const commentsListDiv = document.querySelector(`#comments-${postIndex} .comments-list`);
+    commentsListDiv.innerHTML = ""; // Limpa os comentários existentes
+
+    const comments = postsData[postIndex].comments.slice(-5); // Pega os últimos 5 comentários
+    comments.forEach(comment => {
+        const commentElement = document.createElement("div");
+        commentElement.textContent = comment;
+        commentsListDiv.appendChild(commentElement);
+    });
+
+    // Se houver mais de 5 comentários, adiciona a barra de rolagem
+    if (postsData[postIndex].comments.length > 5) {
+        commentsListDiv.style.maxHeight = "100px"; // Define a altura máxima
+        commentsListDiv.style.overflowY = "scroll"; // Adiciona a barra de rolagem
+    }
 }
 
 // Função para curtir ou descurtir uma publicação
@@ -118,69 +167,6 @@ function toggleLike(postIndex) {
         });
     }
 }
-function addPost() {
-    const postContent = document.getElementById("newPostContent").value; // Obtém o conteúdo do post do textarea
-
-    if (postContent.trim() === "") { // Verifica se o conteúdo não está vazio
-        alert("Você deve inserir um conteúdo para publicar!");
-        return;
-    }
-
-    // Envia uma requisição POST para o backend com o conteúdo da publicação
-    fetch("/publicacoes", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'text/plain',
-        },
-        body: postContent // O conteúdo do post é enviado como texto simples
-    })
-    .then(response => {
-        if (response.ok) {
-            // Limpa o campo de texto e redefine a altura
-            const textarea = document.getElementById("newPostContent");
-            textarea.value = ""; // Limpa o conteúdo
-            textarea.style.height = '60px'; // Redefine para a altura padrão
-            loadPosts(); // Recarrega as publicações para incluir a nova
-        } else {
-            alert("Erro ao publicar a postagem. Código: " + response.status); // Exibe erro se a requisição falhar
-        }
-    })
-    .catch(error => {
-        console.error("Erro:", error); // Loga o erro no console
-        alert("Erro ao conectar ao servidor.");
-    });
-}
-postsData.forEach((postData, index) => {
-    const postElement = document.createElement("div");
-    postElement.classList.add("post");
-    postElement.innerHTML = `
-        <div class="post-header">
-            <span class="username">${postData.usuario}</span> 
-            <span class="time">${postData.tempoPassado}</span>
-        </div>
-        <div class="post-content">
-            <p>${postData.conteudo}</p> <!-- Usando <p> para garantir a formatação correta -->
-        </div>
-        <div class="post-actions">
-            <button onclick="toggleLike(${index})">${postData.liked ? "Descurtir" : "Curtir"}</button>
-            <span class="likes">${postData.likes} curtidas</span>
-        </div>
-    `;
-    postsContainer.prepend(postElement); // Insere o post no início da lista
-});
-
-
-
 
 // Carrega as publicações automaticamente ao carregar a página
 document.addEventListener("DOMContentLoaded", loadPosts);
-document.addEventListener("DOMContentLoaded", function() {
-    const textarea = document.getElementById("newPostContent");
-
-    // Função para ajustar a altura do textarea conforme o conteúdo cresce
-    textarea.addEventListener("input", function() {
-        this.style.height = 'auto'; // Reseta a altura para recalcular
-        this.style.height = this.scrollHeight + 'px'; // Ajusta a altura com base no conteúdo
-    });
-});
-

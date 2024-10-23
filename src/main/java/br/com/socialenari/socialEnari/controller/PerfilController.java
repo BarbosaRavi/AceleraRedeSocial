@@ -25,26 +25,37 @@ public class PerfilController {
             return "redirect:/login"; // Redireciona para o login se não estiver logado
         }
 
+        // Verifica se o usuário tem uma foto de perfil, caso contrário, define um placeholder
+        String fotoPerfil = usuarioLogado.getFotoPerfil() != null ? usuarioLogado.getFotoPerfil() : "/images/default-profile.png";
+        model.addAttribute("fotoPerfil", fotoPerfil);
         model.addAttribute("usuario", usuarioLogado); // Passa o usuário logado para o template
+
         return "perfil"; // Retorna a página de perfil
     }
 
     // Atualiza a foto de perfil
     @PostMapping("/atualizarFoto")
-    public String atualizarFotoPerfil(@RequestParam("fotoPerfil") MultipartFile file, 
+    public String atualizarFotoPerfil(@RequestParam("fotoPerfil") MultipartFile file,
                                       @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) throws IOException {
         if (usuarioLogado == null) {
             return "redirect:/login";
         }
 
         if (!file.isEmpty()) {
-            // Salva o arquivo na pasta 'static/images' (ou qualquer pasta configurada para imagens)
-            String caminhoImagem = "static/images/" + file.getOriginalFilename();
+            // Diretório onde as imagens de perfil serão salvas
+            String caminhoImagem = "uploads/" + file.getOriginalFilename();
             File imagem = new File(caminhoImagem);
-            file.transferTo(imagem); // Salva o arquivo no servidor
+
+            // Cria o diretório se ele não existir
+            if (!imagem.exists()) {
+                imagem.getParentFile().mkdirs();
+            }
+
+            // Salva o arquivo no servidor
+            file.transferTo(imagem);
 
             // Atualiza o caminho da imagem no perfil do usuário
-            usuarioService.atualizarFotoPerfil(usuarioLogado, "/images/" + file.getOriginalFilename());
+            usuarioService.atualizarFotoPerfil(usuarioLogado, "/uploads/" + file.getOriginalFilename());
         }
 
         return "redirect:/perfil"; // Redireciona de volta para o perfil

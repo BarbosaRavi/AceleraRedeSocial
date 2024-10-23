@@ -37,18 +37,20 @@
                 <a href="configuracoes" class="botaoesq">Configurações</a>
             </nav>
         </aside>
-
         <section class="community-section">
             <div class="new-community">
                 <h2>Criar Nova Comunidade</h2>
-                <form id="createCommunityForm" onsubmit="criarComunidade(); return false;">
-                    <input type="text" id="communityName" placeholder="Nome da Comunidade" required>
-                    <textarea id="communityDescription" placeholder="Descrição da Comunidade" required></textarea>
-                    <input type="file" id="communityImage" accept="image/*" required>
-                    <button type="submit">Criar Comunidade</button>
-                </form>
-            </div>
-
+               <form id="createCommunityForm" onsubmit="criarComunidade(); return false;">
+    <input type="text" id="communityName" placeholder="Nome da Comunidade" required>
+    <textarea id="communityDescription" placeholder="Descrição da Comunidade" required></textarea>
+    <div class="button-container">
+        <label for="communityImage" class="custom-file-upload">Escolher Imagem
+            <input type="file" id="communityImage" accept="image/*" required>
+        </label>
+        <button type="submit">Criar Comunidade</button>
+    </div>
+</form>
+</div>
             <div class="community-list">
                 <h2>Comunidades</h2>
                 <ul id="communityList">
@@ -57,10 +59,6 @@
             </div>
         </section>
     </div>
-
-    <footer>
-        <p>&copy; 2024 Nameless Network. Todos os direitos reservados.</p>
-    </footer>
 
     <script src="js/comunidades.js"></script>
 </body>

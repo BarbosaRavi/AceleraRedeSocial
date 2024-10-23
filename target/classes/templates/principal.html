@@ -12,7 +12,7 @@
     <header>
         <div class="logo">
             <img src="https://cdn.pixabay.com/photo/2016/11/07/13/04/yoga-1805784_1280.png" class="logo-img">
-            <h1>Nameless</h1>
+            <h1>Rede Social</h1>
         </div>
         <nav>
             <div class="search-container">
@@ -52,6 +52,22 @@
 
             <div id="posts" class="posts">
                 <!-- As publicações aparecerão aqui dinamicamente -->
+                <div class="post">
+                    <div class="post-header">
+                        <strong>Nome do Autor da Publicação</strong>
+                    </div>
+                    <div class="post-content">
+                        Este é o conteúdo da publicação.
+                    </div>
+                    <div class="comments">
+                        <div class="comment">
+                            <strong>Nome do Usuário 1</strong>: Este é o texto do comentário.
+                        </div>
+                        <div class="comment">
+                            <strong>Nome do Usuário 2</strong>: Este é outro comentário.
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -65,19 +81,7 @@
         </aside>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Nameless Network. Todos os direitos reservados.</p>
-    </footer>
-
     <script src="js/publicacaoscript.js"></script>
     <script src="js/script.js"></script>
-    <script>
-        // Verifica se há uma imagem de perfil armazenada no localStorage
-        const fotoPerfilArmazenada = localStorage.getItem('fotoPerfil');
-        const profilePhotoMain = document.getElementById('profilePhotoMain');
-        if (fotoPerfilArmazenada) {
-            profilePhotoMain.src = fotoPerfilArmazenada; // Define a imagem armazenada como src
-        }
-    </script>
 </body>
 </html>

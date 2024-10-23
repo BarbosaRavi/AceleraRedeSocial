@@ -1,91 +1,93 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #0f0c25;
+    background: linear-gradient(135deg, #6262f0, #16213e);
     color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
-
+ 
 a {
     text-decoration: none;
-    color: aquamarine;
+    color: #66ff66;
 }
-
+ 
 #login {
     text-align: center;
     justify-content: center;
     align-items: center;
-    display: flex;
-    flex-direction: row;
 }
-
-.name input {
-    border-radius: 15px;
+ 
+.name input, .email input, .senha input {
+    border-radius: 20px;
     border: none;
-    width: 250px;
-    height: 40px;
+    width: 300px;
+    height: 45px;
     padding-left: 15px;
     background-color: #1e1c2e;
     color: #b6b6b6;
     margin-bottom: 15px;
+    transition: background-color 0.3s;
 }
-
-.email input {
-    border-radius: 15px;
-    border: none;
-    width: 250px;
-    height: 40px;
-    padding-left: 15px;
-    background-color: #1e1c2e;
-    color: #b6b6b6;
+ 
+.name input:focus, .email input:focus, .senha input:focus {
+    background-color: #2a2a4d;
 }
 
 .datanasc input {
-    border-radius: 15px;
-    border: none;
-    width: 250px;
-    height: 40px;
-    padding-left: 15px;
-    background-color: #1e1c2e;
-    color: #b6b6b6;
-    margin-top: 15px;
-}
-
-.senha input {
-    border-radius: 15px;
-    border: none;
-    width: 250px;
-    height: 40px;
-    padding-left: 15px;
-    background-color: #1e1c2e;
-    color: #b6b6b6;
-    margin-top: 15px;
-}
-
-.entrar input {
-    cursor: pointer;
-    width: 120px;
-    height: 40px;
     border-radius: 20px;
     border: none;
-    background-color: rgb(134, 243, 134);
-    color: #141414;
+    width: 300px;
+    height: 45px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
 }
-
+ 
+.entrar input {
+    cursor: pointer;
+    width: 130px;
+    height: 45px;
+    border-radius: 25px;
+    border: none;
+    background-color: #66ff66;
+    color: #141414;
+    transition: background-color 0.3s;
+}
+ 
+.entrar input:hover {
+    background-color: #4dbf4d;
+}
+ 
 input::placeholder {
     color: #b6b6b6;
 }
-
+ 
 h1 {
     color: #FAFAFA;
 }
-
+ 
 .caixa {
-    margin-top: 65px;
+    margin-top: 20px;
+    padding: 40px;
+    background-color: rgba(30, 28, 46, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
-
+ 
 .caixa img {
     width: 115px;
 }
-
+ 
 input:focus {
     outline: none;
 }
+ 
+p {
+    margin: 10px 0;
+}
+ 

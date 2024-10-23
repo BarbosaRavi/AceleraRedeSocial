@@ -40,7 +40,7 @@
             <div class="profile-info">
                 <!-- Foto de perfil -->
                 <a href="/perfil">
-                    <img th:src="${fotoPerfil}" alt="Foto de Perfil" id="profilePhoto" class="profile-photo">
+                  <img th:src="${fotoPerfil != null ? fotoPerfil : 'https://cdn-icons-png.flaticon.com/512/17/17004.png'}" alt="Foto de Perfil" id="profilePhoto" class="profile-photo">
                 </a>
                 
                 <!-- Formulário para alterar a foto do perfil -->

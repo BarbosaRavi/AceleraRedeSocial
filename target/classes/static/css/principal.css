@@ -1,16 +1,15 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #6262f0, #16213e);
+    color: #000000;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
 }
-
 
 /* Cabeçalho */
 header {
-    background-color: #0f0c25;
-    color: white;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     padding: 0.1 rem; /* Responsividade */
     display: flex;
     justify-content: space-between;
@@ -103,11 +102,16 @@ header .user-settings {
 /* Barra Lateral Esquerda (Perfil) */
 .left-sidebar {
     flex: 1;
-    max-width: 200px;
+    max-width: 250px;
     background-color: white;
     padding: 2rem; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;  /* Fixa a sidebar na tela */
+    top: 65px;           /* Fica no topo da tela */
+    left: 40px;          /* Fica à esquerda da tela */
+    width: 230px;     /* Largura fixa da sidebar */
+    height: 50vh;  
 }
 
 .left-sidebar .profile-info {
@@ -115,10 +119,12 @@ header .user-settings {
 }
 
 .left-sidebar img {
-    width: 60%;
-    border-radius: 50%;
-    margin-bottom: 1rem; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px; /* Tamanho da imagem de perfil */
+    height: 150px;
+    border-radius: 50%; /* Formato redondo */
+    object-fit: cover; /* Redimensiona a imagem mantendo a proporção */
+    border: 2px solid #ffffff; /* Borda branca */
+    margin-bottom: 1rem;
 }
 
 .left-sidebar h3 {  
@@ -129,8 +135,8 @@ header .user-settings {
 .botaoesq {
     margin-top: 1rem; 
     text-decoration: none;
-    color: white;
-    background-color: #0f0c25;
+    color: rgb(255, 255, 255);
+    background-color:   #000000;
     font-size: 1rem;
     padding: 0.75rem 1rem; 
     display: block; /* Para colocar um embaixo do outro */
@@ -139,7 +145,7 @@ header .user-settings {
 }
 
 .botaoesq:hover {
-    background-color: #0f0c25;
+    background-color: #675ba9;
     transform: scale(1.05);
 }
 
@@ -184,8 +190,8 @@ header .user-settings {
 .new-post button {
     margin-top: 1rem; 
     padding: 0.75rem 1.5rem; 
-    background-color: #0f0c25;
-    color: white;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -195,7 +201,7 @@ header .user-settings {
 }
 
 .new-post button:hover {
-    background-color: #0f0c25;
+    background-color: #000000;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -242,17 +248,22 @@ header .user-settings {
 /* Barra da Lateral Direita */
 .sidebar {
     flex: 1;
-    max-width: 280px;
+    max-width: 230px;
     background-color: white;
     padding: 2rem; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;  /* Fixa a sidebar na tela */
+    top: 65px;           /* Fica no topo da tela */
+    right: 40px;          /* Fica à esquerda da tela */
+    width: 230px;     /* Largura fixa da sidebar */
+    height: 50vh;  
 }
 
 .sidebar h2 {
     margin-top: 0;
     font-size: 1.5rem; 
-    color: #0f0c25;
+    color: #000000;
 }
 
 .sidebar ul {
@@ -266,23 +277,11 @@ header .user-settings {
     padding: 0.75rem; 
     background-color: #f5f3ff;
     border-radius: 5px;
-    transition: background-color 0.3s;
+        transition: background-color 0.3s;
 }
 
 .sidebar ul li:hover {
     background-color: #f0f0f0;
-}
-
-/* Rodapé */
-footer {
-    text-align: center;
-    padding: 0.1rem; 
-    background-color: #0f0c25;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -372,7 +371,4 @@ nav ul li a:hover {
         margin: 0; 
     }
     
-    footer {
-        font-size: 0.9rem; 
-    }
 }
