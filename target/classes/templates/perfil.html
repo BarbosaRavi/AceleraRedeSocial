@@ -19,53 +19,67 @@
 </head>
 <body>
 
-    <header>
-        <div class="logo" onclick="window.location.href='/principal'">
-            <img src="https://cdn.pixabay.com/photo/2016/11/07/13/04/yoga-1805784_1280.png" class="logo-img" alt="Logo">
-            <h1>Rede Social</h1>
-        </div>
-        <div class="user-settings">
-            <span>Bem-vindo, <span th:text="${usuario.nome}"></span>!</span>
-            <a href="/logout">Sair</a>
-        </div>
-    </header>
+<header>
+    <div class="logo" onclick="window.location.href='/principal'">
+        <img src="https://cdn.pixabay.com/photo/2016/11/07/13/04/yoga-1805784_1280.png" class="logo-img" alt="Logo">
+        <h1>Rede Social</h1>
+    </div>
+    <div class="user-settings">
+        <span>Bem-vindo, <span th:text="${usuario.nome}"></span>!</span>
+        <a href="/logout">Sair</a>
+    </div>
+</header>
 
-    <div class="container">
-        <div class="profile-container">
-            <div class="profile-info">
-                <a href="/perfil">
-                   <img id="profilePhotoMain" src="${imagemPerfil != null ? imagemPerfil : 'cac2'}" alt="Foto de perfil do usuário" onclick="window.location.href='/perfil'">
-                </a>
-                
-                <form action="/perfil/atualizarFoto" method="post" enctype="multipart/form-data">
-                    <input type="file" class="foto-perfil" name="fotoPerfil" accept="image/*" id="fotoPerfilInput">
-                    <label for="fotoPerfilInput" class="custom-button">Escolher Foto</label>
-                </form>
-                    
-                <a href="/perfil">  
-                    <h3 th:text="${usuario.nome}"></h3>
-                </a>
-                
-                <form action="/perfil/salvarBio" method="post">
-                    <textarea name="bio" class="bio-input" placeholder="Escreva sua bio..." th:text="${usuario.bio}"></textarea>
-                    <button type="submit" class="save-button">Salvar Alterações</button>
-                </form>
-            </div>
+<div class="container">
+    <div class="profile-container">
+        <div class="profile-info">
+            <a href="/perfil">
+                <img th:src="${fotoPerfil != null ? fotoPerfil : '/images/default-profile.png'}" alt="Foto de Perfil" id="profilePhoto" class="profile-photo">
+            </a>
+            
+            <form action="/perfil/atualizarFoto" method="post" enctype="multipart/form-data" id="uploadForm">
+                <input type="file" class="foto-perfil" name="fotoPerfil" accept="image/*" id="fotoPerfilInput" onchange="previewImage();">
+                <label for="fotoPerfilInput" class="custom-button">Escolher Foto</label>
+            </form>
+            
+            <a href="/perfil">  
+                <h3 th:text="${usuario.nome}"></h3>
+            </a>
+            
+            <form action="/perfil/salvarBio" method="post">
+                <textarea name="bio" class="bio-input" placeholder="Escreva sua bio..." th:text="${usuario.bio}" id="bioInput"></textarea>
+                <button type="submit" class="save-button">Salvar Alterações</button>
+            </form>
         </div>
-
-        <div class="feed-container">
-            <h2>Publicações de <span th:text="${usuario.nome}"></span></h2>
-            <ul class="publication-list">
-                <li class="publication-item" th:each="publicacao : ${publicacoes}">
-                    <p th:text="${publicacao.conteudo}"></p>
-                    <small th:text="${publicacao.dataHora}">Data da publicação</small>
-                </li>
-            </ul>
-        </div>
-        
     </div>
 
-    <script src="/js/perfilscript.js"></script>
+    <div class="feed-container">
+        <h2>Publicações de <span th:text="${usuario.nome}"></span></h2>
+        <ul class="publication-list">
+            <li class="publication-item" th:each="publicacao : ${publicacoes}">
+                <p th:text="${publicacao.conteudo}"></p>
+                <small th:text="${publicacao.dataHora}">Data da publicação</small>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    function previewImage() {
+        const fotoInput = document.getElementById('fotoPerfilInput');
+        const profilePhoto = document.getElementById('profilePhoto');
+
+        if (fotoInput.files && fotoInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                profilePhoto.src = e.target.result; // Atualiza a imagem exibida
+            }
+
+            reader.readAsDataURL(fotoInput.files[0]); // Lê o arquivo como Data URL
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -25,7 +25,6 @@ public class PerfilController {
             return "redirect:/login"; // Redireciona para o login se não estiver logado
         }
 
-        // Verifica se o usuário tem uma foto de perfil, caso contrário, define um placeholder
         String fotoPerfil = usuarioLogado.getFotoPerfil() != null ? usuarioLogado.getFotoPerfil() : "/images/default-profile.png";
         model.addAttribute("fotoPerfil", fotoPerfil);
         model.addAttribute("usuario", usuarioLogado); // Passa o usuário logado para o template
@@ -33,15 +32,20 @@ public class PerfilController {
         return "perfil"; // Retorna a página de perfil
     }
 
-    // Atualiza a foto de perfil
-    @PostMapping("/atualizarFoto")
-    public String atualizarFotoPerfil(@RequestParam("fotoPerfil") MultipartFile file,
-                                      @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) throws IOException {
+    // Atualiza a foto de perfil e a bio ao mesmo tempo
+    @PostMapping("/salvarBio")
+    public String salvarBio(@RequestParam("bio") String bio,
+                            @RequestParam(value = "fotoPerfil", required = false) MultipartFile file,
+                            @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) throws IOException {
         if (usuarioLogado == null) {
             return "redirect:/login";
         }
 
-        if (!file.isEmpty()) {
+        // Atualiza a bio do usuário
+        usuarioLogado.setBio(bio);
+
+        // Se uma nova foto for enviada, atualiza a foto de perfil
+        if (file != null && !file.isEmpty()) {
             String diretorio = "uploads/";
             String nomeArquivo = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             File imagem = new File(diretorio + nomeArquivo);
@@ -56,26 +60,9 @@ public class PerfilController {
 
             // Atualiza o caminho da imagem no perfil do usuário
             usuarioLogado.setFotoPerfil("/uploads/" + nomeArquivo);
-            usuarioService.atualizarUsuario(usuarioLogado);
-            
-            System.out.println("Salvando imagem em: " + imagem.getAbsolutePath());
         }
 
-        return "redirect:/perfil"; // Redireciona de volta para o perfil
-    }
-
-    // Salva a bio do usuário
-    @PostMapping("/salvarBio")
-    public String salvarBio(@RequestParam("bio") String bio,
-                            @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
-        if (usuarioLogado == null) {
-            return "redirect:/login";
-        }
-
-        // Atualiza a bio do usuário
-        usuarioLogado.setBio(bio);
         usuarioService.atualizarUsuario(usuarioLogado);
-
         return "redirect:/perfil"; // Redireciona de volta para o perfil
     }
 }
