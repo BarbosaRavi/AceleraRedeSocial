@@ -67,16 +67,11 @@ public class UsuarioService {
     public void atualizarUsuario(Usuario usuarioAtualizado) {
         for (int i = 0; i < usuariosCadastrados.size(); i++) {
             Usuario usuario = usuariosCadastrados.get(i);
-            if (usuario.getEmail().equalsIgnoreCase(usuarioAtualizado.getEmail())) {
+            if (usuario.getId().equals(usuarioAtualizado.getId())) { // Use o ID para atualizar
                 usuariosCadastrados.set(i, usuarioAtualizado);
                 return;
             }
         }
-    }
-
-    // Método para atualizar a foto de perfil de um usuário
-    public void atualizarFotoPerfil(Usuario usuario, String novaFotoPerfil) {
-        usuario.setFotoPerfil(novaFotoPerfil);
     }
 
     // Método para deletar um usuário pelo ID

@@ -42,12 +42,12 @@ public class PerfilController {
         }
 
         if (!file.isEmpty()) {
-            // Diretório onde as imagens de perfil serão salvas
-            String caminhoImagem = "uploads/" + file.getOriginalFilename();
-            File imagem = new File(caminhoImagem);
+            String diretorio = "uploads/";
+            String nomeArquivo = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            File imagem = new File(diretorio + nomeArquivo);
 
-            // Cria o diretório se ele não existir
-            if (!imagem.exists()) {
+            // Cria o diretório se não existir
+            if (!imagem.getParentFile().exists()) {
                 imagem.getParentFile().mkdirs();
             }
 
@@ -55,8 +55,26 @@ public class PerfilController {
             file.transferTo(imagem);
 
             // Atualiza o caminho da imagem no perfil do usuário
-            usuarioService.atualizarFotoPerfil(usuarioLogado, "/uploads/" + file.getOriginalFilename());
+            usuarioLogado.setFotoPerfil("/uploads/" + nomeArquivo);
+            usuarioService.atualizarUsuario(usuarioLogado);
+            
+            System.out.println("Salvando imagem em: " + imagem.getAbsolutePath());
         }
+
+        return "redirect:/perfil"; // Redireciona de volta para o perfil
+    }
+
+    // Salva a bio do usuário
+    @PostMapping("/salvarBio")
+    public String salvarBio(@RequestParam("bio") String bio,
+                            @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+        if (usuarioLogado == null) {
+            return "redirect:/login";
+        }
+
+        // Atualiza a bio do usuário
+        usuarioLogado.setBio(bio);
+        usuarioService.atualizarUsuario(usuarioLogado);
 
         return "redirect:/perfil"; // Redireciona de volta para o perfil
     }

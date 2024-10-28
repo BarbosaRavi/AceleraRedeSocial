@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ao selecionar um arquivo, atualiza a imagem de perfil
     fotoInput.addEventListener('change', function() {
         if (this.files && this.files[0]) {
+            // Verifica se o arquivo é uma imagem
+            if (!this.files[0].type.startsWith('image/')) {
+                alert('Por favor, selecione um arquivo de imagem.');
+                this.value = ''; // Limpa o input
+                return;
+            }
+
             const reader = new FileReader();
 
             reader.onload = function(e) {

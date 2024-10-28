@@ -19,7 +19,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String exibirFormularioLogin(Model model) {
-        model.addAttribute("usuario", new Usuario(null, null, null, null, null));
+        model.addAttribute("usuario", new Usuario(null, null, null, null, null, null));
         return "login"; // Retorna a página de login
     }
 

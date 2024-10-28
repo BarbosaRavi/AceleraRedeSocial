@@ -17,7 +17,7 @@ public class CadastroController {
 
     @GetMapping("/cadastro")
     public String exibirFormularioCadastro(Model model) {
-        model.addAttribute("usuario", new Usuario(null, null, null, null, null));
+        model.addAttribute("usuario", new Usuario(null, null, null, null, null, null));
         return "cadastro";
     }
 
