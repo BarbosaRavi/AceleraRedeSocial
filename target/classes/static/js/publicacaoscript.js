@@ -50,7 +50,8 @@ function loadPosts() {
             const tempoPassado = dataHora.split(")")[0]; // Extraindo apenas o tempo
             const likesCount = parseInt(conteudoComData.split(" - ")[1]) || 0; // Contagem de curtidas
 
-            postsData.push({ usuario, conteudo, tempoPassado, likes: likesCount, liked: false, comments: [] }); // Armazena dados do post
+            // Aqui você deve adicionar a atribuição do ID correto da publicação
+            postsData.push({ id: index + 1, usuario, conteudo, tempoPassado, likes: likesCount, liked: false, comments: [] }); // Armazena dados do post
         });
 
         postsData.forEach((postData, index) => {
@@ -131,8 +132,11 @@ function renderComments(postIndex) {
 function toggleLike(postIndex) {
     const post = postsData[postIndex];
 
+    // Use o ID da publicação em vez do índice
+    const postId = post.id; // Assumindo que você adicionou o ID nas publicações
+
     if (post.liked) {
-        fetch(`/publicacoes/${postIndex}/descurtir`, {
+        fetch(`/publicacoes/${postId}/descurtir`, {
             method: "POST"
         })
         .then(response => {
@@ -149,7 +153,7 @@ function toggleLike(postIndex) {
             alert("Erro ao descurtir a publicação.");
         });
     } else {
-        fetch(`/publicacoes/${postIndex}/curtir`, {
+        fetch(`/publicacoes/${postId}/curtir`, {
             method: "POST"
         })
         .then(response => {

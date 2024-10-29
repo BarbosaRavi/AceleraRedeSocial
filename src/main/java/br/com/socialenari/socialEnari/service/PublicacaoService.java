@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class PublicacaoService {
-
     private List<Publicacao> publicacoes = new LinkedList<>(); // Lista de publicações
     private List<Like> likes = new ArrayList<>(); // Lista de likes (curtidas)
 
@@ -25,17 +24,6 @@ public class PublicacaoService {
     // Método para obter todas as publicações
     public List<Publicacao> obterPublicacoes() {
         return publicacoes;
-    }
-
-    // Método para obter todas as publicações de um usuário específico
-    public List<Publicacao> obterPublicacoesPorUsuario(String usuario) {
-        List<Publicacao> publicacoesUsuario = new ArrayList<>();
-        for (Publicacao publicacao : publicacoes) {
-            if (publicacao.getUsuario().equals(usuario)) {
-                publicacoesUsuario.add(publicacao);
-            }
-        }
-        return publicacoesUsuario;
     }
 
     // Método para curtir ou descurtir uma publicação
@@ -75,6 +63,18 @@ public class PublicacaoService {
         return likesDaPublicacao;
     }
 
+    // Método para formatar a exibição das publicações com tempo decorrido
+    public List<String> formatarPublicacoes() {
+        List<String> publicacoesFormatadas = new ArrayList<>();
+        for (Publicacao pub : publicacoes) {
+            String tempoPassado = calcularTempoPassado(pub.getDataHora());
+            int totalCurtidas = getLikes(pub.getId()).size(); // Conta as curtidas corretamente
+            String publicacaoFormatada = pub.getUsuario() + ": " + pub.getConteudo() + " (" + tempoPassado + ")";
+            publicacoesFormatadas.add(publicacaoFormatada + " - " + totalCurtidas + " curtidas"); // Adiciona as curtidas separadamente
+        }
+        return publicacoesFormatadas;
+    }
+
     // Método para calcular o tempo decorrido desde a publicação
     private String calcularTempoPassado(LocalDateTime dataPublicacao) {
         LocalDateTime agora = LocalDateTime.now();
@@ -94,17 +94,5 @@ public class PublicacaoService {
         } else {
             return segundos + " segundos atrás";
         }
-    }
-
-    // Método para formatar a exibição das publicações com tempo decorrido
-    public List<String> formatarPublicacoes() {
-        List<String> publicacoesFormatadas = new ArrayList<>();
-        for (Publicacao pub : publicacoes) {
-            String tempoPassado = calcularTempoPassado(pub.getDataHora());
-            int totalCurtidas = getLikes(pub.getId()).size(); // Conta as curtidas corretamente
-            String publicacaoFormatada = pub.getUsuario() + ": " + pub.getConteudo() + " (" + tempoPassado + ")";
-            publicacoesFormatadas.add(publicacaoFormatada + " - " + totalCurtidas + " curtidas"); // Adiciona as curtidas separadamente
-        }
-        return publicacoesFormatadas;
     }
 }
