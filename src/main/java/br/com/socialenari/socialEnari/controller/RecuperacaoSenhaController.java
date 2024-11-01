@@ -54,18 +54,18 @@ public class RecuperacaoSenhaController {
 
         if (email == null) {
             model.addAttribute("mensagem", "Sessão expirada. Por favor, inicie o processo de recuperação novamente.");
-            return "recuperacao";  
+            return "recuperacao";  // Retorna ao formulário de recuperação
         }
 
         CodigoRecuperacao codigoRecuperacao = codigosRecuperacao.get(email);
         if (codigoRecuperacao != null && codigoRecuperacao.getCodigo().equals(codigo) &&
                 System.currentTimeMillis() <= codigoRecuperacao.getExpiracao()) {
             model.addAttribute("email", email);
-            return "trocarSenha"; 
+            return "trocarSenha";  // Redireciona para a página de troca de senha
         } else {
-            model.addAttribute("erro", "Código inválido ou expirado.");  
-            model.addAttribute("email", email); 
-            return "confirmarCodigo"; 
+            model.addAttribute("erro", "Código inválido ou expirado.");  // Mensagem de erro
+            model.addAttribute("email", email);  // Mantém o email no modelo
+            return "confirmarCodigo";  // Retorna para a mesma página de confirmação
         }
     }
 

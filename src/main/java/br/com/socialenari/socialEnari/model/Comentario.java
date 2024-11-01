@@ -3,7 +3,7 @@ package br.com.socialenari.socialEnari.model;
 import java.util.UUID;
 
 public class Comentario {
-    private UUID id;
+    private UUID id; // ID do comentário
     private String conteudo;
     private Usuario usuario;
     private int publicacaoId;

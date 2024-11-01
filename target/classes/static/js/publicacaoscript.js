@@ -50,6 +50,7 @@ function loadPosts() {
             const tempoPassado = dataHora.split(")")[0]; // Extraindo apenas o tempo
             const likesCount = parseInt(conteudoComData.split(" - ")[1]) || 0; // Contagem de curtidas
 
+            // Aqui você deve adicionar a atribuição do ID correto da publicação
             postsData.push({ id: index + 1, usuario, conteudo, tempoPassado, likes: likesCount, liked: false, comments: [] }); // Armazena dados do post
         });
 
@@ -141,11 +142,15 @@ function toggleLike(postIndex) {
         .then(response => {
             if (response.ok) {
                 post.likes--; // Decrementa a contagem de curtidas
-                post.liked = false; // Altera o status de curtida
-                loadPosts(); // Recarrega posts
+                post.liked = false; // Marca como não curtido
             } else {
-                alert("Erro ao descurtir a postagem.");
+                alert("Erro ao descurtir a publicação.");
             }
+            loadPosts(); // Recarrega as publicações para refletir as alterações
+        })
+        .catch(error => {
+            console.error("Erro ao descurtir a publicação:", error);
+            alert("Erro ao descurtir a publicação.");
         });
     } else {
         fetch(`/publicacoes/${postId}/curtir`, {
@@ -154,16 +159,18 @@ function toggleLike(postIndex) {
         .then(response => {
             if (response.ok) {
                 post.likes++; // Incrementa a contagem de curtidas
-                post.liked = true; // Altera o status de curtida
-                loadPosts(); // Recarrega posts
+                post.liked = true; // Marca como curtido
             } else {
-                alert("Erro ao curtir a postagem.");
+                alert("Erro ao curtir a publicação.");
             }
+            loadPosts(); // Recarrega as publicações para refletir as alterações
+        })
+        .catch(error => {
+            console.error("Erro ao curtir a publicação:", error);
+            alert("Erro ao curtir a publicação.");
         });
     }
 }
 
-// Carrega as publicações ao carregar a página
-window.onload = function() {
-    loadPosts();
-};
+// Carrega as publicações automaticamente ao carregar a página
+document.addEventListener("DOMContentLoaded", loadPosts);

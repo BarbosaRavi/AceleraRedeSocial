@@ -11,7 +11,7 @@ public class PrincipalController {
 
     @GetMapping("/principal")
     public String exibirPaginaPrincipal(@SessionAttribute("usuarioLogado") Usuario usuarioLogado, Model model) {
-        model.addAttribute("nomeUsuario", usuarioLogado.getNome());
-        return "principal";
+        model.addAttribute("nomeUsuario", usuarioLogado.getNome()); // Passando o nome do usuário para o frontend
+        return "principal"; // Carrega o template HTML principal
     }
 }

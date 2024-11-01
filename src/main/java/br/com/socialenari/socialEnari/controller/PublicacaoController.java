@@ -17,36 +17,35 @@ public class PublicacaoController {
     private PublicacaoService publicacaoService;
 
     @PostMapping
-    public ResponseEntity<String> criarPublicacao(@RequestBody String conteudo, 
-                                                  @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+    public ResponseEntity<String> criarPublicacao(@RequestBody String conteudo, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
         if (usuarioLogado == null) {
             return ResponseEntity.status(401).body("Usuário não autenticado.");
         }
 
-        publicacaoService.criarPublicacao(usuarioLogado, conteudo); // Passando o objeto Usuario
+        publicacaoService.criarPublicacao(usuarioLogado, conteudo); // Passa o objeto Usuario
         return ResponseEntity.ok("Publicação criada com sucesso.");
     }
 
+
     @GetMapping
-    public ResponseEntity<List<String>> listarPublicacoes() {
+    public ResponseEntity<String> listarPublicacoes() {
         List<String> publicacoes = publicacaoService.formatarPublicacoes();
-        return ResponseEntity.ok(publicacoes);
+        return ResponseEntity.ok(String.join("\n", publicacoes));
     }
 
     @PostMapping("/{id}/curtir")
-    public ResponseEntity<String> curtirPublicacao(@PathVariable int id, 
-                                                   @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+    public ResponseEntity<String> curtirPublicacao(@PathVariable int id, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
         if (usuarioLogado == null) {
             return ResponseEntity.status(401).body("Usuário não autenticado.");
         }
 
-        publicacaoService.curtirPublicacao(id, usuarioLogado.getNome()); // Passando o nome do usuário
+        publicacaoService.curtirPublicacao(id, usuarioLogado.getNome());
         return ResponseEntity.ok("Publicação curtida/descurtida com sucesso.");
     }
 
     @GetMapping("/{id}/likes")
     public ResponseEntity<List<Like>> listarCurtidas(@PathVariable int id) {
         List<Like> curtidas = publicacaoService.getLikes(id);
-        return ResponseEntity.ok(curtidas); // Retorna a lista de curtidas
+        return curtidas != null ? ResponseEntity.ok(curtidas) : ResponseEntity.status(404).build();
     }
 }
