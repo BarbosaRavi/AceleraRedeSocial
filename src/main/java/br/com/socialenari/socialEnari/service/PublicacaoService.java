@@ -2,6 +2,7 @@ package br.com.socialenari.socialEnari.service;
 
 import br.com.socialenari.socialEnari.model.Publicacao;
 import br.com.socialenari.socialEnari.model.Like;
+import br.com.socialenari.socialEnari.model.Usuario; // Importar a classe Usuario
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -15,7 +16,7 @@ public class PublicacaoService {
     private List<Publicacao> publicacoes = new LinkedList<>();
     private List<Like> likes = new ArrayList<>();
 
-    public void criarPublicacao(String usuario, String conteudo) {
+    public void criarPublicacao(Usuario usuario, String conteudo) { // Mude o parâmetro para Usuario
         Publicacao novaPublicacao = new Publicacao(usuario, conteudo, LocalDateTime.now());
         publicacoes.add(novaPublicacao);
     }
@@ -59,10 +60,11 @@ public class PublicacaoService {
     public List<String> formatarPublicacoes() {
         List<String> publicacoesFormatadas = new ArrayList<>();
         for (Publicacao pub : publicacoes) {
+            String usuarioId = pub.getUsuario().getId().toString();
             String tempoPassado = calcularTempoPassado(pub.getDataHora());
             int totalCurtidas = getLikes(pub.getId()).size();
-            // Link para o perfil do usuário
-            String publicacaoFormatada = "<a href=\"/usuarios/" + pub.getUsuario() + "\">" + pub.getUsuario() + "</a>: " 
+
+            String publicacaoFormatada = "<a href=/perfil/" + usuarioId + ">" + pub.getUsuario().getNome() + "</a>: " 
                                           + pub.getConteudo() + " (" + tempoPassado + ")";
             publicacoesFormatadas.add(publicacaoFormatada + " - " + totalCurtidas + " curtidas");
         }

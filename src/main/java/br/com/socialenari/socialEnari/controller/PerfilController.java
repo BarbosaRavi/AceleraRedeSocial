@@ -19,37 +19,37 @@ public class PerfilController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // Página de perfil do usuário logado
+    // Exibe o perfil do usuário logado
     @GetMapping
     public String mostrarPerfil(@SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado, Model model) {
         if (usuarioLogado == null) {
-            return "redirect:/login"; // Redireciona para o login se não estiver logado
+            return "redirect:/login"; 
         }
 
         String fotoPerfil = usuarioLogado.getFotoPerfil() != null ? usuarioLogado.getFotoPerfil() : "/images/default-profile.png";
         model.addAttribute("fotoPerfil", fotoPerfil);
-        model.addAttribute("usuario", usuarioLogado); // Passa o usuário logado para o template
+        model.addAttribute("usuario", usuarioLogado);
 
-        return "perfil"; // Retorna a página de perfil
+        return "perfil";
     }
 
-    // Exibe o perfil de outro usuário específico (pelo ID)
+    // Exibe o perfil de outro usuário pelo UUID
     @GetMapping("/{id}")
     public String mostrarPerfilOutroUsuario(@PathVariable("id") UUID id, Model model) {
         Usuario usuario = usuarioService.buscarPorId(id);
 
         if (usuario == null) {
-            return "redirect:/"; // Redireciona para a página principal se o usuário não existir
+            return "redirect:/";  // Redireciona se o usuário não for encontrado
         }
 
         String fotoPerfil = usuario.getFotoPerfil() != null ? usuario.getFotoPerfil() : "/images/default-profile.png";
         model.addAttribute("fotoPerfil", fotoPerfil);
-        model.addAttribute("usuario", usuario); // Passa o usuário para o template
+        model.addAttribute("usuario", usuario); 
 
-        return "perfil"; // Retorna a página de perfil do outro usuário
+        return "perfil";
     }
 
-    // Atualiza a foto de perfil e a bio do usuário logado
+    // Atualiza a bio e a foto do perfil do usuário logado
     @PostMapping("/salvarBio")
     public String salvarBio(@RequestParam("bio") String bio,
                             @RequestParam(value = "fotoPerfil", required = false) MultipartFile file,
@@ -58,28 +58,23 @@ public class PerfilController {
             return "redirect:/login";
         }
 
-        // Atualiza a bio do usuário
         usuarioLogado.setBio(bio);
 
-        // Se uma nova foto for enviada, atualiza a foto de perfil
         if (file != null && !file.isEmpty()) {
             String diretorio = "uploads/";
             String nomeArquivo = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             File imagem = new File(diretorio + nomeArquivo);
 
-            // Cria o diretório se não existir
             if (!imagem.getParentFile().exists()) {
                 imagem.getParentFile().mkdirs();
             }
 
-            // Salva o arquivo no servidor
             file.transferTo(imagem);
 
-            // Atualiza o caminho da imagem no perfil do usuário
             usuarioLogado.setFotoPerfil("/uploads/" + nomeArquivo);
         }
 
         usuarioService.atualizarUsuario(usuarioLogado);
-        return "redirect:/perfil"; // Redireciona de volta para o perfil
+        return "redirect:/perfil"; 
     }
 }

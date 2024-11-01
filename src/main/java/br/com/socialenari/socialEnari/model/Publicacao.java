@@ -3,24 +3,24 @@ package br.com.socialenari.socialEnari.model;
 import java.time.LocalDateTime;
 
 public class Publicacao {
-    private static int contadorId = 0; // Contador para gerar IDs únicos
+    private static int contadorId = 0;
     private int id;
-    private String usuario;
+    private Usuario usuario;
     private String conteudo;
     private LocalDateTime dataHora;
 
-    public Publicacao(String usuario, String conteudo, LocalDateTime dataHora) {
-        this.id = ++contadorId; // Atribui um ID único a cada nova publicação
-        this.usuario = usuario;
+    public Publicacao(Usuario usuario2, String conteudo, LocalDateTime dataHora) {
+        this.id = ++contadorId;
+        this.usuario = usuario2;
         this.conteudo = conteudo;
         this.dataHora = dataHora;
     }
 
     public int getId() {
-        return id; // Retorna o ID da publicação
+        return id;
     }
 
-    public String getUsuario() {
+    public Usuario getUsuario() { // Mude o tipo de retorno para Usuario
         return usuario;
     }
 

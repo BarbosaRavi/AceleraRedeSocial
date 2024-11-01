@@ -12,7 +12,7 @@ public class Usuario {
     private String confirmeSenha;
     private LocalDate dataNascimento;
     private int idade;
-    private String fotoPerfil;  // Adiciona a foto de perfil
+    private String fotoPerfil;
     private String bio;
 
     public Usuario(String nome, String email, String senha, String confirmeSenha, LocalDate dataNascimento, String bio) {
@@ -23,8 +23,7 @@ public class Usuario {
         this.confirmeSenha = confirmeSenha;
         this.dataNascimento = dataNascimento;
         this.idade = idadeUtils.calcularIdade(dataNascimento);
-        this.fotoPerfil = "/images/default-profile.png";  // Inicialmente, atribui uma imagem padrão
-        this.setBio(bio);
+        this.fotoPerfil = "/images/default-profile.png";
     }
 
     // Getters e setters

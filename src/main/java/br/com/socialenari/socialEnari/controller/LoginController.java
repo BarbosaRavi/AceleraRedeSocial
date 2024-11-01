@@ -20,18 +20,18 @@ public class LoginController {
     @GetMapping("/login")
     public String exibirFormularioLogin(Model model) {
         model.addAttribute("usuario", new Usuario(null, null, null, null, null, null));
-        return "login"; // Retorna a página de login
+        return "login";
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute Usuario usuario, Model model) {
         Usuario usuarioCadastrado = usuarioService.buscarPorEmail(usuario.getEmail());
         if (usuarioCadastrado != null && usuarioCadastrado.getSenha().equals(usuario.getSenha())) {
-            model.addAttribute("usuarioLogado", usuarioCadastrado); // Armazenar usuário logado
-            return "redirect:/principal"; // Redireciona para a página principal
+            model.addAttribute("usuarioLogado", usuarioCadastrado); 
+            return "redirect:/principal";
         }
 
-        model.addAttribute("mensagem", "Email e/ou senha incorretos."); // Mensagem de erro
-        return "login"; // Retorna para a página de login em caso de falha
+        model.addAttribute("mensagem", "Email e/ou senha incorretos."); 
+        return "login"; 
     }
 }

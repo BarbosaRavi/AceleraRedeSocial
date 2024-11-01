@@ -32,6 +32,7 @@ public class CadastroController {
         model.addAttribute("mensagem", mensagem);
 
         if (mensagem.equals("Usuário cadastrado com sucesso!")) {
+        	System.out.println("Usuário criado: " + usuario.getNome() + " com UUID: " + usuario.getId());
             return "redirect:/login";
         }
 

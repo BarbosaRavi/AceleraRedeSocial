@@ -12,7 +12,7 @@ public class ComentarioService {
     private final List<Comentario> comentarios = new ArrayList<>();
 
     public void adicionarComentario(Comentario comentario) {
-        comentario.setId(UUID.randomUUID()); // Gerar um novo UUID para o comentário
+        comentario.setId(UUID.randomUUID());
         comentarios.add(comentario);
     }
 

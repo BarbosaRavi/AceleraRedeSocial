@@ -22,14 +22,14 @@ public class PublicacaoController {
             return ResponseEntity.status(401).body("Usuário não autenticado.");
         }
 
-        publicacaoService.criarPublicacao(usuarioLogado.getNome(), conteudo);
+        publicacaoService.criarPublicacao(usuarioLogado, conteudo); // Passando o objeto Usuario
         return ResponseEntity.ok("Publicação criada com sucesso.");
     }
 
     @GetMapping
-    public ResponseEntity<String> listarPublicacoes() {
+    public ResponseEntity<List<String>> listarPublicacoes() {
         List<String> publicacoes = publicacaoService.formatarPublicacoes();
-        return ResponseEntity.ok(String.join("\n", publicacoes));
+        return ResponseEntity.ok(publicacoes);
     }
 
     @PostMapping("/{id}/curtir")
@@ -38,13 +38,13 @@ public class PublicacaoController {
             return ResponseEntity.status(401).body("Usuário não autenticado.");
         }
 
-        publicacaoService.curtirPublicacao(id, usuarioLogado.getNome());
+        publicacaoService.curtirPublicacao(id, usuarioLogado.getNome()); // Passando o nome do usuário
         return ResponseEntity.ok("Publicação curtida/descurtida com sucesso.");
     }
 
     @GetMapping("/{id}/likes")
     public ResponseEntity<List<Like>> listarCurtidas(@PathVariable int id) {
         List<Like> curtidas = publicacaoService.getLikes(id);
-        return curtidas != null ? ResponseEntity.ok(curtidas) : ResponseEntity.status(404).build();
+        return ResponseEntity.ok(curtidas); // Retorna a lista de curtidas
     }
 }

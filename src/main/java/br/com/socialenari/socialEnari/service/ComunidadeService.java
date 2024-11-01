@@ -13,13 +13,11 @@ public class ComunidadeService {
 
     private List<Comunidade> comunidades = new ArrayList<>();
 
-    // Criar uma nova comunidade
     public void criarComunidade(String nome, String descricao, Usuario administrador) {
         Comunidade novaComunidade = new Comunidade(nome, descricao, administrador);
         comunidades.add(novaComunidade);
     }
 
-    // Listar todas as comunidades
     public List<Comunidade> listarComunidades() {
         return comunidades;
     }
