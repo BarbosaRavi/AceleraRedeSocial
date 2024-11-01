@@ -17,7 +17,8 @@ public class PublicacaoController {
     private PublicacaoService publicacaoService;
 
     @PostMapping
-    public ResponseEntity<String> criarPublicacao(@RequestBody String conteudo, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+    public ResponseEntity<String> criarPublicacao(@RequestBody String conteudo, 
+                                                  @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
         if (usuarioLogado == null) {
             return ResponseEntity.status(401).body("Usuário não autenticado.");
         }
@@ -33,7 +34,8 @@ public class PublicacaoController {
     }
 
     @PostMapping("/{id}/curtir")
-    public ResponseEntity<String> curtirPublicacao(@PathVariable int id, @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
+    public ResponseEntity<String> curtirPublicacao(@PathVariable int id, 
+                                                   @SessionAttribute(name = "usuarioLogado", required = false) Usuario usuarioLogado) {
         if (usuarioLogado == null) {
             return ResponseEntity.status(401).body("Usuário não autenticado.");
         }

@@ -2,7 +2,7 @@ package br.com.socialenari.socialEnari.service;
 
 import br.com.socialenari.socialEnari.model.Publicacao;
 import br.com.socialenari.socialEnari.model.Like;
-import br.com.socialenari.socialEnari.model.Usuario; // Importar a classe Usuario
+import br.com.socialenari.socialEnari.model.Usuario;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -16,13 +16,18 @@ public class PublicacaoService {
     private List<Publicacao> publicacoes = new LinkedList<>();
     private List<Like> likes = new ArrayList<>();
 
-    public void criarPublicacao(Usuario usuario, String conteudo) { // Mude o parâmetro para Usuario
+    public void criarPublicacao(Usuario usuario, String conteudo) {
         Publicacao novaPublicacao = new Publicacao(usuario, conteudo, LocalDateTime.now());
-        publicacoes.add(novaPublicacao);
+        publicacoes.add(novaPublicacao); // Adiciona a nova publicação à lista
+
+        // Log para depuração
+        System.out.println("Nova publicação criada: ID = " + novaPublicacao.getId() + 
+                           ", Conteúdo = " + conteudo + ", Usuário = " + usuario.getNome());
     }
 
     public List<Publicacao> obterPublicacoes() {
-        return publicacoes;
+        System.out.println("Obtendo publicações. Total de publicações: " + publicacoes.size());
+        return publicacoes; // Retorna todas as publicações
     }
 
     public void curtirPublicacao(int idPublicacao, String usuario) {
@@ -30,11 +35,13 @@ public class PublicacaoService {
 
         if (curtidaExistente != null) {
             likes.remove(curtidaExistente);
+            System.out.println("Curtida removida: Publicação ID = " + idPublicacao + ", Usuário = " + usuario);
         } else {
             Like novoLike = new Like();
             novoLike.setPublicacaoId(idPublicacao);
             novoLike.setUsuario(usuario);
             likes.add(novoLike);
+            System.out.println("Curtida adicionada: Publicação ID = " + idPublicacao + ", Usuário = " + usuario);
         }
     }
 
@@ -68,6 +75,9 @@ public class PublicacaoService {
                                           + pub.getConteudo() + " (" + tempoPassado + ")";
             publicacoesFormatadas.add(publicacaoFormatada + " - " + totalCurtidas + " curtidas");
         }
+
+        // Log para depuração
+        System.out.println("Total de publicações formatadas: " + publicacoesFormatadas.size());
         return publicacoesFormatadas;
     }
 
