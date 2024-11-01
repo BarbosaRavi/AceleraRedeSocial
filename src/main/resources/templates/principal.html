@@ -54,17 +54,12 @@
                 <!-- As publicações aparecerão aqui dinamicamente -->
                 <div class="post">
                     <div class="post-header">
-                        <strong>Nome do Autor da Publicação</strong>
+                        <strong th:text="${publicacao.autor}"></strong>
                     </div>
-                    <div class="post-content">
-                        Este é o conteúdo da publicação.
-                    </div>
+                    <div class="post-content" th:text="${publicacao.conteudo}"></div>
                     <div class="comments">
-                        <div class="comment">
-                            <strong>Nome do Usuário 1</strong>: Este é o texto do comentário.
-                        </div>
-                        <div class="comment">
-                            <strong>Nome do Usuário 2</strong>: Este é outro comentário.
+                        <div class="comment" th:each="comentario : ${publicacao.comentarios}">
+                            <strong th:text="${comentario.usuario.nome}"></strong>: <span th:text="${comentario.conteudo}"></span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +67,7 @@
         </section>
 
         <aside class="sidebar">
-            <h2>Sugestões de Amigos</h2>
+            <h2>Amigos</h2>
             <ul>
                 <li>Amigo 1</li>
                 <li>Amigo 2</li>

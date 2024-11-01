@@ -2,7 +2,6 @@ package br.com.socialenari.socialEnari.service;
 
 import br.com.socialenari.socialEnari.model.Comentario;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,5 +23,15 @@ public class ComentarioService {
             }
         }
         return comentariosPublicacao;
+    }
+
+    public List<String> formatarComentarios(List<Comentario> comentarios) {
+        List<String> comentariosFormatados = new ArrayList<>();
+        for (Comentario comentario : comentarios) {
+            String comentarioFormatado = "<a href=\"/perfil/" + comentario.getUsuario().getId() + "\">" + comentario.getUsuario().getNome() + "</a>: "
+                                          + comentario.getConteudo();
+            comentariosFormatados.add(comentarioFormatado);
+        }
+        return comentariosFormatados;
     }
 }

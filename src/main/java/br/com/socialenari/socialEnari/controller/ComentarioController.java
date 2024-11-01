@@ -4,6 +4,8 @@ import br.com.socialenari.socialEnari.model.Comentario;
 import br.com.socialenari.socialEnari.model.Usuario;
 import br.com.socialenari.socialEnari.service.ComentarioService;
 import br.com.socialenari.socialEnari.service.UsuarioService; // Importando o serviço de usuários
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,13 @@ public class ComentarioController {
     }
 
     @PostMapping("/adicionar")
-    public String adicionarComentario(@RequestParam String conteudo, 
-                                      @RequestParam int publicacaoId, 
+    public String adicionarComentario(@RequestParam String conteudo,
+                                      @RequestParam int publicacaoId,
                                       @RequestParam String usuarioEmail) {
         Usuario usuario = usuarioService.buscarPorEmail(usuarioEmail); // Busca o usuário pelo email
 
         if (usuario != null) {
-            Comentario comentario = new Comentario(null, conteudo, usuario, publicacaoId);
+            Comentario comentario = new Comentario(null, conteudo, usuario, publicacaoId, null);
             comentarioService.adicionarComentario(comentario);
             return "redirect:/publicacao/" + publicacaoId; // Redireciona para a publicação após adicionar o comentário
         } else {
@@ -39,5 +41,13 @@ public class ComentarioController {
     @ResponseBody
     public List<Comentario> listarComentarios(@PathVariable int publicacaoId) {
         return comentarioService.listarComentariosPorPublicacao(publicacaoId);
+    }
+
+    @GetMapping("/{publicacaoId}/formatados")
+    @ResponseBody
+    public ResponseEntity<List<String>> listarComentariosFormatados(@PathVariable int publicacaoId) {
+        List<Comentario> comentarios = comentarioService.listarComentariosPorPublicacao(publicacaoId);
+        List<String> comentariosFormatados = comentarioService.formatarComentarios(comentarios);
+        return ResponseEntity.ok(comentariosFormatados);
     }
 }
