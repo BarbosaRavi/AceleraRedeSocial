@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
 }
-
+ 
 /* Cabeçalho */
 header {
     background-color: #ffffff;
@@ -19,45 +19,45 @@ header {
     position: fixed;
     top: 0%;
 }
-
+ 
 header .logo h1 {
     margin: 0;
-    font-size: 1rem; 
+    font-size: 1rem;
 }
-
+ 
 header nav ul {
     list-style: none;
     display: flex;
-    gap: 2rem; 
+    gap: 2rem;
     padding: 0;
     margin: 0;
 }
-
+ 
 header nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
 }
-
+ 
 header nav ul li a:hover {
     color: #fcfcfc;
 }
-
+ 
 header .user-settings {
     font-weight: bold;
 }
-
+ 
 /* Layout Principal */
 .container {
     display: flex;
     flex-wrap: wrap; /* Para responsividade */
     justify-content: center;
-    padding: 0.8rem; 
+    padding: 0.8rem;
     gap: 2rem;
-    margin-top: 0.1rem; 
+    margin-top: 0.1rem;
 }
-
+ 
 /* Barra de Pesquisa */
 .search-container {
     display: flex;
@@ -66,10 +66,10 @@ header .user-settings {
     border-radius: 25px;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 0.15rem; 
-
+    padding: 0.15rem;
+ 
 }
-
+ 
 #search-input {
     flex: 1;
     border: none;
@@ -78,11 +78,11 @@ header .user-settings {
     font-size: 0.9rem;  
     outline: none;
 }
-
+ 
 #search-input::placeholder {
     color: #999;
 }
-
+ 
 #search-button {
     background-color: #ffffff;
     border: none;
@@ -95,19 +95,19 @@ header .user-settings {
     display: flex;
     justify-content: center;
 }
-
+ 
 #search-button img {
     width: 20px;
     height: 20px;
 }
-
-
+ 
+ 
 /* Barra Lateral Esquerda (Perfil) */
 .left-sidebar {
     flex: 1;
     max-width: 250px;
     background-color: white;
-    padding: 2rem; 
+    padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: fixed;  /* Fixa a sidebar na tela */
@@ -115,13 +115,13 @@ header .user-settings {
     left: 40px;          /* Fica à esquerda da tela */
     width: 230px;     /* Largura fixa da sidebar */
     height: 65vh;  
-    
+   
 }
-
+ 
 .left-sidebar .profile-info {
     text-align: center;
 }
-
+ 
 .left-sidebar img {
     width: 150px; /* Tamanho da imagem de perfil */
     height: 150px;
@@ -130,73 +130,73 @@ header .user-settings {
     border: 2px solid #ffffff; /* Borda branca */
     margin-bottom: 1rem;
 }
-
+ 
 .left-sidebar h3 {  
     margin: 0;
-    font-size: 1rem; 
+    font-size: 1rem;
 }
-
+ 
 .botaoesq {
-    margin-top: 1rem; 
+    margin-top: 1rem;
     text-decoration: none;
     color: rgb(255, 255, 255);
     background-color:   #003c6d;
     font-size: 1rem;
-    padding: 0.75rem 1rem; 
+    padding: 0.75rem 1rem;
     display: block; /* Para colocar um embaixo do outro */
     border-radius: 5px;
     transition: background-color 0.3s, transform 0.2s;
     font-weight: bold;
 }
-
+ 
 .botaoesq:hover {
     background-color: #675ba9;
     transform: scale(1.05);
 }
-
+ 
 .botaoesq:active {
     background-color: #0f0c25;
     transform: scale(0.95);
 }
-
+ 
 /* Feed de postagem dos usuários */
 .feed {
     flex: 3;
-    max-width: 850px;   
+    max-width: 850px;  
 }
-
+ 
 .new-post {
     margin-top: 3rem;
     background-color: white;
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.5rem; 
+    margin-bottom: 1.5rem;
 }
-
+ 
 .new-post textarea {
-    resize: none; 
-    width: 95%; 
-    height: 60px; 
-    padding: 0.75rem; 
-    border-radius: 8px; 
-    border: 1px solid #ccc; 
-    font-size: 1rem; 
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+    resize: none;
+    width: 95%;
+    height: 60px;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Adiciona barra de rolagem vertical */
     word-wrap: break-word; /* Garante que palavras muito longas sejam quebradas */
-    
+   
 }
-
+ 
 .new-post textarea:focus {
     border-color: #0f0c25;
     outline: none;
-    
+   
 }
-
+ 
 .new-post button {
-    margin-top: 1rem; 
-    padding: 0.75rem 1.5rem; 
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
     background-color: #003c6d;
     color: rgb(255, 255, 255);
     border: none;
@@ -205,62 +205,81 @@ header .user-settings {
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, box-shadow 0.3s;
-    
+   
 }
-
+ 
 .new-post button:hover {
     background-color: #000000;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
-
+ 
 .posts .post {
     background-color: white;
-    padding: 1rem; 
+    padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.5rem; 
+    margin-bottom: 1.5rem;
     transition: box-shadow 0.3s;
-    
+   
 }
-
+ 
 .posts .post:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-
+ 
 .post-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0.5rem;
     font-weight: bold;
 }
-
+ 
 .post-content {
     font-size: 1em;
     color: #555;
    
 }
-
+ 
 .post-actions button {
     background-color: #003c6d;
     color: white;
     border: none;
-    padding: 0.5rem 1rem; 
+    padding: 0.5rem 1rem;
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-weight: bold;
 }
-
+ 
 .post-actions button:hover {
     background-color: #0f0c25;
 }
-
+ 
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+ 
+.profile-image {
+    width: 52px; /* Proporcional ao tamanho do nome de usuário */
+    height: 5%;
+    border-radius: 50%; /* Deixa a imagem circular */
+}
+ 
+.username {
+    align-items: center; /* Centraliza o texto verticalmente */
+    font-weight: bold;
+    font-size: 1rem;
+}
+ 
+ 
 /* Barra da Lateral Direita */
 .sidebar {
     flex: 1;
     max-width: 230px;
     background-color: white;
-    padding: 2rem; 
+    padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: fixed;  /* Fixa a sidebar na tela */
@@ -269,73 +288,73 @@ header .user-settings {
     width: 230px;     /* Largura fixa da sidebar */
     height: 65vh;  
 }
-
+ 
 .sidebar h2 {
     margin-top: 0;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     color: #000000;
 }
-
+ 
 .sidebar ul {
     list-style: none;
     padding: 0;
 }
-
+ 
 .sidebar ul li {
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0.5rem;
     font-size: 1.1rem;
-    padding: 0.75rem; 
+    padding: 0.75rem;
     background-color: #f5f3ff;
     border-radius: 5px;
         transition: background-color 0.3s;
 }
-
+ 
 .sidebar ul li:hover {
     background-color: #f0f0f0;
 }
-
-
+ 
+ 
 button, input, textarea {
     transition: all 0.3s ease;
 }
-
+ 
 .logo {
     display: flex;
     align-items: center;
 }
-
-
+ 
+ 
 .logo-img {
-    width: 50px; 
+    width: 50px;
     height: 50px;
     margin-right: 1rem;
     background-color: transparent;
 }
-
+ 
 .logo h1 {
     margin: 0;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
-
+ 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 2rem; 
+    gap: 2rem;
     padding: 0;
     margin: 0;
-}   
-
+}  
+ 
 nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
 }
-
+ 
 nav ul li a:hover {
     color: #ffffff;
 }
-
+ 
 .user-settings {
     font-weight: bold;
     font-size: 1rem;
@@ -352,7 +371,7 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ao redor do contêiner */
     border-radius: 10px; /* Bordas arredondadas */
 }
-
+ 
 /* Cada postagem individual */
 .posts .post {
     background-color: white;
@@ -361,70 +380,71 @@ nav ul li a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 1.5rem;
     transition: box-shadow 0.3s;
-    word-wrap: break-word; 
-    overflow-wrap: break-word; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
-
+ 
 .comments-container {
-    margin-top: 1rem; 
+    margin-top: 1rem;
 }
-
+ 
 .comments {
-    max-height: 150px; 
-    overflow-y: auto; 
+    max-height: 150px;
+    overflow-y: auto;
     padding: 0.5rem;
-    border: 1px solid #ccc; 
-    border-radius: 8px; 
-    background-color: #f9f9f9; 
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
-
+ 
 .comments .comment {
-    margin-bottom: 0.5rem; 
-    font-size: 0.9em; 
+    margin-bottom: 0.5rem;
+    font-size: 0.9em;
 }
-
+ 
 .comments-container textarea {
-    resize: none; 
-    width: 100%; 
-    height: 40px; 
-    padding: 0.5rem; 
-    border-radius: 8px; 
-    border: 1px solid #ccc; 
-    margin-top: 0.5rem; 
+    resize: none;
+    width: 100%;
+    height: 40px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 0.5rem;
 }
-
+ 
 .comments-container button {
-    background-color: #003c6d; 
-    color: white; 
-    border: none; 
-    padding: 0.5rem 1rem; 
-    border-radius: 20px; 
-    cursor: pointer; 
-    margin-top: 0.5rem; 
+    background-color: #003c6d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 0.5rem;
     transition: background-color 0.3s;
     font-weight: bold;
 }
-
+ 
 .comments-container button:hover {
-    background-color: #675ba9; 
+    background-color: #675ba9;
 }
-
-        
-
-
+ 
+       
+ 
+ 
 /* Responsividade */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; 
+        flex-direction: column;
     }
-    
+   
     .left-sidebar, .sidebar {
-        max-width: 100%; 
-        padding: 1rem; 
+        max-width: 100%;
+        padding: 1rem;
     }
-    
+   
     .new-post {
-        margin: 0; 
+        margin: 0;
     }
-    
+   
 }
+ 
