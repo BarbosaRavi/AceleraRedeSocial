@@ -1,8 +1,10 @@
 package br.com.socialenari.socialEnari.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
-import br.com.socialenari.socialEnari.utils.idadeUtils; 
+import br.com.socialenari.socialEnari.utils.idadeUtils;
 
 public class Usuario {
     private UUID id;
@@ -12,8 +14,12 @@ public class Usuario {
     private String confirmeSenha;
     private LocalDate dataNascimento;
     private int idade;
-    private String fotoPerfil;  // Adiciona a foto de perfil
+    private String fotoPerfil;
     private String bio;
+
+    // Lista para armazenar os amigos e os pedidos de amizade
+    private List<Usuario> amigos;
+    private List<Usuario> pedidosDeAmizade;
 
     public Usuario(String nome, String email, String senha, String confirmeSenha, LocalDate dataNascimento, String bio) {
         this.id = UUID.randomUUID();
@@ -23,11 +29,14 @@ public class Usuario {
         this.confirmeSenha = confirmeSenha;
         this.dataNascimento = dataNascimento;
         this.idade = idadeUtils.calcularIdade(dataNascimento);
-        this.fotoPerfil = "/images/default-profile.png";  // Inicialmente, atribui uma imagem padrão
-        this.setBio(bio);
+        this.fotoPerfil = "/images/default-profile.png";  // Imagem padrão
+        this.bio = bio;
+        this.amigos = new ArrayList<>();
+        this.pedidosDeAmizade = new ArrayList<>();
     }
 
-    // Getters e setters
+    // Getters e Setters
+
     public UUID getId() {
         return id;
     }
@@ -89,11 +98,31 @@ public class Usuario {
         this.fotoPerfil = fotoPerfil;
     }
 
-	public String getBio() {
-		return bio;
-	}
+    public String getBio() {
+        return bio;
+    }
 
-	public void setBio(String bio) {
-		this.bio = bio;
-	}
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public List<Usuario> getAmigos() {
+        return amigos;
+    }
+
+    public void adicionarAmigo(Usuario amigo) {
+        amigos.add(amigo);
+    }
+
+    public List<Usuario> getPedidosDeAmizade() {
+        return pedidosDeAmizade;
+    }
+
+    public void adicionarPedidoDeAmizade(Usuario usuario) {
+        pedidosDeAmizade.add(usuario);
+    }
+
+    public void removerPedidoDeAmizade(Usuario usuario) {
+        pedidosDeAmizade.remove(usuario);
+    }
 }

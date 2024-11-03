@@ -83,4 +83,37 @@ public class UsuarioService {
     public List<Usuario> listarTodosUsuarios() {
         return new ArrayList<>(usuariosCadastrados);
     }
+
+    // Método para enviar uma solicitação de amizade
+    public String enviarSolicitacaoDeAmizade(UUID idDestinatario, Usuario usuarioSolicitante) {
+        Usuario destinatario = buscarPorId(idDestinatario);
+        if (destinatario != null && !destinatario.getAmigos().contains(usuarioSolicitante)) {
+            destinatario.adicionarPedidoDeAmizade(usuarioSolicitante);
+            return "Solicitação de amizade enviada!";
+        }
+        return "Não foi possível enviar a solicitação de amizade.";
+    }
+
+    // Método para aceitar uma solicitação de amizade
+    public String aceitarSolicitacaoDeAmizade(UUID idSolicitante, Usuario usuarioDestinatario) {
+        Usuario solicitante = buscarPorId(idSolicitante);
+        if (solicitante != null && usuarioDestinatario.getPedidosDeAmizade().contains(solicitante)) {
+            solicitante.adicionarAmigo(usuarioDestinatario);
+            usuarioDestinatario.adicionarAmigo(solicitante);
+            usuarioDestinatario.removerPedidoDeAmizade(solicitante);
+            return "Amizade aceita com sucesso!";
+        }
+        return "Não foi possível aceitar a solicitação de amizade.";
+    }
+
+    // Método para listar sugestões de amizade (usuários que ainda não são amigos)
+    public List<Usuario> listarSugestoesDeAmigos(Usuario usuario) {
+        List<Usuario> sugestoes = new ArrayList<>();
+        for (Usuario u : usuariosCadastrados) {
+            if (!u.equals(usuario) && !usuario.getAmigos().contains(u)) {
+                sugestoes.add(u);
+            }
+        }
+        return sugestoes;
+    }
 }

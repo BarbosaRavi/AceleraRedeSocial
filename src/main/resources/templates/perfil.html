@@ -15,6 +15,17 @@
             border-radius: 50%;
             object-fit: cover;
         }
+        .add-friend-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -37,14 +48,10 @@
                 <img th:src="${fotoPerfil != null ? fotoPerfil : '/images/default-profile.png'}" alt="Foto de Perfil" id="profilePhoto" class="profile-photo">
             </a>
             
-            <form action="/perfil/atualizarFoto" method="post" enctype="multipart/form-data" id="uploadForm">
-                <input type="file" class="foto-perfil" name="fotoPerfil" accept="image/*" id="fotoPerfilInput" onchange="previewImage();">
-                <label for="fotoPerfilInput" class="custom-button">Escolher Foto</label>
+            <form id="formAdicionarAmigo" action="/adicionarAmigo" method="post">
+                <input type="hidden" name="amigoId" th:value="${usuario.id}">
+                <button type="button" class="add-friend-button" onclick="adicionarAmigo()">Adicionar Amigo</button>
             </form>
-            
-            <a href="/perfil">  
-                <h3 th:text="${usuario.nome}"></h3>
-            </a>
             
             <form action="/perfil/salvarBio" method="post">
                 <textarea name="bio" class="bio-input" placeholder="Escreva sua bio..." th:text="${usuario.bio}" id="bioInput"></textarea>
@@ -64,22 +71,7 @@
     </div>
 </div>
 
-<script>
-    function previewImage() {
-        const fotoInput = document.getElementById('fotoPerfilInput');
-        const profilePhoto = document.getElementById('profilePhoto');
-
-        if (fotoInput.files && fotoInput.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                profilePhoto.src = e.target.result; // Atualiza a imagem exibida
-            }
-
-            reader.readAsDataURL(fotoInput.files[0]); // Lê o arquivo como Data URL
-        }
-    }
-</script>
+<script src="/js/perfilscript.js" defer></script> <!-- Link para o script separado -->
 
 </body>
 </html>
