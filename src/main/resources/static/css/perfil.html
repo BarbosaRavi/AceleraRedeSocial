@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Rede Social</title>
+    <link rel="stylesheet" href="/css/perfil.css">
+ 
+</head>
+<body>
+
+<header>
+    <div class="logo" onclick="window.location.href='/principal'">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_912310-MLU76094866834_052024-O.webp" class="logo-img">
+        <h1>Cidadela</h1>
+    </div>
+    <div class="user-settings">
+        <span>Bem-vindo, <span th:text="${usuario.nome}"></span>!</span>
+        <a href="/logout">Sair</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="profile-container">
+        <div class="profile-info">
+            <a href="/perfil">
+                <img th:src="${fotoPerfil != null ? fotoPerfil : '/images/default-profile.png'}" alt="Foto de Perfil" id="profilePhoto" class="profile-photo">
+            </a>
+            <form action="/perfil/atualizarFoto" method="post" enctype="multipart/form-data" id="uploadForm">
+                <!-- Input de Arquivo (estilizado como um botão) -->
+                <input type="file" class="foto-perfil" name="fotoPerfil" accept="image/*" id="fotoPerfilInput" onchange="previewImage();" style="display: none;">
+                
+                <!-- Label para estilizar o botão -->
+                <label for="fotoPerfilInput" class="custom-button">Escolher Foto</label>
+            </form>
+            <a href="/perfil">  
+                <h3 th:text="${usuario.nome}"></h3>
+            </a>
+            
+            <form id="formAdicionarAmigo" action="/adicionarAmigo" method="post">
+                <input type="hidden" name="amigoId" th:value="${usuario.id}">
+                <button type="button" class="add-friend-button" onclick="adicionarAmigo()">Adicionar Amigo</button>
+            </form>
+            
+            <form action="/perfil/salvarBio" method="post">
+                <textarea name="bio" class="bio-input" placeholder="Escreva sua bio..." th:text="${usuario.bio}" id="bioInput"></textarea>
+                <button type="submit" class="save-button">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+    <div class="feed-container">
+        <h2>Publicações de <span th:text="${usuario.nome}"></span></h2>
+        <ul class="publication-list">
+            <li class="publication-item" th:each="publicacao : ${publicacoes}">
+                <p th:text="${publicacao.conteudo}"></p>
+                <small th:text="${publicacao.dataHora}">Data da publicação</small>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="/js/perfilscript.js" defer></script> 
+
+</body>
+</html>
