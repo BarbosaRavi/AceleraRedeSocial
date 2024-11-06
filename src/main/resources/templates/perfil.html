@@ -26,6 +26,16 @@
             <a href="/perfil">
                 <img th:src="${fotoPerfil != null ? fotoPerfil : '/images/default-profile.png'}" alt="Foto de Perfil" id="profilePhoto" class="profile-photo">
             </a>
+            <form action="/perfil/atualizarFoto" method="post" enctype="multipart/form-data" id="uploadForm">
+                <!-- Input de Arquivo (estilizado como um botão) -->
+                <input type="file" class="foto-perfil" name="fotoPerfil" accept="image/*" id="fotoPerfilInput" onchange="previewImage();" style="display: none;">
+                
+                <!-- Label para estilizar o botão -->
+                <label for="fotoPerfilInput" class="custom-button">Escolher Foto</label>
+            </form>
+            <a href="/perfil">  
+                <h3 th:text="${usuario.nome}"></h3>
+            </a>
             
             <form id="formAdicionarAmigo" action="/adicionarAmigo" method="post">
                 <input type="hidden" name="amigoId" th:value="${usuario.id}">
