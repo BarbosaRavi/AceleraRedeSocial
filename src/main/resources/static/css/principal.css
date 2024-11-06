@@ -255,6 +255,19 @@ header .user-settings {
     background-color: #0f0c25;
 }
 
+ 
+.profile-image {
+    width: 52px; /* Proporcional ao tamanho do nome de usuário */
+    height: 5%;
+    border-radius: 50%; /* Deixa a imagem circular */
+}
+ 
+.username {
+    align-items: center; /* Centraliza o texto verticalmente */
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 /* Barra da Lateral Direita */
 .sidebar {
     flex: 1;
