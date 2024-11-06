@@ -1,7 +1,7 @@
 /* Estilo para o corpo e cabeçalho */
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #6262f0, #16213e);
+    background: linear-gradient(135deg, #000000, #000000);
     color: #000000;
     margin: 0;
     padding: 0;
@@ -63,6 +63,28 @@ header .user-settings {
     font-weight: bold;
 }
 
+.foto-perfil {
+    display: none;
+}
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Botão para adicionar amigo */
+.add-friend-button { 
+    background-color: #003c6d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem; 
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+
+}
 /* Conteúdo principal com perfil e feed */
 .container {
     display: flex;
@@ -117,30 +139,29 @@ header .user-settings {
 
 /* Botão para salvar alterações */
 .save-button {
-    background-color: #0f0c25;
+    background-color: #003c6d;
     color: white;
-    padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 25px;
+    padding: 0.5rem 1rem; 
+    border-radius: 20px;
     cursor: pointer;
+    transition: background-color 0.3s;
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 /* Botão de Escolher Foto */
 .custom-button {   
-    background-color: #0f0c25;
+    background-color: #003c6d;
     color: white;
-    padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 25px;
+    padding: 0.5rem 1rem; 
+    border-radius: 20px;
     cursor: pointer;
+    transition: background-color 0.3s;
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s;
     
 }
+
 
 .save-button:hover {
     background-color: #0a081b;
