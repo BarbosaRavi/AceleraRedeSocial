@@ -10,7 +10,7 @@ body {
 header {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    padding: 0.1 rem; /* Responsividade */
+    padding: 1rem; /* Aumento de padding para dar mais espaço */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,7 +19,7 @@ header {
 
 header .logo h1 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.5rem;
     cursor: pointer;
 }
 
@@ -29,15 +29,25 @@ header .logo h1 {
 }
 
 .logo-img {
-    width: 50px; 
+    width: 50px;
     height: 50px;
     margin-right: 1rem;
     background-color: transparent;
 }
 
-.logo h1 {
-    margin: 0;
-    font-size: 1.5rem; 
+header .user-settings {
+    font-weight: bold;
+}
+
+header .user-settings a {
+    color: #003c6d;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header .user-settings a:hover {
+    color: #0a081b;
 }
 
 header nav ul {
@@ -49,7 +59,7 @@ header nav ul {
 }
 
 header nav ul li a {
-    color: white;
+    color: #003c6d;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
@@ -59,60 +69,30 @@ header nav ul li a:hover {
     color: #fcfcfc;
 }
 
-header .user-settings {
-    font-weight: bold;
+/* Estilos do perfil e feed */
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 2rem;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-.foto-perfil {
-    display: none;
+.profile-container {
+    width: 25%;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
+
 .profile-photo {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-}
-
-/* Botão para adicionar amigo */
-.add-friend-button { 
-    background-color: #003c6d;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem; 
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: bold;
-
-}
-/* Conteúdo principal com perfil e feed */
-.container {
-    display: flex;
-    flex-wrap: nowrap; /* Mantém os elementos na linha */
-    padding: 1rem;
-    gap: 2rem;
-    margin-top: 0.1rem;
-}
-
-/* Lateral esquerda para o perfil */
-.profile-container {
-    width: 25%; /* Define o espaço da coluna do perfil */
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.profile-info {
-    text-align: left;
-}
-
-.profile-Photo img {
-    width: 150px; /* Tamanho da imagem de perfil */
-    height: 150px;
-    border-radius: 50%; /* Formato redondo */
-    object-fit: cover; /* Redimensiona a imagem mantendo a proporção */
-    border: 2px solid #000000; /* Borda branca */
+    border: 2px solid #000;
     margin-bottom: 1rem;
 }
 
@@ -137,46 +117,61 @@ header .user-settings {
     outline: none;
 }
 
-/* Botão para salvar alterações */
-.save-button {
+
+
+/* Botões */
+.save-button, .add-friend-button, .custom-button {
     background-color: #003c6d;
     color: white;
     border: none;
-    padding: 0.5rem 1rem; 
+    padding: 0.5rem 1rem;
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-weight: bold;
+    width: 100%;
+    margin-top: 1rem;
 }
 
-/* Botão de Escolher Foto */
-.custom-button {   
-    background-color: #003c6d;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem; 
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: bold;
-    
-}
-
-
-.save-button:hover {
+.save-button:hover, .add-friend-button:hover, .custom-button:hover {
     background-color: #0a081b;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Feed de postagens à direita */
+/* Estilo para o Feed de postagens */
 .feed-container {
-    width: 70%; /* Define o espaço da coluna do feed */
+    width: 70%;
     background-color: #fff;
     border-radius: 8px;
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    word-wrap: break-word;
 }
+
+.publication-list {
+    list-style: none;
+    padding: 0;
+}
+
+.publication-item {
+    margin-bottom: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.publication-item p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.publication-item small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #888;
+    font-size: 0.9rem;
+}
+
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -185,6 +180,27 @@ header .user-settings {
     }
 
     .profile-container, .feed-container {
+        width: 100%;
+    }
+
+    header {
+        padding: 1rem 0.5rem;
+    }
+
+    header .logo h1 {
+        font-size: 1.2rem;
+    }
+
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .bio-input {
+        width: 100%;
+    }
+
+    .save-button, .add-friend-button, .custom-button {
         width: 100%;
     }
 }
