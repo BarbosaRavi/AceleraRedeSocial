@@ -113,7 +113,7 @@ header .user-settings {
     position: fixed;  /* Fixa a sidebar na tela */
     top: 65px;           /* Fica no topo da tela */
     left: 40px;          /* Fica à esquerda da tela */
-    width: 230px;     /* Largura fixa da sidebar */
+    width: 15%;     /* Largura fixa da sidebar */
     height: 65vh;  
     
 }
@@ -162,7 +162,7 @@ header .user-settings {
 /* Feed de postagem dos usuários */
 .feed {
     flex: 3;
-    max-width: 850px;   
+    max-width: 55%;   
 }
 
 .new-post {
@@ -279,7 +279,7 @@ header .user-settings {
     position: fixed;  /* Fixa a sidebar na tela */
     top: 65px;           /* Fica no topo da tela */
     right: 40px;          /* Fica à esquerda da tela */
-    width: 230px;     /* Largura fixa da sidebar */
+    width: 15%;     /* Largura fixa da sidebar */
     height: 65vh;  
 }
 
