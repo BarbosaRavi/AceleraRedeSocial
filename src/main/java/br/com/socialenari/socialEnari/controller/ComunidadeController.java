@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;  // Importando UUID
 
 @Controller
 @RequestMapping("/comunidades")
@@ -21,10 +22,15 @@ public class ComunidadeController {
     public String carregarComunidades() {
         StringBuilder htmlComunidades = new StringBuilder();
         for (Comunidade comunidade : comunidades) {
+            // Gerar o link com o ID em formato UUID
             htmlComunidades.append("<li>")
+                    .append("<a href='/comunidades/detalhe/")
+                    .append(comunidade.getId())  // Usando o UUID da comunidade na URL
+                    .append("'>")
                     .append(comunidade.getComunidadeNome())
                     .append(" - ")
                     .append(comunidade.getComunidadeDescricao())
+                    .append("</a>")
                     .append("</li>");
         }
         return htmlComunidades.toString();
@@ -47,16 +53,17 @@ public class ComunidadeController {
         return "comunidades"; // Retorna a página comunidades.html
     }
 
-    // Exibir detalhes de uma comunidade específica
-    @GetMapping("/detalhe")
-    public String comunidadeDetalhe(@RequestParam String nome, Model model) {
+    // Exibir detalhes de uma comunidade específica, usando o UUID como path variable
+    @GetMapping("/detalhe/{id}")
+    public String comunidadeDetalhe(@PathVariable UUID id, Model model) {
+        // Busca a comunidade pelo UUID
         for (Comunidade comunidade : comunidades) {
-            if (comunidade.getComunidadeNome().equalsIgnoreCase(nome)) {
+            if (comunidade.getId().equals(id)) { // Comparação correta com UUID
                 model.addAttribute("comunidade", comunidade);
                 model.addAttribute("nomeUsuario", "Usuário Exemplo"); // Substitua pelo nome do usuário logado
-                return "comunidadeDetalhe"; // Retorna a página comunidadeDetalhe.html
+                return "comunidadeDetalhe"; // Retorna a página de detalhes da comunidade
             }
         }
-        return "404"; // Retorna uma página de erro 404 caso a comunidade não seja encontrada
+        return "comunidadeDetalhes"; // Retorna uma página de erro 404 caso a comunidade não seja encontrada
     }
 }

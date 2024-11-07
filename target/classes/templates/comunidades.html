@@ -41,20 +41,27 @@
             <div class="new-community">
                 <h2>Criar Nova Comunidade</h2>
                <form id="createCommunityForm" onsubmit="criarComunidade(); return false;">
-    <input type="text" id="communityName" placeholder="Nome da Comunidade" required>
-    <textarea id="communityDescription" placeholder="Descrição da Comunidade" required></textarea>
-    <div class="button-container">
-        <label for="communityImage" class="custom-file-upload">Escolher Imagem
-            <input type="file" id="communityImage" accept="image/*" required>
-        </label>
-        <button type="submit">Criar Comunidade</button>
-    </div>
-</form>
-</div>
+                    <input type="text" id="communityName" placeholder="Nome da Comunidade" required>
+                    <textarea id="communityDescription" placeholder="Descrição da Comunidade" required></textarea>
+                    <div class="button-container">
+                        <label for="communityImage" class="custom-file-upload">Escolher Imagem
+                            <input type="file" id="communityImage" accept="image/*" required>
+                        </label>
+                        <button type="submit">Criar Comunidade</button>
+                    </div>
+                </form>
+            </div>
             <div class="community-list">
                 <h2>Comunidades</h2>
                 <ul id="communityList">
                     <!-- Lista de comunidades será gerada dinamicamente -->
+                    <li>
+                        <a href="/comunidades/detalhe/1">Comunidade Exemplo 1</a>
+                    </li>
+                    <li>
+                        <a href="/comunidades/detalhe/2">Comunidade Exemplo 2</a>
+                    </li>
+                    <!-- Este exemplo seria substituído com uma iteração de comunidades dinâmicas -->
                 </ul>
             </div>
         </section>

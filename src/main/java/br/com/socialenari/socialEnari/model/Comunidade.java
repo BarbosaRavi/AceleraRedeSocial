@@ -1,59 +1,60 @@
 package br.com.socialenari.socialEnari.model;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;  // Importar UUID
 
 public class Comunidade {
 
-    private static int contadorId = 0; // Contador estático para IDs únicos
-    private int id; // Identificador único da comunidade
-    private String ComunidadeNome; // Nome da comunidade
-    private String ComunidadeDescricao; // Descrição da comunidade
-    private Usuario ComunidadeAdm; // Administrador da comunidade
-    private List<Usuario> ComunidadeMembros; // Lista de membros da comunidade
+    private UUID id;  // Alterado para UUID
+    private String comunidadeNome; // Nome da comunidade
+    private String comunidadeDescricao; // Descrição da comunidade
+    private Usuario comunidadeAdm; // Administrador da comunidade
+    private List<Usuario> comunidadeMembros; // Lista de membros da comunidade
 
+    // Construtor
     public Comunidade(String nome, String descricao, Usuario administrador) {
-        this.id = contadorId++;
-        this.ComunidadeNome = nome;
-        this.ComunidadeDescricao = descricao;
-        this.ComunidadeAdm = administrador;
-        this.ComunidadeMembros = new ArrayList<>();
+        this.id = UUID.randomUUID();  // Gerando um UUID único para cada comunidade
+        this.comunidadeNome = nome;
+        this.comunidadeDescricao = descricao;
+        this.comunidadeAdm = administrador;
+        this.comunidadeMembros = new ArrayList<>();
     }
 
     // Getters e setters
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
     public String getComunidadeNome() {
-        return ComunidadeNome;
+        return comunidadeNome;
     }
 
     public void setComunidadeNome(String comunidadeNome) {
-        this.ComunidadeNome = comunidadeNome;
+        this.comunidadeNome = comunidadeNome;
     }
 
     public String getComunidadeDescricao() {
-        return ComunidadeDescricao;
+        return comunidadeDescricao;
     }
 
     public void setComunidadeDescricao(String comunidadeDescricao) {
-        this.ComunidadeDescricao = comunidadeDescricao;
+        this.comunidadeDescricao = comunidadeDescricao;
     }
 
     public Usuario getComunidadeAdm() {
-        return ComunidadeAdm;
+        return comunidadeAdm;
     }
 
     public void setComunidadeAdm(Usuario comunidadeAdm) {
-        this.ComunidadeAdm = comunidadeAdm;
+        this.comunidadeAdm = comunidadeAdm;
     }
 
     public List<Usuario> getComunidadeMembros() {
-        return ComunidadeMembros;
+        return comunidadeMembros;
     }
 
     public void adicionarMembro(Usuario membro) {
-        this.ComunidadeMembros.add(membro);
+        this.comunidadeMembros.add(membro);
     }
 }
