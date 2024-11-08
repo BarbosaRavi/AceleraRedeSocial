@@ -6,24 +6,22 @@ import java.util.UUID;  // Importar UUID
 
 public class Comunidade {
 
-    private UUID id;  // Alterado para UUID
-    private String comunidadeNome; // Nome da comunidade
-    private String comunidadeDescricao; // Descrição da comunidade
-    private Usuario comunidadeAdm; // Administrador da comunidade
-    private List<Usuario> comunidadeMembros; // Lista de membros da comunidade
+    private UUID comunidadeId; 
+    private String comunidadeNome;
+    private String comunidadeDescricao; 
+    private Usuario comunidadeAdm;
+    private List<Usuario> comunidadeMembros;
 
-    // Construtor
     public Comunidade(String nome, String descricao, Usuario administrador) {
-        this.id = UUID.randomUUID();  // Gerando um UUID único para cada comunidade
+        this.comunidadeId = UUID.randomUUID();
         this.comunidadeNome = nome;
         this.comunidadeDescricao = descricao;
         this.comunidadeAdm = administrador;
         this.comunidadeMembros = new ArrayList<>();
     }
 
-    // Getters e setters
     public UUID getId() {
-        return id;
+        return comunidadeId;
     }
 
     public String getComunidadeNome() {
