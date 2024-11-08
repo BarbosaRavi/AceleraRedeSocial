@@ -261,11 +261,23 @@ header .user-settings {
     height: 5%;
     border-radius: 50%; /* Deixa a imagem circular */
 }
- 
+
 .username {
     align-items: center; /* Centraliza o texto verticalmente */
     font-weight: bold;
     font-size: 1rem;
+}
+
+.user-info {
+    position: relative; /* Permite o uso de position: absolute nos elementos filhos */
+}   
+
+.user-info .time {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 0.9em; /* Ajusta o tamanho da fonte se necessário */
+    color: rgb(0, 0, 0); /* Cor para diferenciar do texto principal */
 }
 
 /* Barra da Lateral Direita */
