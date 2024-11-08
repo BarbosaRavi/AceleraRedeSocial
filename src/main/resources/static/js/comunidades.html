@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidades - Nameless</title>
+    <link rel="stylesheet" href="css/comunidades.css">
+</head>
+<body>
+    <style>
+            /* Estilos para o botão "Ver Comunidade" */
+       button {
+        margin-top: 1rem; 
+        background-color: #003c6d;  /* Cor de fundo verde */
+        color: white;  /* Texto branco */
+        border: none;  /* Sem borda */
+        padding: 10px 20px;  /* Espaciamento interno (altura e largura do botão) */
+        text-align: center;  /* Alinha o texto no centro */
+        text-decoration: none;  /* Remove qualquer sublinhado no texto */
+        display: inline-block;  /* Mantém o botão inline */
+        font-size: 16px;  /* Tamanho do texto */
+        margin: 4px 2px;  /* Espaçamento entre os botões */
+        border-radius: 12px;  /* Bordas arredondadas */
+        cursor: pointer;  /* Cursor de ponteiro ao passar sobre o botão */
+        transition: background-color 0.3s, transform 0.2s ease;  /* Transição suave para a cor de fundo e efeito de hover */
+    }
+
+    /* Efeito de hover para o botão */
+    button:hover {
+        background-color: #003c6d;  /* Cor de fundo um pouco mais escura */
+        transform: scale(1.1);  /* Aumenta ligeiramente o tamanho do botão */
+    }
+
+    /* Efeito de focus para o botão */
+    button:focus {
+        outline: none;  /* Remove a borda de foco padrão */
+        box-shadow: 0 0 5px #003c6d;  /* Adiciona uma borda verde de foco */
+    }
+
+    </style>    
+    
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_912310-MLU76094866834_052024-O.webp" class="logo-img">
+            <h1>Cidadela</h1>
+        </div>
+        <nav>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Pesquisar comunidade...">
+                <button id="search-button">Pesquisar</button>
+            </div>
+        </nav>
+        <div class="user-settings">
+            <span>Bem-vindo, <span th:text="${nomeUsuario}"></span>!</span>
+            <a href="/logout">Sair</a>
+        </div>
+    </header>
+
+    <!-- Principal -->
+    <div class="container">
+        <aside class="left-sidebar">
+            <nav class="menu">
+                <a href="perfil" class="botaoesq">Perfil</a>
+                <a href="comunidades" class="botaoesq ativo">Comunidades</a>
+                <a href="depoimentos" class="botaoesq">Depoimentos</a>
+                <a href="descubra" class="botaoesq">Descubra</a>
+                <a href="configuracoes" class="botaoesq">Configurações</a>
+            </nav>
+        </aside>
+        <section class="community-section">
+            <div class="new-community">
+                <h2>Criar Nova Comunidade</h2>
+                <form id="createCommunityForm" onsubmit="criarComunidade(); return false;">
+                    <input type="text" id="communityName" placeholder="Nome da Comunidade" required>
+                    <textarea id="communityDescription" placeholder="Descrição da Comunidade" required></textarea>
+                    <div class="button-container">
+                        <label for="communityImage" class="custom-file-upload">Escolher Imagem
+                            <input type="file" id="communityImage" accept="image/*" required>
+                        </label>
+                        <button type="submit">Criar Comunidade</button>
+                    </div>
+                </form>
+            </div>
+            <div class="community-list">
+                <h2>Comunidades</h2>
+                <ul id="communityList">
+                    <!-- Lista de comunidades será gerada dinamicamente -->
+                    <!-- A lista será preenchida pelo script -->
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            carregarComunidades(); // Chama a função para carregar as comunidades ao carregar a página
+        });
+
+        // Função para gerar um UUID válido
+        function gerarUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0,
+                    v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // Função para carregar e exibir as comunidades
+        function carregarComunidades() {
+            const communityList = document.getElementById('communityList');
+            communityList.innerHTML = ''; // Limpa a lista existente
+
+            // Recupera as comunidades armazenadas no localStorage
+            const comunidades = JSON.parse(localStorage.getItem('comunidades')) || [];
+
+            // Adiciona cada comunidade à lista
+            comunidades.forEach(comunidade => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <img src="${comunidade.ComunidadeImagem}" alt="Imagem da Comunidade" width="50">
+                    <strong>${comunidade.ComunidadeNome}</strong>
+                    <p>${comunidade.ComunidadeDescricao}</p>
+                    <button onclick="verComunidade('${comunidade.id}')">Ver Comunidade</button>
+                `;
+                communityList.appendChild(listItem);
+            });
+        }
+
+        // Função para criar uma nova comunidade
+        function criarComunidade() {
+            const nome = document.getElementById('communityName').value;
+            const descricao = document.getElementById('communityDescription').value;
+            const imagem = document.getElementById('communityImage').files[0];
+
+            // Cria um novo objeto comunidade
+            const novaComunidade = {
+                id: gerarUUID(),  // Gerando um UUID válido
+                ComunidadeNome: nome,
+                ComunidadeDescricao: descricao,
+                ComunidadeImagem: URL.createObjectURL(imagem) // Gera URL temporária para exibição
+            };
+
+            // Recupera as comunidades atuais ou cria um array vazio
+            const comunidades = JSON.parse(localStorage.getItem('comunidades')) || [];
+            comunidades.push(novaComunidade);
+
+            // Salva novamente as comunidades no localStorage
+            localStorage.setItem('comunidades', JSON.stringify(comunidades));
+
+            // Limpa os campos do formulário
+            document.getElementById('createCommunityForm').reset();
+            carregarComunidades(); // Atualiza a lista exibida
+        }
+
+        // Função para navegar para a página de detalhes da comunidade
+        function verComunidade(id) {
+            window.location.href = `/comunidades/detalhe/${id}`; // Passando o ID na URL
+        }
+    </script>
+</body>
+</html>
