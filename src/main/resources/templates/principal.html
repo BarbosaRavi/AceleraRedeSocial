@@ -23,7 +23,7 @@
             </div>
         </nav>
         <div class="user-settings">
-            <span>Bem-vindo, <span th:text="${nomeUsuario}"></span>!</span>
+            <span>Bem-vindo, <span th:text="${usuario.nome}"></span>!</span>
             <a href="/logout">Sair</a>
         </div>
     </header>
@@ -32,13 +32,13 @@
     <div class="container">
         <aside class="left-sidebar">
             <div class="profile-info">
+                
                 <img id="profilePhotoMain" src="https://cdn-icons-png.flaticon.com/512/17/17004.png" alt="Foto de perfil do usuário" onclick="window.location.href='/perfil'">
-                <h3 th:text="${nomeUsuario}"></h3>
+                <h3 th:text="${usuario.nome}"></h3>
                 <nav class="menu">
                     <a href="perfil" class="botaoesq">Perfil</a>
                     <a href="comunidades" class="botaoesq">Comunidades</a>
                     <a href="depoimentos" class="botaoesq">Depoimentos</a>
-                    <a href="descubra" class="botaoesq">Descubra</a>
                     <a href="configuracoes" class="botaoesq">Configurações</a>
                 </nav>
             </div>
@@ -60,6 +60,7 @@
                         Este é o conteúdo da publicação.
                     </div>
                     <div class="comments">
+                        
                         <div class="comment">
                             <strong>Nome do Usuário 1</strong>: Este é o texto do comentário.
                         </div>
