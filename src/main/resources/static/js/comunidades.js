@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Função para gerar um UUID válido
 function gerarUUID() {
+    // Gera um UUID (baseado na especificação UUID v4)
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0,
             v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -16,8 +17,8 @@ function carregarComunidades() {
     const communityList = document.getElementById('communityList');
     communityList.innerHTML = ''; // Limpa a lista existente
 
-    // Recupera as comunidades armazenadas no localStorage
-    const comunidades = JSON.parse(localStorage.getItem('comunidades')) || []; 
+    // Simulação de comunidades em memória
+    const comunidades = window.comunidades || []; // Assume que as comunidades estão armazenadas globalmente
 
     // Adiciona cada comunidade à lista
     comunidades.forEach(comunidade => {
@@ -46,12 +47,9 @@ function criarComunidade() {
         ComunidadeImagem: URL.createObjectURL(imagem) // Gera URL temporária para exibição
     };
 
-    // Recupera as comunidades atuais ou cria um array vazio
-    const comunidades = JSON.parse(localStorage.getItem('comunidades')) || [];
-    comunidades.push(novaComunidade);
-
-    // Salva novamente as comunidades no localStorage
-    localStorage.setItem('comunidades', JSON.stringify(comunidades));
+    // Adiciona a nova comunidade à lista global
+    window.comunidades = window.comunidades || []; // Inicializa se não existir
+    window.comunidades.push(novaComunidade);
 
     // Limpa os campos do formulário
     document.getElementById('createCommunityForm').reset();
@@ -60,6 +58,7 @@ function criarComunidade() {
 
 // Função para navegar para a página de detalhes da comunidade
 function verComunidade(id) {
+    // Lógica para navegar até a página da comunidade específica, usando o ID
     window.location.href = `/comunidades/detalhe/${id}`; // Passando o ID na URL
 }
 
@@ -70,11 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Função para carregar os detalhes da comunidade na página de detalhes
 function carregarDetalhesComunidade() {
-    const pathSegments = window.location.pathname.split('/');
-    const idComunidade = pathSegments[pathSegments.length - 1]; // Pega o último segmento da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const idComunidade = urlParams.get('id');  // Recupera o ID da comunidade da URL
 
-    // Recupera as comunidades do localStorage
-    const comunidades = JSON.parse(localStorage.getItem('comunidades')) || [];
+    // Simulação de comunidades em memória
+    const comunidades = window.comunidades || []; // Assume que as comunidades estão armazenadas globalmente
 
     // Encontra a comunidade correspondente pelo ID
     const comunidade = comunidades.find(c => c.id === idComunidade);
@@ -99,6 +98,7 @@ function addPost() {
         return;
     }
 
+    // Aqui você pode adicionar lógica para enviar o novo post para o servidor e atualizar a lista de posts
     const postsContainer = document.getElementById("posts");
     const postDiv = document.createElement("div");
     postDiv.textContent = postContent; // Exibe o conteúdo do post
