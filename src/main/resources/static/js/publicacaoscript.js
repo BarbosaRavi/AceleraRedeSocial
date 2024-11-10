@@ -1,104 +1,82 @@
-let usuarioLogado = {}; // Objeto para armazenar os dados do usuário logado, ainda não utilizado no código atual.
-let postsData = []; // Array para armazenar as publicações e seus dados, como usuário, conteúdo, tempo, curtidas e comentários.
+let usuarioLogado = {}; // Objeto para armazenar o usuário logado
+let postsData = []; // Array para armazenar as publicações e seus dados
 
 // Função para adicionar um novo post
 function addPost() {
-    const postContent = document.getElementById("newPostContent").value; // Obtém o conteúdo do post inserido pelo usuário.
+    const postContent = document.getElementById("newPostContent").value;
 
-    if (postContent.trim() === "") { // Verifica se o conteúdo do post está vazio.
-        alert("Você deve inserir um conteúdo para publicar!"); // Exibe um alerta caso o conteúdo esteja vazio.
-        return; // Interrompe a execução da função se o conteúdo estiver vazio.
+    if (postContent.trim() === "") {
+        alert("Você deve inserir um conteúdo para publicar!");
+        return;
     }
 
-    // Faz uma requisição POST para adicionar o novo post ao servidor.
     fetch("/publicacoes", {
         method: "POST",
         headers: {
-            'Content-Type': 'text/plain', // Define o tipo de conteúdo como texto simples.
+            'Content-Type': 'text/plain',
         },
-        body: postContent // Envia o conteúdo do post no corpo da requisição.
+        body: postContent
     })
     .then(response => {
-        if (response.ok) { // Verifica se a resposta foi bem-sucedida.
-            document.getElementById("newPostContent").value = ""; // Limpa o campo de inserção de conteúdo.
-            loadPosts(); // Carrega novamente as publicações após o post ser adicionado.
+        if (response.ok) {
+            document.getElementById("newPostContent").value = "";
+            loadPosts();
         } else {
-            alert("Erro ao publicar a postagem. Código: " + response.status); // Exibe um alerta caso ocorra erro ao publicar.
+            alert("Erro ao publicar a postagem. Código: " + response.status);
         }
     })
     .catch(error => {
-        console.error("Erro:", error); // Loga o erro no console.
-        alert("Erro ao conectar ao servidor."); // Exibe um alerta caso haja erro na requisição.
+        console.error("Erro:", error);
+        alert("Erro ao conectar ao servidor.");
     });
 }
 
 // Função para carregar as publicações do servidor
 function loadPosts() {
-    // Obtém a foto de perfil armazenada no localStorage. Se não houver, usa uma foto padrão.
-    const fotoPerfilArmazenada = localStorage.getItem('fotoPerfil') || 'https://cdn-icons-png.flaticon.com/512/17/17004.png'; // Foto padrão, caso não tenha sido definida
-
-    // Faz uma requisição para obter as publicações do servidor
     fetch("/publicacoes")
-    .then(response => response.text()) // Espera a resposta do servidor como texto
+    .then(response => response.text())
     .then(posts => {
-        // Acessa o container onde as publicações serão exibidas
         const postsContainer = document.getElementById("posts");
-        postsContainer.innerHTML = ""; // Limpa o conteúdo do container antes de adicionar novos posts
-        postsData = []; // Limpa o array de dados das publicações
+        postsContainer.innerHTML = "";
+        postsData = [];
 
-        // Divide as publicações em linhas e filtra as linhas vazias
         const parsedPosts = posts.split("\n").filter(post => post.trim() !== "");
-
-        // Itera sobre as publicações
+        
         parsedPosts.forEach((post, index) => {
-            // Divide a publicação em partes (usuário e conteúdo com data/hora)
             const [usuario, conteudoComData] = post.split(": ");
             const [conteudo, dataHora] = conteudoComData.split(" (");
-            const tempoPassado = dataHora.split(")")[0]; // Obtém o tempo passado desde a postagem
+            const tempoPassado = dataHora.split(")")[0];
+            const likesCount = parseInt(conteudoComData.split(" - ")[1]) || 0;
 
-            // Adiciona os dados da publicação ao array postsData
             postsData.push({
-                id: index + 1, // Atribui um ID único para cada post
-                usuario, // Nome do usuário que fez a publicação
-                conteudo, // Conteúdo da publicação
-                tempoPassado, // Tempo decorrido desde a publicação
-                likes: parseInt(conteudoComData.split(" - ")[1]) || 0, // Obtém a quantidade de curtidas, caso existam
-                liked: false, // Define que o post ainda não foi curtido
-                comments: [] // Inicializa um array vazio para os comentários
+                id: index + 1,
+                usuario,
+                conteudo,
+                tempoPassado,
+                likes: likesCount,
+                liked: false,
+                comments: []
             });
+        });
 
-            // Cria um novo elemento de post (div)
+        postsData.forEach((postData, index) => {
             const postElement = document.createElement("div");
-            postElement.classList.add("post"); // Adiciona a classe "post" ao elemento
+            postElement.classList.add("post");
 
-            // Adiciona o HTML do post ao novo elemento
             postElement.innerHTML = `
-                <!-- Informações do usuário e tempo -->
                 <div class="user-info">
-                    <!-- Foto de perfil -->
-                    <img src="${fotoPerfilArmazenada}" alt="Imagem de Perfil" class="profile-image" data-usuario="${usuario}
-                    
-      
-                    <!-- Tempo passado desde a publicação -->
-                    <span class="time">${tempoPassado}</span>
+                    <span class="username">${postData.usuario}</span>
+                    <span class="time">${postData.tempoPassado}</span>
                 </div>
-
-                <!-- Conteúdo da publicação -->
                 <div class="post-content">
-                    <p>${conteudo}</p>
+                    <p>${postData.conteudo}</p>
                 </div>
-
-                <!-- Ações do post (Curtir e Curtidas) -->
                 <div class="post-actions">
-                    <button onclick="toggleLike(${index})">
-                        ${postsData[index].liked ? "Descurtir" : "Curtir"}
-                    </button>
-                    <span class="likes" id="likes-${index}">${postsData[index].likes} curtidas</span>
+                    <button id="like-button-${index}" onclick="toggleLike(${index})">${postData.liked ? "Descurtir" : "Curtir"}</button>
+                    <span class="likes" id="likes-${index}">${postData.likes} curtidas</span>
+                    <button onclick="toggleComments(${index})">Comentários</button>
                 </div>
-
-                <!-- Seção de Comentários -->
                 <div class="comments-container">
-                    <button onclick="toggleComments(${index})">Mostrar Comentários</button>
                     <div class="comments" id="comments-${index}" style="display:none;">
                         <div class="comments-list" id="comments-list-${index}"></div>
                         <textarea id="comment-${index}" placeholder="Adicione um comentário..."></textarea>
@@ -106,81 +84,107 @@ function loadPosts() {
                     </div>
                 </div>
             `;
-
-            // Adiciona um evento de clique na foto de perfil da publicação
-            postElement.querySelector('.profile-image').addEventListener('click', function() {
-                const usuario = this.getAttribute('data-usuario'); // Obtém o nome do usuário da foto de perfil
-                window.location.href = `/perfil/${usuario}`; // Redireciona para o perfil do usuário
-            });
-
-            // Adiciona o novo post ao container de posts na página (em ordem cronológica)
-            postsContainer.prepend(postElement); // Insere o novo post no início da lista
+            postsContainer.prepend(postElement);
         });
     })
     .catch(error => {
-        console.error("Erro:", error); // Exibe um erro no console caso algo dê errado com a requisição
+        console.error("Erro:", error);
     });
 }
 
+// Função para curtir ou descurtir uma publicação
+// Função para curtir ou descurtir uma publicação
+function toggleLike(postIndex) {
+    const post = postsData[postIndex];
+    const postId = post.id;
 
-// Função para curtir/descurtir um post
-function toggleLike(index) {
-    const post = postsData[index]; // Obtém o post correspondente ao índice.
-    post.liked = !post.liked; // Alterna o estado de curtido/descurtido.
-    post.likes += post.liked ? 1 : -1; // Incrementa ou decrementa o número de curtidas.
+    if (post.liked) {
+        fetch(`/publicacoes/${postId}/descurtir`, { // Colocamos as aspas corretamente
+            method: "POST"
+        })
+        .then(response => {
+            if (response.ok) {
+                post.likes--; // Decrementa a contagem de curtidas
+                post.liked = false; // Marca como não curtido
+            } else {
+                alert("Erro ao descurtir a publicação.");
+            }
+            loadPosts(); // Recarrega as publicações para refletir as alterações
+        })
+        .catch(error => {
+            console.error("Erro ao descurtir a publicação:", error);
+            alert("Erro ao descurtir a publicação.");
+        });
+    } else {
+        fetch(`/publicacoes/${postId}/curtir`, { // Colocamos as aspas corretamente
+            method: "POST"
+        })
+        .then(response => {
+            if (response.ok) {
+                post.likes++; // Incrementa a contagem de curtidas
+                post.liked = true; // Marca como curtido
+            } else {
+                alert("Erro ao curtir a publicação.");
+            }
+            loadPosts(); // Recarrega as publicações para refletir as alterações
+        })
+        .catch(error => {
+            console.error("Erro ao curtir a publicação:", error);
+            alert("Erro ao curtir a publicação.");
+        });
+    }
+}
 
-    // Atualiza a interface com o novo estado do botão de curtida e a contagem de curtidas.
-    const likeButton = document.querySelector(`#likes-${index}`).previousElementSibling;
-    likeButton.textContent = post.liked ? "Descurtir" : "Curtir";
 
+
+
+// Função para atualizar o botão e a contagem de curtidas na interface
+function updateLikeUI(index) {
+    const likeButton = document.getElementById(`like-button-${index}`);
+    likeButton.textContent = postsData[index].liked ? "Descurtir" : "Curtir";
     const likesSpan = document.getElementById(`likes-${index}`);
-    likesSpan.innerText = `${post.likes} curtidas`;
+    likesSpan.innerText = `${postsData[index].likes} curtidas`;
 }
 
 // Função para mostrar/ocultar comentários
 function toggleComments(index) {
-    const commentsSection = document.getElementById(`comments-${index}`); // Obtém a seção de comentários do post.
-    commentsSection.style.display = commentsSection.style.display === "none" ? "block" : "none"; // Alterna a visibilidade da seção de comentários.
+    const commentsSection = document.getElementById(`comments-${index}`);
+    commentsSection.style.display = commentsSection.style.display === "none" ? "block" : "none";
 }
 
 // Função para adicionar um comentário a um post
 function addComment(index) {
-    const commentInput = document.getElementById(`comment-${index}`); // Obtém o campo de texto para o novo comentário.
-    const commentText = commentInput.value.trim(); // Obtém o texto do comentário, removendo espaços em branco extras.
+    const commentInput = document.getElementById(`comment-${index}`);
+    const commentText = commentInput.value.trim();
 
-    if (commentText === "") { // Verifica se o comentário está vazio.
-        alert("O comentário não pode estar vazio!"); // Exibe um alerta caso o comentário esteja vazio.
-        return; // Interrompe a execução da função se o comentário for vazio.
+    if (commentText === "") {
+        alert("O comentário não pode estar vazio!");
+        return;
     }
 
-    postsData[index].comments.push(commentText); // Adiciona o comentário à lista de comentários do post.
-    commentInput.value = ""; // Limpa o campo de texto após adicionar o comentário.
-    renderComments(index); // Renderiza os comentários atualizados.
+    postsData[index].comments.push(commentText);
+    commentInput.value = "";
+    renderComments(index);
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-    const profilePhotoMain = document.getElementById('profilePhotoMain');
-
-    // Verifica se há uma foto de perfil armazenada no localStorage
-    const fotoPerfilArmazenada = localStorage.getItem('fotoPerfil');
-    if (fotoPerfilArmazenada) {
-        profilePhotoMain.src = fotoPerfilArmazenada; // Define a foto armazenada como src
-    }
-});
-
 
 // Função para renderizar comentários de um post específico
 function renderComments(index) {
-    const commentsList = document.getElementById(`comments-list-${index}`); // Obtém o elemento que exibirá os comentários.
-    commentsList.innerHTML = ""; // Limpa a lista de comentários antes de renderizar os novos.
+    const commentsList = document.getElementById(`comments-list-${index}`);
+    commentsList.innerHTML = "";
 
-    // Itera sobre os comentários e os exibe na interface.
-    postsData[index].comments.forEach(comment => {
+    const comments = postsData[index].comments.slice(-5); // Últimos 5 comentários
+    comments.forEach(comment => {
         const commentElement = document.createElement("p");
-        commentElement.innerText = comment; // Cria um elemento <p> para cada comentário.
-        commentsList.appendChild(commentElement); // Adiciona o comentário à lista.
+        commentElement.innerText = comment;
+        commentsList.appendChild(commentElement);
     });
+
+    // Limita a altura dos comentários e adiciona rolagem
+    if (postsData[index].comments.length > 5) {
+        commentsList.style.maxHeight = "100px";
+        commentsList.style.overflowY = "scroll";
+    }
 }
 
 // Carrega as publicações automaticamente ao carregar a página
-document.addEventListener("DOMContentLoaded", loadPosts); // Quando a página for carregada, chama a função para carregar as publicações.
+document.addEventListener("DOMContentLoaded", loadPosts);
