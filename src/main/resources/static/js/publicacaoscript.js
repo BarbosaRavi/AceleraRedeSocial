@@ -59,14 +59,18 @@ function loadPosts() {
             });
         });
 
+        const fotoPerfil = localStorage.getItem('fotoPerfil') || 'https://cdn-icons-png.flaticon.com/512/17/17004.png';
+
         postsData.forEach((postData, index) => {
             const postElement = document.createElement("div");
             postElement.classList.add("post");
 
             postElement.innerHTML = `
                 <div class="user-info">
+        
                     <span class="username">${postData.usuario}</span>
                     <span class="time">${postData.tempoPassado}</span>
+                    
                 </div>
                 <div class="post-content">
                     <p>${postData.conteudo}</p>
@@ -188,3 +192,36 @@ function renderComments(index) {
 
 // Carrega as publicações automaticamente ao carregar a página
 document.addEventListener("DOMContentLoaded", loadPosts);
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Verifica se a foto de perfil e o nome do usuário estão armazenados no localStorage
+    const fotoPerfil = localStorage.getItem('fotoPerfil');
+    const usuarioNome = localStorage.getItem('usuarioNome') || 'Usuário Anônimo'; // Fallback caso não tenha nome
+
+    console.log('Foto de Perfil:', fotoPerfil); // Debug: Verifica se a foto foi encontrada no localStorage
+    console.log('Nome do Usuário:', usuarioNome); // Debug: Verifica o nome do usuário
+
+    // Se a foto de perfil estiver armazenada, ela será aplicada
+    if (fotoPerfil) {
+        document.getElementById('profilePhotoMain').src = fotoPerfil; // Atualiza a foto de perfil principal
+    }
+
+    // Atualiza o nome do usuário na página
+    document.getElementById('user-name').innerText = usuarioNome;
+    document.getElementById('user-name-sidebar').innerText = usuarioNome;
+});
+
+// Função para atualizar a foto de perfil no localStorage
+function updateProfilePhoto(file) {
+    const reader = new FileReader();
+    reader.onloadend = function() {
+        const photoUrl = reader.result; // Obtém a URL da imagem carregada
+        localStorage.setItem('fotoPerfil', photoUrl); // Salva a foto no localStorage
+        document.getElementById('profilePhotoMain').src = photoUrl; // Atualiza a foto de perfil na página
+    };
+    reader.readAsDataURL(file); // Lê a imagem como URL de dados
+}
+
+// Exemplo de uso do input para atualizar a foto de perfil
+// <input type="file" onchange="updateProfilePhoto(this.files[0])">
+
