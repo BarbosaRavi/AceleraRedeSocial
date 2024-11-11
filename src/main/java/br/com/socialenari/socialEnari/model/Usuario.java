@@ -1,5 +1,6 @@
 package br.com.socialenari.socialEnari.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,10 @@ public class Usuario {
     private String email;
     private String senha;
     private String confirmeSenha;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy") // Instruindo o Spring a converter no formato correto
     private LocalDate dataNascimento;
+
     private int idade;
     private String fotoPerfil;
     private String bio;
@@ -21,6 +25,7 @@ public class Usuario {
     private List<Usuario> amigos;
     private List<Usuario> pedidosDeAmizade;
 
+    // Construtor
     public Usuario(String nome, String email, String senha, String confirmeSenha, LocalDate dataNascimento, String bio) {
         this.id = UUID.randomUUID();
         this.nome = nome;
@@ -28,7 +33,7 @@ public class Usuario {
         this.senha = senha;
         this.confirmeSenha = confirmeSenha;
         this.dataNascimento = dataNascimento;
-        this.idade = idadeUtils.calcularIdade(dataNascimento);
+        this.idade = idadeUtils.calcularIdade(dataNascimento);  // Calcula a idade usando o método estático
         this.fotoPerfil = "/images/default-profile.png";  // Imagem padrão
         this.bio = bio;
         this.amigos = new ArrayList<>();
@@ -83,7 +88,7 @@ public class Usuario {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
-        this.idade = idadeUtils.calcularIdade(dataNascimento);
+        this.idade = idadeUtils.calcularIdade(dataNascimento);  // Atualiza a idade quando a data é alterada
     }
 
     public int getIdade() {

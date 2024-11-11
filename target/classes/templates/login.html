@@ -17,38 +17,42 @@
     </style>
 </head>
 <body>
-   
-    <form action="/login" method="post">
-   
-        <div id="login">
- 
-            <div class="caixa">
- 
-                <h1>Bem-vindo(a)!</h1>
-                <p>Entre na sua conta e conecte-se!</p>
- 
-                <div class="error">
-                    <p th:if="${mensagem}" th:text="${mensagem}"></p>
-                </div>
-                <div class="email">
-                    <input type="email" name="email" placeholder="E-mail" required>
-                </div>
-   
-                <div class="senha">
-                    <input type="password" name="senha" placeholder="Senha" required>
-                </div>
-   
-                <div class="entrar">
-                    <p><a href="/recuperacao">Esqueceu sua senha?</a></p>
-                    <input type="submit" value="Entrar">
-                    <p>Ainda não tem uma conta? <a href="cadastro">Cadastre-se!</a></p>
-                </div>
- 
-            </div>
-   
+    <!-- Container principal para o layout -->
+    <div class="container">
+        <!-- Área da Logo -->
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo da Empresa">
         </div>
-    </form>
-    <br>
+
+        <!-- Área do Formulário de Login -->
+        <div class="login-container">
+            <form action="/login" method="post">
+                <div id="login" class="caixa">
+                    <h1>Bem-vindo(a)!</h1>
+                    <p>Entre na sua conta e conecte-se!</p>
+
+                    <!-- Mensagem de erro (caso exista) -->
+                    <div class="error">
+                        <p th:if="${mensagem}" th:text="${mensagem}"></p>
+                    </div>
+
+                    <!-- Campos do Formulário -->
+                    <div class="email">
+                        <input type="email" name="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="senha">
+                        <input type="password" name="senha" placeholder="Senha" required>
+                    </div>
+
+                    <!-- Botões e Links -->
+                    <div class="entrar">
+                        <p><a href="/recuperacao">Esqueceu sua senha?</a></p>
+                        <input type="submit" value="Entrar">
+                        <p>Ainda não tem uma conta? <a href="cadastro">Cadastre-se!</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
- 
