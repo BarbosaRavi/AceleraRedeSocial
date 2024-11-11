@@ -1,49 +1,32 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes da Comunidade - Nameless</title>
-    <link rel="stylesheet" href="css/comunidadeDetalhe.css">
+    <title>Comunidade - Detalhes</title>
 </head>
 <body>
+    <h1>Detalhes da Comunidade</h1>
 
-    <!-- Cabeçalho -->
-    <header>
-        <div class="logo">
-            <img src="https://cdn.pixabay.com/photo/2016/11/07/13/04/yoga-1805784_1280.png" class="logo-img">
-            <h1>Nameless</h1>
-        </div>
-        <div class="user-settings">
-            <span>Bem-vindo, <span th:text="${nomeUsuario}"></span>!</span>
-            <a href="/logout">Sair</a>
-        </div>
-    </header>
-
-    <!-- Detalhes da Comunidade -->
-    <div class="container">
-        <div class="community-details">
-            <img id="communityImage" src="${comunidade.imagem}" alt="Imagem da Comunidade" width="300">
-            <h2 id="communityName">${comunidade.comunidadeNome}</h2>
-            <p id="communityDescription">${comunidade.comunidadeDescricao}</p>
-
-            <h3>Publicações</h3>
-            <div id="posts" class="posts">
-                <!-- As publicações da comunidade aparecerão aqui -->
-                <!-- Exemplo: Gerar publicações dinamicamente -->
-            </div>
-
-            <div class="new-post">
-                <textarea id="newPostContent" placeholder="O que você está pensando?"></textarea>
-                <button onclick="addPost()">Publicar</button>
-            </div>
-        </div>
+    <!-- Informações da Comunidade -->
+    <div id="comunidade-info">
+        <h2>Nome da Comunidade: <span id="comunidade-nome"></span></h2>
+        <p id="comunidade-descricao"></p>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Cidadela. Todos os direitos reservados.</p>
-    </footer>
+    <!-- Formulário para nova publicação -->
+    <div>
+        <h3>Publicações</h3>
+        <form id="formPublicacao">
+            <textarea id="newPostContent" name="conteudo" placeholder="Digite seu conteúdo aqui..."></textarea>
+            <button type="submit">Publicar</button>
+        </form>
+    </div>
 
-    <script src="js/comunidadeDetalhe.js"></script>
+    <!-- Container onde as publicações serão exibidas -->
+    <div id="posts"></div>
+
+    <!-- Scripts -->
+    <script src="comunidadeDetalhes.js"></script>
 </body>
 </html>
