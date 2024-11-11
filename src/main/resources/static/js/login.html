@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Login</title>
+    <style>
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+   
+    <form action="/login" method="post">
+   
+        <div id="login">
+ 
+            <div class="caixa">
+ 
+                <h1>Bem-vindo(a)!</h1>
+                <p>Entre na sua conta e conecte-se!</p>
+ 
+                <div class="error">
+                    <p th:if="${mensagem}" th:text="${mensagem}"></p>
+                </div>
+                <div class="email">
+                    <input type="email" name="email" placeholder="E-mail" required>
+                </div>
+   
+                <div class="senha">
+                    <input type="password" name="senha" placeholder="Senha" required>
+                </div>
+   
+                <div class="entrar">
+                    <p><a href="/recuperacao">Esqueceu sua senha?</a></p>
+                    <input type="submit" value="Entrar">
+                    <p>Ainda não tem uma conta? <a href="cadastro">Cadastre-se!</a></p>
+                </div>
+ 
+            </div>
+   
+        </div>
+    </form>
+    <br>
+</body>
+</html>
+ 

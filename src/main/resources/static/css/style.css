@@ -1,127 +1,93 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #000000, #1a1a1a); /* Fundo mais escuro */
+    background: linear-gradient(135deg, #6262f0, #16213e);
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
 }
-
-.container {
-    display: flex;
-    width: 80%;
-    max-width: 1200px;
-    height: 80vh;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Sombra mais intensa */
-    border-radius: 20px;
-    overflow: hidden;
-    background: rgba(20, 20, 20, 0.9); /* Fundo da caixa mais escuro */
-    backdrop-filter: blur(15px);
+ 
+a {
+    text-decoration: none;
+    color: #66ff66;
 }
-
-.logo-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #000000, #000000); /* Gradiente de fundo mais escuro */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.logo-container img {
-    width: 180%;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
-}
-
-.login-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px;
-}
-
+ 
 #login {
     text-align: center;
-    max-width: 100%;
+    justify-content: center;
+    align-items: center;
 }
-
-h1 {
-    color: #FAFAFA;
-    margin-bottom: 20px;
-}
-
-.name input,
-.email input,
-.senha input,
-.datanasc input {
-    border-radius: 25px;
+ 
+.name input, .email input, .senha input {
+    border-radius: 20px;
     border: none;
-    width: 100%;
-    max-width: 320px;
+    width: 300px;
     height: 45px;
     padding-left: 15px;
-    background-color: #2a2a2a; /* Caixa de input escura */
-    color: #cfcfcf; /* Texto dos inputs mais claro */
+    background-color: #1e1c2e;
+    color: #b6b6b6;
     margin-bottom: 15px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
+}
+ 
+.name input:focus, .email input:focus, .senha input:focus {
+    background-color: #2a2a4d;
 }
 
-.name input:focus,
-.email input:focus,
-.senha input:focus,
-.datanasc input:focus {
-    background-color: #3a3a3a; /* Cor mais clara ao focar */
+.datanasc input {
+    border-radius: 20px;
+    border: none;
+    width: 300px;
+    height: 45px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
 }
-
+ 
 .entrar input {
     cursor: pointer;
-    width: 140px;
+    width: 130px;
     height: 45px;
     border-radius: 25px;
     border: none;
-    background-color: #4CAF50; /* Verde escuro para o botão */
-    color: #fff;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #66ff66;
+    color: #141414;
+    transition: background-color 0.3s;
 }
-
+ 
 .entrar input:hover {
-    background-color: #45a049; /* Cor mais escura ao passar o mouse */
+    background-color: #4dbf4d;
 }
-
+ 
 input::placeholder {
-    color: #8a8a8a; /* Placeholder mais escuro */
+    color: #b6b6b6;
 }
-
+ 
+h1 {
+    color: #FAFAFA;
+}
+ 
 .caixa {
     margin-top: 20px;
     padding: 40px;
-    background-color: rgba(30, 30, 30, 0.9); /* Fundo escuro com transparência para a caixa */
+    background-color: rgba(30, 28, 46, 0.8);
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(10px);
-    max-width: 400px;
-    width: 100%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
-
+ 
+.caixa img {
+    width: 115px;
+}
+ 
 input:focus {
     outline: none;
 }
-
+ 
 p {
     margin: 10px 0;
 }
-
-a {
-    color: #66ff66;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #4dbf4d;
-}
+ 
