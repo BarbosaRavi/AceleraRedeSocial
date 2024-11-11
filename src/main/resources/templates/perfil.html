@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil - Rede Social</title>
     <link rel="stylesheet" href="/css/perfil.css">
- 
 </head>
 <body>
 
@@ -38,6 +37,7 @@
             </a>
             
             <form id="formAdicionarAmigo" action="/adicionarAmigo" method="post">
+                <!-- ID do Usuário (para diferenciar a foto no localStorage) -->
                 <input type="hidden" name="amigoId" th:value="${usuario.id}">
                 <button type="button" class="add-friend-button" onclick="adicionarAmigo()">Adicionar Amigo</button>
             </form>
@@ -59,7 +59,8 @@
     </div>
 </div>
 
-<script src="/js/perfilscript.js" defer></script> 
+<!-- Script de perfil -->
+<script src="/js/perfilscript.js" defer></script>
 
 </body>
 </html>
