@@ -1,28 +1,29 @@
 /* Estilo para o corpo e cabeçalho */
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #000000, #000000);
-    color: #000000;
+    background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
 header {
     background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    padding: 0.2rem;    
+    color: #333;
+    padding: 1rem;    
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
-    border-bottom: 2px solid #0f0c25; /
+    border-bottom: 2px solid #0f0c25;
 }
 
 header .logo h1 {
     margin: 0;
     font-size: 1.75rem; 
-    font-weight: 600; 
+    font-weight: 700;
     cursor: pointer;
+    color: #0f0c25;
 }
 
 .logo {
@@ -31,10 +32,10 @@ header .logo h1 {
 }
 
 .logo-img {
-    width: 50px; 
-    height: 50px;
+    width: 45px; 
+    height: 45px;
     margin-right: 1rem;
-    border-radius: 50%; /* Tornando a imagem arredondada */
+    border-radius: 50%;
 }
 
 header nav {
@@ -45,33 +46,35 @@ header nav {
 
 .search-container {
     display: flex;
-    gap: 0.5rem; /* Espaçamento entre os campos de busca */
+    gap: 0.5rem;
 }
 
 #search-input {
     padding: 0.5rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: border-color 0.3s; /* Efeito de transição para a borda */
+    border-radius: 8px;
+    transition: border-color 0.3s;
 }
 
 #search-input:focus {
-    border-color: #0f0c25; /* Borda muda de cor ao focar */
-    outline: none; /* Remover contorno padrão */
+    border-color: #0f0c25;
+    outline: none;
 }
 
 #search-button {
-    background-color: #0f0c25;
-    color: white;
+    background-color: transparent;
+    color: #0f0c25;
     padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
+    border: 2px solid #0f0c25;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 #search-button:hover {
-    background-color: #0a081b; /* Efeito de hover */
+    background-color: #0f0c25;
+    color: white;
+    transform: translateY(-3px);
 }
 
 .user-settings {
@@ -91,115 +94,218 @@ header nav {
 
 .menu {
     background-color: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .menu .botaoesq {
     margin-top: 1rem; 
     text-decoration: none;
-    color: rgb(255, 255, 255);
-    background-color:   #003c6d;
+    color: #0f0c25;
+    background-color: transparent;
     font-size: 1rem;
     padding: 0.75rem 1rem; 
-    display: block; /* Para colocar um embaixo do outro */
-    border-radius: 5px;
+    display: block;
+    border: 2px solid #0f0c25;
+    border-radius: 8px;
     transition: background-color 0.3s, transform 0.2s;
     font-weight: bold;
+    text-align: center;
 }
 
-.menu .botaoesq:hover,
-.menu .botaoesq.ativo {
-    margin-top: 1rem; 
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    background-color:   #003c6d;
-    font-size: 1rem;
-    padding: 0.75rem 1rem; 
-    display: block; /* Para colocar um embaixo do outro */
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.2s;
-    font-weight: bold;
-    
+.menu .botaoesq:hover {
+    background-color: #0f0c25;
+    color: white;
+    transform: translateY(-3px);
 }
-
-
 
 .community-section {
     flex: 1;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo */
+    text-align: center;
 }
 
-.new-community h2,
-.community-list h2 {
+.community-section h2 {
     color: #0f0c25;
+    font-weight: 700;
 }
 
 #communityName,
 #communityDescription {
     resize: none;
-    width: 80%;
+    width: 100%;
     padding: 0.75rem;
     margin: 0.5rem 0;
     border-radius: 8px;
     border: 1px solid #ccc;
-    transition: border-color 0.3s; /* Efeito de transição */
+    transition: border-color 0.3s;
 }
 
 #communityName:focus,
 #communityDescription:focus {
-    border-color: #0f0c25; /* Borda muda de cor ao focar */
-    outline: none; /* Remover contorno padrão */
+    border-color: #0f0c25;
+    outline: none;
 }
 
 .custom-file-upload {
     margin-top: 1rem; 
     text-decoration: none;
-    color: rgb(255, 255, 255);
-    background-color:   #003c6d;
+    color: #0f0c25;
+    background-color: transparent;
     font-size: 1rem;
-    padding: 0.75rem 1rem; 
-    display: block; /* Para colocar um embaixo do outro */
-    border-radius: 5px;
+    padding: 0.75rem 1rem;
+    display: block;
+    border: 2px solid #0f0c25;
+    border-radius: 8px;
     transition: background-color 0.3s, transform 0.2s;
     font-weight: bold;
+    text-align: center;
 }
 
 .custom-file-upload:hover {
-    background-color: #0a081b;
-    transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+    background-color: #0f0c25;
+    color: white;
+    transform: translateY(-3px);
 }
 
 .button-container {
-    display: flex; /* Alinha os botões lado a lado */
-    gap: 1rem; /* Espaçamento entre os botões */
+    display: flex;
+    gap: 1rem;
 }
-
 
 input[type="file"] {
     display: none;
 }
 
 button[type="submit"] {
-    margin-top: 1rem; 
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    background-color:   #003c6d;
+    margin-top: 1rem;
+    color: #0f0c25;
+    background-color: transparent;
     font-size: 1rem;
-    padding: 0.75rem 1rem; 
-    display: block; /* Para colocar um embaixo do outro */
-    border-radius: 5px;
+    padding: 0.75rem 1rem;
+    display: block;
+    border: 2px solid #0f0c25;
+    border-radius: 8px;
     transition: background-color 0.3s, transform 0.2s;
     font-weight: bold;
 }
 
 button[type="submit"]:hover {
-    background-color: #0a081b;
-    transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+    background-color: #0f0c25;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Comunidades criadas */
+
+/* Estilo para itens da comunidade */
+.community-item {
+    display: flex;
+    flex-direction: column; /* Organiza os elementos verticalmente */
+    align-items: center; /* Centraliza o conteúdo */
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.community-item:hover {
+    transform: scale(1.02); /* Efeito de aumento ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.community-image {
+    width: 80px; /* Aumenta o tamanho da imagem */
+    height: 80px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    object-fit: cover; /* Mantém proporções da imagem */
+    border: 3px solid #003c6d; /* Adiciona uma borda destacada */
+}
+
+.community-info {
+    text-align: center;
+    max-width: 90%; /* Controla o tamanho máximo do conteúdo */
+    margin-bottom: 0.5rem;
+}
+
+.community-name {
+    font-size: 1.5rem; /* Aumenta o tamanho da fonte do nome */
+    font-weight: bold;
+    color: #003c6d;
+    margin: 0.5rem 0;
+}
+
+.community-description {
+    font-size: 1rem; /* Ajusta o tamanho da fonte da descrição */
+    color: #555;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem; /* Espaço entre a descrição e o botão */
+}
+
+.view-community-button {
+    background-color: transparent;
+    color: #0f0c25;
+    border: 2px solid #0f0c25;
+    padding: 0.75rem 1.5rem; /* Aumenta o botão */
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.view-community-button:hover {
+    background-color: #0f0c25;
+    color: white;
+    transform: translateY(-3px); /* Efeito de elevação ao passar o mouse */
+}
+
+/* Ajuste para responsividade */
+@media (max-width: 768px) {
+    .community-item {
+        padding: 0.75rem;
+    }
+
+    .community-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .community-name {
+        font-size: 1.3rem;
+    }
+
+    .community-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* Estilo para posts */
+.post-item {
+    background-color: #e8e8e8;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.post p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #333;
 }
 
 /* Responsividade */
@@ -208,7 +314,4 @@ button[type="submit"]:hover {
         flex-direction: column;
     }
 
-    .left-sidebar, .community-section {
-        width: 100%;
-    }
 }
