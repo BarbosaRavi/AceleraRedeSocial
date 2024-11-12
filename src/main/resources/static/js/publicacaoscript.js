@@ -65,12 +65,14 @@ function loadPosts() {
             const postElement = document.createElement("div");
             postElement.classList.add("post");
 
+            // Adicionando a imagem de perfil ao lado do nome do autor
             postElement.innerHTML = `
-                <div class="user-info">
-        
-                    <span class="username">${postData.usuario}</span>
+                <div class="post-header">
+                    <div class="author-info">
+                        <img src="${fotoPerfil}" alt="Foto do Autor" class="profile-img">
+                        <span class="username">${postData.usuario}</span>
+                    </div>
                     <span class="time">${postData.tempoPassado}</span>
-                    
                 </div>
                 <div class="post-content">
                     <p>${postData.conteudo}</p>
